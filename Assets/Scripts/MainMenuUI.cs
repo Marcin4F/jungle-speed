@@ -4,18 +4,20 @@ using UnityEngine.UI;
 
 public class MainMenuUI : MonoBehaviour
 {
-    [SerializeField] GameObject mainPanel, inputUIPanel, invalidIpAddressPanel, invalidPortPanel;
-    [SerializeField] Button joinGameButton, startLobbyButton, quitButton, startButton;
+    [SerializeField] GameObject mainPanel, invalidIpAddressPanel, invalidPortPanel, EmptyFieldPanel;
+    public GameObject inputUIPanel;
+    [SerializeField] Button joinGameButton, startLobbyButton, quitButton, startButton, backButton;
     [SerializeField] TMP_InputField nickInput, codeInput, ipAddressInput, portInput;
-    private string nick, code, ipAddress, port;
+    [SerializeField] TextMeshProUGUI startButtonText;
+    public string nick, code, ipAddress, port;
     private readonly string allowedIPString = "0123456789.", allowedNameString = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_+=!*()",
         allowedCodeString = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789", allowedPortString = "0123456789";
-    public static MainMenuUI instance;
+    private char type;
+
+    [SerializeField] Laczenie laczenie;
 
     private void Start()
     {
-        instance = this;
-
         inputUIPanel.SetActive(false);
 
         joinGameButton.onClick.AddListener(OpenJoinGamePanel);
@@ -23,26 +25,30 @@ public class MainMenuUI : MonoBehaviour
         quitButton.onClick.AddListener(CloseGame);
     }
 
-    // TODO    ZMIANA TEKSTU PRZYCISKU
-
     void OpenStartLobbyPanel()
     {
-        mainPanel.SetActive(false);
         inputUIPanel.SetActive(true);
+        startButtonText.text = "Start";
+        type = 's';
         InputUIPanel();
+        startButton.onClick.AddListener(StartLobby);
     }
 
     void OpenJoinGamePanel()
     {
-        mainPanel.SetActive(false);
         inputUIPanel.SetActive(true);
+        startButtonText.text = "Join";
+        type = 'j';
         InputUIPanel();
+        startButton.onClick.AddListener(StartLobby);
     }
 
     void InputUIPanel()
     {
+        mainPanel.SetActive(false);
         invalidIpAddressPanel.SetActive(false);
         invalidPortPanel.SetActive(false);
+        EmptyFieldPanel.SetActive(false);
 
         nickInput.characterValidation = TMP_InputField.CharacterValidation.CustomValidator;
         nickInput.onValidateInput += ValidateNameChar;
@@ -55,13 +61,34 @@ public class MainMenuUI : MonoBehaviour
 
         portInput.characterValidation = TMP_InputField.CharacterValidation.CustomValidator;
         portInput.onValidateInput += ValidatePortChar;
-
-        startButton.onClick.AddListener(StartLobby);
-    }    
+    }
 
     void StartLobby()
     {
-        //TODO: laczenie z serwerem
+        if (nick.Length != 0 && code.Length != 0 && ipAddress.Length != 0 && port.Length != 0)
+        {
+            laczenie.ConnectToServer(type);
+        }
+        else
+        {
+            EmptyFieldPanel.SetActive(true);
+        }
+    }
+
+    public void BackToMenu()
+    {
+        inputUIPanel.SetActive(false);
+        mainPanel.SetActive(true);
+
+        nick = null;
+        code = null;
+        ipAddress = null;
+        port = null;
+
+        nickInput.text = null;
+        codeInput.text = null;
+        ipAddressInput.text = null;
+        portInput.text = null;
     }
 
     void CloseGame()
@@ -91,6 +118,7 @@ public class MainMenuUI : MonoBehaviour
         {
             ipAddress = input;
             Debug.Log("Ustawiono IP: " + ipAddress);
+            invalidIpAddressPanel.SetActive(false);
         }
         else
         {
@@ -105,6 +133,7 @@ public class MainMenuUI : MonoBehaviour
         {
             port = input;
             Debug.Log("Ustawiono port: " + port);
+            invalidPortPanel.SetActive(false);
         }
         else
         {
