@@ -16,6 +16,8 @@ public class MainMenuUI : MonoBehaviour
 
     [SerializeField] Laczenie laczenie;
 
+    // wywaliæ wpisywanie kodu przy tworzeniu pokoju, kod generowany przez serwer i odsy³any w ACCEPT_START, dodaæ wyœwietlanie kodu w UI gry
+
     private void Start()
     {
         inputUIPanel.SetActive(false);

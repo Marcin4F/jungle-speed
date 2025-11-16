@@ -73,6 +73,8 @@ public class Laczenie : MonoBehaviour
 
     private async void StartListening()
     {
+        // TODO pêtla na odbieranie
+
         byte[] buffer = new byte[255];
 
         try
