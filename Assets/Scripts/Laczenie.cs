@@ -26,7 +26,6 @@ public class Laczenie : MonoBehaviour
         }
 
         nick = mainMenuUI.nick;
-        code = mainMenuUI.code;
         serverIp = mainMenuUI.ipAddress;
         serverPort = int.Parse(mainMenuUI.port);
 
@@ -49,14 +48,13 @@ public class Laczenie : MonoBehaviour
 
                 if (type == 's')
                 {
-                    firstMessage = "s#";
+                    firstMessage = "START#" + nick + "%";
                 }
                 else if (type == 'j')
                 {
-                    firstMessage = "j#";
+                    code = mainMenuUI.code;
+                    firstMessage = "JOIN#" + nick + "#" + code + "%";
                 }
-
-                firstMessage += code + "#" + nick + "%";
                 SendMessageToServer(firstMessage);
             }
         }
@@ -64,17 +62,22 @@ public class Laczenie : MonoBehaviour
         catch (SocketException e)
         {
             Debug.LogError($"ConnectToSerwer: SocketException: {e.Message}");
+            mainMenuUI.connectingServerPanel.SetActive(false);
+            mainMenuUI.connectionErrorPanel.SetActive(true);
+            mainMenuUI.ipAddressInput.text = "";
+            mainMenuUI.portInput.text = "";
+            mainMenuUI.port = null;
+            mainMenuUI.ipAddress = null;
         }
         catch (Exception e)
         {
+            mainMenuUI.connectingServerPanel.SetActive(false);
             Debug.LogError($"Bl¹d ConnectToSerwer: {e.Message}");
         }
     }
 
     private async void StartListening()
     {
-        // TODO pêtla na odbieranie
-
         byte[] buffer = new byte[255];
 
         try

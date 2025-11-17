@@ -4,10 +4,10 @@ using UnityEngine.UI;
 
 public class MainMenuUI : MonoBehaviour
 {
-    [SerializeField] GameObject mainPanel, invalidIpAddressPanel, invalidPortPanel, EmptyFieldPanel;
-    public GameObject inputUIPanel;
+    [SerializeField] GameObject mainPanel, invalidIpAddressPanel, invalidPortPanel, emptyFieldPanel, codePanel;
+    public GameObject inputUIPanel, connectionErrorPanel, connectingServerPanel;
     [SerializeField] Button joinGameButton, startLobbyButton, quitButton, startButton, backButton;
-    [SerializeField] TMP_InputField nickInput, codeInput, ipAddressInput, portInput;
+    public TMP_InputField nickInput, codeInput, ipAddressInput, portInput;
     [SerializeField] TextMeshProUGUI startButtonText;
     public string nick, code, ipAddress, port;
     private readonly string allowedIPString = "0123456789.", allowedNameString = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_+=!*()",
@@ -16,10 +16,11 @@ public class MainMenuUI : MonoBehaviour
 
     [SerializeField] Laczenie laczenie;
 
-    // wywaliæ wpisywanie kodu przy tworzeniu pokoju, kod generowany przez serwer i odsy³any w ACCEPT_START, dodaæ wyœwietlanie kodu w UI gry
+    // kod generowany przez serwer i odsy³any w ACCEPT_START, dodaæ wyœwietlanie kodu w UI gry
 
     private void Start()
     {
+        connectingServerPanel.SetActive(false);
         inputUIPanel.SetActive(false);
 
         joinGameButton.onClick.AddListener(OpenJoinGamePanel);
@@ -31,6 +32,7 @@ public class MainMenuUI : MonoBehaviour
     {
         inputUIPanel.SetActive(true);
         startButtonText.text = "Start";
+        codePanel.SetActive(false);
         type = 's';
         InputUIPanel();
         startButton.onClick.AddListener(StartLobby);
@@ -50,7 +52,9 @@ public class MainMenuUI : MonoBehaviour
         mainPanel.SetActive(false);
         invalidIpAddressPanel.SetActive(false);
         invalidPortPanel.SetActive(false);
-        EmptyFieldPanel.SetActive(false);
+        emptyFieldPanel.SetActive(false);
+        connectionErrorPanel.SetActive(false);
+        connectingServerPanel.SetActive(false);
 
         nickInput.characterValidation = TMP_InputField.CharacterValidation.CustomValidator;
         nickInput.onValidateInput += ValidateNameChar;
@@ -67,18 +71,25 @@ public class MainMenuUI : MonoBehaviour
 
     void StartLobby()
     {
-        if (nick.Length != 0 && code.Length != 0 && ipAddress.Length != 0 && port.Length != 0)
+        if (type == 's' && nick.Length != 0 && ipAddress.Length != 0 && port.Length != 0)
         {
             laczenie.ConnectToServer(type);
+            connectingServerPanel.SetActive(true);
+        }    
+        else if (nick.Length != 0 && code.Length != 0 && ipAddress.Length != 0 && port.Length != 0)
+        {
+            laczenie.ConnectToServer(type);
+            connectingServerPanel.SetActive(true);
         }
         else
         {
-            EmptyFieldPanel.SetActive(true);
+            emptyFieldPanel.SetActive(true);
         }
     }
 
     public void BackToMenu()
     {
+        codePanel.SetActive(true);
         inputUIPanel.SetActive(false);
         mainPanel.SetActive(true);
 
