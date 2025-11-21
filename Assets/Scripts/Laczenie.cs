@@ -15,6 +15,8 @@ public class Laczenie : MonoBehaviour
 
     [SerializeField] MainMenuUI mainMenuUI;
 
+    public event Action<string> OnMessageReceived;
+
     public async void ConnectToServer(char type)
     {
         if (isConnected) return;
@@ -48,12 +50,12 @@ public class Laczenie : MonoBehaviour
 
                 if (type == 's')
                 {
-                    firstMessage = "START#" + nick + "%";
+                    firstMessage = "START " + nick + "%";
                 }
                 else if (type == 'j')
                 {
                     code = mainMenuUI.code;
-                    firstMessage = "JOIN#" + nick + "#" + code + "%";
+                    firstMessage = "JOIN " + nick + " " + code + "%";
                 }
                 SendMessageToServer(firstMessage);
             }
@@ -94,7 +96,7 @@ public class Laczenie : MonoBehaviour
                 }
 
                 string receivedMessage = Encoding.UTF8.GetString(buffer, 0, bytesRead);
-                Debug.Log($"Server says: {receivedMessage}");
+                OnMessageReceived?.Invoke(receivedMessage);
             }
         }
 

@@ -1085,6 +1085,7 @@ GameObject:
   - component: {fileID: 1326804406}
   - component: {fileID: 1326804405}
   - component: {fileID: 1326804408}
+  - component: {fileID: 1326804409}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1210,6 +1211,18 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
+--- !u!114 &1326804409
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1326804404}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7cff7f4036d397540ac9986e7d05fca8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1338103899
 GameObject:
   m_ObjectHideFlags: 0
@@ -1420,6 +1433,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1724628355}
   - component: {fileID: 1724628354}
+  - component: {fileID: 1724628356}
   m_Layer: 0
   m_Name: Connection With Server
   m_TagString: Untagged
@@ -1455,6 +1469,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1724628356
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1724628353}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5b1941a25e74be40ac348c37284c33c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  laczenie: {fileID: 1724628354}
 --- !u!1 &1967752309 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6773847864425343242, guid: bc5f0c8a3268d9940aa635b45705695e, type: 3}
