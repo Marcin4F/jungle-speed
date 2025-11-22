@@ -9,20 +9,11 @@ public class MessageBuffer : MonoBehaviour
     private string incomplete = "";
     private bool hasNewMessage = false;
 
-    [SerializeField] Laczenie laczenie;
-
     public event Action<string> OnCompleteMessage;
 
     private void Start()
     {
-        if (laczenie != null)
-        {
-            laczenie.OnMessageReceived += OnMessage;
-        }
-        else
-        {
-            Debug.LogError("Brak referencji do komponentu Laczenie w MessageBuffer!");
-        }
+        Laczenie.instance.OnMessageReceived += OnMessage;
     }
 
     private void OnMessage(string recivedMessage)
@@ -78,9 +69,6 @@ public class MessageBuffer : MonoBehaviour
 
     private void OnDestroy()
     {
-        if (laczenie != null)
-        {
-            laczenie.OnMessageReceived -= OnMessage;
-        }
+        Laczenie.instance.OnMessageReceived -= OnMessage;
     }
 }

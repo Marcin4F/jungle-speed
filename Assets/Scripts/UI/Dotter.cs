@@ -6,12 +6,14 @@ public class Dotter : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI displayText;
 
-    public float delay = 0.5f;
+    private float delay = 0.5f;
+    private string starter;
 
     void OnEnable()
     {
         StopAllCoroutines();
 
+        starter = displayText.text;
         StartCoroutine(ChangeText());
     }
 
@@ -20,13 +22,13 @@ public class Dotter : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(delay);
-            displayText.text = "Connecting to the server.";
+            displayText.text = starter + ".";
             yield return new WaitForSeconds(delay);
-            displayText.text = "Connecting to the server..";
+            displayText.text = starter + "..";
             yield return new WaitForSeconds(delay);
-            displayText.text = "Connecting to the server...";
+            displayText.text = starter + "...";
             yield return new WaitForSeconds(delay);
-            displayText.text = "Connecting to the server";
+            displayText.text = starter;
         }
     }
 }

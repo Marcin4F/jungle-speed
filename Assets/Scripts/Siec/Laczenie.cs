@@ -14,10 +14,17 @@ public class Laczenie : MonoBehaviour
     private NetworkStream stream;
     private bool isConnected = false;
 
+    public static Laczenie instance;
+
     [SerializeField] MainMenuUI mainMenuUI;
     [SerializeField] TextMeshProUGUI displayText;
 
     public event Action<string> OnMessageReceived;
+
+    private void Awake()
+    {
+        instance = this;
+    }
 
     public async void ConnectToServer(char type)
     {
@@ -50,12 +57,12 @@ public class Laczenie : MonoBehaviour
 
                 if (type == 's')
                 {
-                    firstMessage = "START " + nick + "%";
+                    firstMessage = "CREATE_ROOM " + nick + "%";
                 }
                 else if (type == 'j')
                 {
                     code = mainMenuUI.code;
-                    firstMessage = "JOIN " + nick + " " + code + "%";
+                    firstMessage = "JOIN_ROOM " + code + " " + nick + "%";
                 }
                 SendMessageToServer(firstMessage);
             }

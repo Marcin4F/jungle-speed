@@ -6,6 +6,9 @@ public class MessageDecoder : MonoBehaviour
     [SerializeField] MessageBuffer messageBuffer;
     [SerializeField] MainMenuUI mainMenuUI;
     [SerializeField] TextMeshProUGUI displayText;
+    [SerializeField] InGameUI inGameUI;
+
+    private int badMessageCounter = 0;
 
     private void Start()
     {
@@ -26,13 +29,19 @@ public class MessageDecoder : MonoBehaviour
 
         switch(command)
         {
-            case "ACCEPT_START":
+            case "ACCEPT_CR_ROOM":
                 mainMenuUI.inputUIPanel.SetActive(false);
+                inGameUI.codeTextField.SetText("Code: " + parts[1]);
+                GameMeneger.instance.host = true;
+                inGameUI.mainPanel.SetActive(true);
                 break;
             case "ACCEPT_JOIN":
                 mainMenuUI.inputUIPanel.SetActive(false);
+                inGameUI.codeTextField.SetText("Code: " + mainMenuUI.code);
+                GameMeneger.instance.host = false;
+                inGameUI.mainPanel.SetActive(true);
                 break;
-            case "START_ERR":
+            case "CR_ROOM_ERR":
                 mainMenuUI.connectingServerPanel.SetActive(false);
                 mainMenuUI.connectionErrorPanel.SetActive(true);
                 displayText.text = "Server declained lobby creation.";
@@ -53,6 +62,13 @@ public class MessageDecoder : MonoBehaviour
                         break;
                 }
                 break;
+            case "ACCEPT_GAME_START":
+                GameMeneger.instance.activeGame = true;
+                inGameUI.ChangeButtonInteractable();
+                inGameUI.loadingPanel.SetActive(false);
+                break;
+            case "DENY_GAME_START":
+                break;
             case "CARD_ID":
                 break;
             case "TOTEM_WON":
@@ -60,11 +76,25 @@ public class MessageDecoder : MonoBehaviour
             case "TOTEM_LOST":
                 break;
             case "PLAYER_NEW":
+                GameMeneger.instance.PlayerCount++;
+                GameMeneger.instance.players.Add(parts[1]);
+                if(!GameMeneger.instance.activeGame)
+                {
+                    inGameUI.SetNicks();
+                }
                 break;
             case "PLAYER_DISC":
+                GameMeneger.instance.PlayerCount--;
+                GameMeneger.instance.players.Remove(parts[1]);
+                inGameUI.SetNicks();
                 break;
             default:
                 Debug.LogWarning($"Nieznana komenda: {command}");
+                badMessageCounter++;
+                if (badMessageCounter > 10)
+                {
+                    // TODO
+                }
                 break;
         }
     }

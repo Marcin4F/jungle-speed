@@ -14,8 +14,6 @@ public class MainMenuUI : MonoBehaviour
         allowedCodeString = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789", allowedPortString = "0123456789";
     private char type;
 
-    [SerializeField] Laczenie laczenie;
-
     // kod generowany przez serwer i odsy³any w ACCEPT_START, dodaæ wyœwietlanie kodu w UI gry
 
     private void Start()
@@ -73,12 +71,12 @@ public class MainMenuUI : MonoBehaviour
     {
         if (type == 's' && nick.Length != 0 && ipAddress.Length != 0 && port.Length != 0)
         {
-            laczenie.ConnectToServer(type);
+            Laczenie.instance.ConnectToServer(type);
             connectingServerPanel.SetActive(true);
         }    
         else if (nick.Length != 0 && code.Length != 0 && ipAddress.Length != 0 && port.Length != 0)
         {
-            laczenie.ConnectToServer(type);
+            Laczenie.instance.ConnectToServer(type);
             connectingServerPanel.SetActive(true);
         }
         else
