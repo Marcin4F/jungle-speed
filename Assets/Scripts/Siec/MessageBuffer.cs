@@ -1,14 +1,17 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
 public class MessageBuffer : MonoBehaviour
 {
-    [SerializeField] Laczenie laczenie;
-
     public Queue<string> messages = new Queue<string>();
     private string incomplete = "";
     private bool hasNewMessage = false;
+
+    [SerializeField] Laczenie laczenie;
+
+    public event Action<string> OnCompleteMessage;
 
     private void Start()
     {
@@ -52,9 +55,16 @@ public class MessageBuffer : MonoBehaviour
                     completedMessages[0] = incomplete + completedMessages[0];
                     incomplete = "";
                 }
+                
                 if (!messageToProcess.EndsWith("%"))
                 {
                     incomplete = parts[parts.Length - 1];
+                }
+
+                foreach (string completeMsg in completedMessages)
+                {
+                    OnCompleteMessage.Invoke(completeMsg);
+                    Debug.Log($"[MessageBuffer - Complete] Gotowa wiadomoœæ: {completeMsg}");
                 }
             }
             else

@@ -3,6 +3,7 @@ using System;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
+using TMPro;
 
 public class Laczenie : MonoBehaviour
 {
@@ -14,6 +15,7 @@ public class Laczenie : MonoBehaviour
     private bool isConnected = false;
 
     [SerializeField] MainMenuUI mainMenuUI;
+    [SerializeField] TextMeshProUGUI displayText;
 
     public event Action<string> OnMessageReceived;
 
@@ -44,8 +46,6 @@ public class Laczenie : MonoBehaviour
                 isConnected = true;
                 Debug.Log("Successfully connected to server!");
 
-                mainMenuUI.inputUIPanel.SetActive(false);
-
                 StartListening();
 
                 if (type == 's')
@@ -66,6 +66,7 @@ public class Laczenie : MonoBehaviour
             Debug.LogError($"ConnectToSerwer: SocketException: {e.Message}");
             mainMenuUI.connectingServerPanel.SetActive(false);
             mainMenuUI.connectionErrorPanel.SetActive(true);
+            displayText.text = "Couldn't connect to the server.\r\nCheck IP Address and Port number";
             mainMenuUI.ipAddressInput.text = "";
             mainMenuUI.portInput.text = "";
             mainMenuUI.port = null;
