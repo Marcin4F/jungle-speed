@@ -87,13 +87,13 @@ public class InGameUI : MonoBehaviour
                 nick3.SetText(tmp[0]);
                 break;
             case 2:
-                nick3.SetText(tmp[0]);
-                nick2.SetText(tmp[1]);
+                nick2.SetText(tmp[0]);
+                nick3.SetText(tmp[1]);
                 break;
             case 3:
-                nick3.SetText(tmp[0]);
+                nick1.SetText(tmp[0]);
                 nick2.SetText(tmp[1]);
-                nick2.SetText(tmp[2]);
+                nick3.SetText(tmp[2]);
                 break;
         }
         int ilosc2 = playersCount - ilosc - 1;
