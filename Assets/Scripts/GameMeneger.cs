@@ -10,6 +10,7 @@ public class GameMeneger : MonoBehaviour
     public bool host = false;
     public bool activeGame = false;
     private int _playerCount = 1;
+    public int activePlayers = 0;
     public List<string> players = new List<string>();
 
     public int PlayerCount 

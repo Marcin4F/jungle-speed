@@ -2239,6 +2239,7 @@ MonoBehaviour:
   inGameUI: {fileID: 1940756719}
   host: 0
   activeGame: 0
+  activePlayers: 0
   players: []
 --- !u!1 &1338103899
 GameObject:
@@ -2952,6 +2953,7 @@ MonoBehaviour:
   nick2: {fileID: 438666873}
   nick3: {fileID: 431696147}
   codeTextField: {fileID: 1261584412}
+  mainMenuUI: {fileID: 914307291}
 --- !u!1 &1982242148
 GameObject:
   m_ObjectHideFlags: 0

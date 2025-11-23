@@ -1,6 +1,8 @@
+using NUnit.Framework;
+using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 
 public class InGameUI : MonoBehaviour
 {
@@ -8,6 +10,8 @@ public class InGameUI : MonoBehaviour
     public GameObject mainPanel, loadingPanel;
     [SerializeField] TextMeshProUGUI nick1, nick2, nick3;
     public TextMeshProUGUI codeTextField;
+
+    [SerializeField] MainMenuUI mainMenuUI;
 
     private void Start()
     {
@@ -65,21 +69,48 @@ public class InGameUI : MonoBehaviour
 
     public void SetNicks()
     {
-        switch(GameMeneger.instance.PlayerCount)
+        List<string> tmp = new List<string>();
+        int playersCount = GameMeneger.instance.players.Count;
+        for (int i = 0; i < playersCount; i++)
         {
+            if(GameMeneger.instance.players[i] == mainMenuUI.nick)
+                { break; }
+            tmp.Add(GameMeneger.instance.players[i]);
+        }
+        int ilosc = tmp.Count;
+        switch(ilosc)
+        {
+            case 0:
+                break;
             case 1:
-                return;
+                nick3.SetText(tmp[0]);
+                break;
             case 2:
-                nick1.SetText(GameMeneger.instance.players[0]);
+                nick3.SetText(tmp[0]);
+                nick2.SetText(tmp[1]);
                 break;
             case 3:
-                nick1.SetText(GameMeneger.instance.players[0]);
-                nick2.SetText(GameMeneger.instance.players[1]);
+                nick3.SetText(tmp[0]);
+                nick2.SetText(tmp[1]);
+                nick2.SetText(tmp[2]);
                 break;
-            case 4:
-                nick1.SetText(GameMeneger.instance.players[0]);
-                nick2.SetText(GameMeneger.instance.players[1]);
-                nick3.SetText(GameMeneger.instance.players[2]);
+        }
+        int ilosc2 = playersCount - ilosc - 1;
+        switch(ilosc2)
+        {
+            case 0:
+                return;
+            case 1:
+                nick1.SetText(GameMeneger.instance.players[ilosc + 1]);
+                break;
+            case 2:
+                nick1.SetText(GameMeneger.instance.players[ilosc + 1]);
+                nick2.SetText(GameMeneger.instance.players[ilosc + 2]);
+                break;
+            case 3:
+                nick1.SetText(GameMeneger.instance.players[ilosc + 1]);
+                nick2.SetText(GameMeneger.instance.players[ilosc + 2]);
+                nick3.SetText(GameMeneger.instance.players[ilosc + 2]);
                 break;
         }
     }
