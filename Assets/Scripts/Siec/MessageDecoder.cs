@@ -8,8 +8,6 @@ public class MessageDecoder : MonoBehaviour
     [SerializeField] TextMeshProUGUI displayText;
     [SerializeField] InGameUI inGameUI;
 
-    private int badMessageCounter = 0;
-
     private void Start()
     {
         if (messageBuffer != null)
@@ -86,6 +84,8 @@ public class MessageDecoder : MonoBehaviour
             case "PLAYER_NEW":
                 GameMeneger.instance.PlayerCount++;
                 GameMeneger.instance.players.Add(parts[1]);
+                inGameUI.playerStatusText.SetText(parts[1] + " joined");
+                inGameUI.playerStatusText.gameObject.SetActive(true);
                 if(!GameMeneger.instance.activeGame)
                 {
                     inGameUI.SetNicks();
@@ -94,15 +94,12 @@ public class MessageDecoder : MonoBehaviour
             case "PLAYER_DISC":
                 GameMeneger.instance.PlayerCount--;
                 GameMeneger.instance.players.Remove(parts[1]);
+                inGameUI.playerStatusText.SetText(parts[1] + " left");
+                inGameUI.playerStatusText.gameObject.SetActive(true);
                 inGameUI.SetNicks();
                 break;
             default:
                 Debug.LogWarning($"Nieznana komenda: {command}");
-                badMessageCounter++;
-                if (badMessageCounter > 10)
-                {
-                    // TODO
-                }
                 break;
         }
     }

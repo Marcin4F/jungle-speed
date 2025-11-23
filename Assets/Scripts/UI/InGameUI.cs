@@ -9,7 +9,7 @@ public class InGameUI : MonoBehaviour
     [SerializeField] Button startGame;
     public GameObject mainPanel, loadingPanel;
     [SerializeField] TextMeshProUGUI nick1, nick2, nick3;
-    public TextMeshProUGUI codeTextField;
+    public TextMeshProUGUI codeTextField, playerStatusText;
 
     [SerializeField] MainMenuUI mainMenuUI;
 
@@ -22,6 +22,7 @@ public class InGameUI : MonoBehaviour
     private void OnEnable()
     {
         loadingPanel.SetActive(false);
+        playerStatusText.gameObject.SetActive(false);
         nick1.SetText("");
         nick2.SetText("");
         nick3.SetText("");
