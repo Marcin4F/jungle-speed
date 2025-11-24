@@ -46,6 +46,7 @@ public class MessageDecoder : MonoBehaviour
                     GameMeneger.instance.players.Add(parts[i + 4]);
                 }
                 GameMeneger.instance.players.Add(mainMenuUI.nick);
+                inGameUI.SetNicks();
                 break;
             case "CR_ROOM_ERR":
                 mainMenuUI.connectingServerPanel.SetActive(false);

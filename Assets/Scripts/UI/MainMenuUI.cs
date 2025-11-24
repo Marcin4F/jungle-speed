@@ -119,7 +119,7 @@ public class MainMenuUI : MonoBehaviour
 
     public void SetCode(string input)
     {
-        code = input;
+        code = input.ToUpper();
         Debug.Log("Ustawiono code: " + code);
     }
 
