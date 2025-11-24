@@ -16,9 +16,9 @@ public class GameEngine : MonoBehaviour
 
         if (Physics.Raycast(cameraRay, out RaycastHit hitInfo))
         {
-            if (hitInfo.collider.gameObject.tag == "PlayerStack")
+            if (hitInfo.collider.gameObject.tag == "Card")
             {
-                
+                Debug.Log("DFGHJK");
             }
         }
     }
