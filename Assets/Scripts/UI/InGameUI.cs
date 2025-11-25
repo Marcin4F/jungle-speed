@@ -6,12 +6,18 @@ using UnityEngine.UI;
 
 public class InGameUI : MonoBehaviour
 {
-    [SerializeField] Button startGame;
+    [SerializeField] Button startGame, continueButton, mainMenuButton, quitButton;
+    
+    [SerializeField] GameObject pausePanel;
     public GameObject mainPanel, loadingPanel;
+    
     [SerializeField] TextMeshProUGUI nick1, nick2, nick3;
     public TextMeshProUGUI codeTextField, playerStatusText;
 
+    private bool isPaused = false;
+
     [SerializeField] MainMenuUI mainMenuUI;
+    [SerializeField] Laczenie laczenie;
 
     private void Start()
     {
@@ -22,6 +28,7 @@ public class InGameUI : MonoBehaviour
     private void OnEnable()
     {
         loadingPanel.SetActive(false);
+        pausePanel.SetActive(false);
         playerStatusText.gameObject.SetActive(false);
         nick1.SetText("");
         nick2.SetText("");
@@ -35,6 +42,23 @@ public class InGameUI : MonoBehaviour
             else
             {
                 startGame.interactable = false;
+            }
+        }
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if(isPaused)
+            {
+                isPaused = false;
+                pausePanel.SetActive(false);
+            }
+            else
+            {
+                isPaused = true;
+                pausePanel.SetActive(true);
             }
         }
     }
@@ -66,6 +90,28 @@ public class InGameUI : MonoBehaviour
         startGame.interactable = false;
         loadingPanel.SetActive(true);
         Laczenie.instance.SendMessageToServer("GAME_START%");
+    }
+
+    private void ContinueGame()
+    {
+        isPaused = false;
+        pausePanel.SetActive(false);
+    }
+
+    private void QuitToMainMenu()
+    {
+        mainPanel.SetActive(false);
+        mainMenuUI.mainPanel.SetActive(true);
+        laczenie.CloseConnection();
+        mainMenuUI.nick = null;
+        mainMenuUI.code = null;
+        mainMenuUI.ipAddress = null;
+        mainMenuUI.port = null;
+    }   
+    
+    private void QuitGame()
+    {
+        Application.Quit();
     }
 
     public void SetNicks()

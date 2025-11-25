@@ -4,8 +4,8 @@ using UnityEngine.UI;
 
 public class MainMenuUI : MonoBehaviour
 {
-    [SerializeField] GameObject mainPanel, invalidIpAddressPanel, invalidPortPanel, emptyFieldPanel, codePanel;
-    public GameObject inputUIPanel, connectionErrorPanel, connectingServerPanel;
+    [SerializeField] GameObject invalidIpAddressPanel, invalidPortPanel, emptyFieldPanel, codePanel;
+    public GameObject inputUIPanel, connectionErrorPanel, connectingServerPanel, mainPanel;
     [SerializeField] Button joinGameButton, startLobbyButton, quitButton, startButton, backButton;
     public TMP_InputField nickInput, codeInput, ipAddressInput, portInput;
     [SerializeField] TextMeshProUGUI startButtonText;

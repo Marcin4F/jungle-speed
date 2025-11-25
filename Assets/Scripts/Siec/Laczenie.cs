@@ -145,7 +145,7 @@ public class Laczenie : MonoBehaviour
         }
     }
 
-    private void CloseConnection()
+    public void CloseConnection()
     {
         if (!isConnected) return;
 
