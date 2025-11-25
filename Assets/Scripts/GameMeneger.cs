@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-// TODO: Blad w komunikacie o nieudanym polaczeniu
 
 public class GameMeneger : MonoBehaviour
 {

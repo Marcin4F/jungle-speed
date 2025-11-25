@@ -48,23 +48,18 @@ public class MessageDecoder : MonoBehaviour
                 GameMeneger.instance.players.Add(mainMenuUI.nick);
                 inGameUI.SetNicks();
                 break;
-            case "CR_ROOM_ERR":
-                mainMenuUI.connectingServerPanel.SetActive(false);
-                mainMenuUI.connectionErrorPanel.SetActive(true);
-                displayText.text = "Server declained lobby creation.";
-                break;
             case "JOIN_ERR":
                 mainMenuUI.connectingServerPanel.SetActive(false);
                 mainMenuUI.connectionErrorPanel.SetActive(true);
                 switch (parts[1])
                 {
-                    case "0":
+                    case "INVALID_CODE":
                         displayText.text = "No lobby with given code.\r\nCheck if the code is correct.";
                         break;
-                    case "1":
+                    case "ROOM_FULL":
                         displayText.text = "Lobby full.";
                         break;
-                    case "2":
+                    case "NICK_TAKEN":
                         displayText.text = "Player with that nick already exists.\r\nPleas change your nick.";
                         break;
                 }
@@ -73,8 +68,6 @@ public class MessageDecoder : MonoBehaviour
                 GameMeneger.instance.activeGame = true;
                 inGameUI.ChangeButtonInteractable();
                 inGameUI.loadingPanel.SetActive(false);
-                break;
-            case "DENY_GAME_START":
                 break;
             case "CARD_ID":
                 break;
