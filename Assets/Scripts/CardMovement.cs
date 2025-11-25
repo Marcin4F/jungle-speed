@@ -10,23 +10,39 @@ public class CardMovement : MonoBehaviour
     private Quaternion startRotation;
     private Quaternion endRotation;
 
-    private float duration = 0.2f;
+    private float duration = 0.35f;
     private float elapsedTime = 0;
 
-    void Update()
+    public void MoveCard()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            StartCoroutine(FirstCardMovement());
-        }
+        StartCoroutine(FirstCardMovement());
     }
 
     IEnumerator FirstCardMovement()
     {
         startPosition = transform.position;
         startRotation = transform.rotation;
-        targetPosition = startPosition + new Vector3(0, 2.0f, 1.275f);
-        targetRotationAngles = new Vector3(270, 0, 0);
+        if(startPosition.z < -2)
+        {
+            targetPosition = startPosition + new Vector3(0, 2.0f, 1.275f);
+            targetRotationAngles = new Vector3(270, 0, 0);
+        }
+        else if (startPosition.z > 2)
+        {
+            targetPosition = startPosition + new Vector3(0, 2.0f, -1.275f);
+            targetRotationAngles = new Vector3(90, 0, 0);
+        }
+        else if(startPosition.x < 0)
+        {
+            targetPosition = startPosition + new Vector3(1.275f, 2.0f, 0);
+            targetRotationAngles = new Vector3(0, 0, 90);
+        }
+        else
+        {
+            targetPosition = startPosition + new Vector3(-1.275f, 2.0f, 0);
+            targetRotationAngles = new Vector3(0, 0, 270);
+        }
+
         endRotation = Quaternion.Euler(targetRotationAngles);
         
         while (elapsedTime < duration)
@@ -50,8 +66,27 @@ public class CardMovement : MonoBehaviour
     {
         startPosition = transform.position;
         startRotation = transform.rotation;
-        targetPosition = startPosition + new Vector3(0, -2.0f, 1.275f);
-        targetRotationAngles = new Vector3(180, 0, 0);
+        if (startPosition.z < -2)
+        {
+            targetPosition = startPosition + new Vector3(0, -2.0f, 1.275f);
+            targetRotationAngles = new Vector3(180, 0, 0);
+        }
+        else if (startPosition.z > 2)
+        {
+            targetPosition = startPosition + new Vector3(0, -2.0f, -1.275f);
+            targetRotationAngles = new Vector3(180, 0, 0);
+        }
+        else if (startPosition.x < 0)
+        {
+            targetPosition = startPosition + new Vector3(1.275f, -2.0f, 0);
+            targetRotationAngles = new Vector3(0, 0, 180);
+        }
+        else
+        {
+            targetPosition = startPosition + new Vector3(-1.275f, -2.0f, 0);
+            targetRotationAngles = new Vector3(0, 0, 180);
+        }
+
         endRotation = Quaternion.Euler(targetRotationAngles);
 
         while (elapsedTime < duration)

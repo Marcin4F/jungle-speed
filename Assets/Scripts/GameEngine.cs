@@ -18,7 +18,8 @@ public class GameEngine : MonoBehaviour
         {
             if (hitInfo.collider.gameObject.tag == "Card")
             {
-                Debug.Log("DFGHJK");
+                CardMovement card = hitInfo.collider.GetComponent<CardMovement>();
+                card.MoveCard();
             }
         }
     }

@@ -72,8 +72,9 @@ public class Laczenie : MonoBehaviour
         {
             Debug.LogError($"ConnectToSerwer: SocketException: {e.Message}");
             mainMenuUI.connectingServerPanel.SetActive(false);
+            Debug.Log("aaaaaaaaaaaaaaaaaaaaaaaaa");
+            displayText.SetText("Couldn't connect to the server.\r\nCheck IP Address and Port number");
             mainMenuUI.connectionErrorPanel.SetActive(true);
-            displayText.text = "Couldn't connect to the server.\r\nCheck IP Address and Port number";
             mainMenuUI.ipAddressInput.text = "";
             mainMenuUI.portInput.text = "";
             mainMenuUI.port = null;
