@@ -3068,6 +3068,9 @@ MonoBehaviour:
   activeGame: 0
   activePlayers: 0
   players: []
+  playersHiddenCards: 
+  playersShownCards: 
+  playersCardPositions: []
 --- !u!114 &1326804410
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3080,6 +3083,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21cc2142b504eff438d497fa2d5b4956, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  card: {fileID: 6589186437419899634, guid: 6a15786d9ea28294b80970407e8c205b, type: 3}
+  mainMenuUI: {fileID: 914307291}
 --- !u!1 &1338103899
 GameObject:
   m_ObjectHideFlags: 0
@@ -4715,7 +4720,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 11970121940821411, guid: 6a15786d9ea28294b80970407e8c205b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.01
+      value: 0.005
       objectReference: {fileID: 0}
     - target: {fileID: 11970121940821411, guid: 6a15786d9ea28294b80970407e8c205b, type: 3}
       propertyPath: m_LocalPosition.z
@@ -4752,6 +4757,10 @@ PrefabInstance:
     - target: {fileID: 6589186437419899634, guid: 6a15786d9ea28294b80970407e8c205b, type: 3}
       propertyPath: m_Name
       value: Card
+      objectReference: {fileID: 0}
+    - target: {fileID: 6589186437419899634, guid: 6a15786d9ea28294b80970407e8c205b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
