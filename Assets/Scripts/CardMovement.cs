@@ -3,15 +3,11 @@ using UnityEngine;
 
 public class CardMovement : MonoBehaviour
 {
-    private Vector3 startPosition;
-    private Vector3 targetPosition;
-    private Vector3 targetRotationAngles;
+    private Vector3 startPosition, targetPosition, targetRotationAngles;
 
-    private Quaternion startRotation;
-    private Quaternion endRotation;
+    private Quaternion startRotation, endRotation;
 
-    private float duration = 0.35f;
-    private float elapsedTime = 0;
+    private float duration = 0.35f, elapsedTime = 0;
 
     public void MoveCard()
     {

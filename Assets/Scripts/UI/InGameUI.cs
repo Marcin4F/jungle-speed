@@ -29,7 +29,7 @@ public class InGameUI : MonoBehaviour
         stacksPositions[0] = new Vector3(0, 0.005f, -5.25f);
         stacksPositions[1] = new Vector3(-9, 0.005f, 0);
         stacksPositions[2] = new Vector3(0, 0.005f, 5.25f);
-        stacksPositions[4] = new Vector3(9, 0.005f, 0);
+        stacksPositions[3] = new Vector3(9, 0.005f, 0);
 
     }
 
