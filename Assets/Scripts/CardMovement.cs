@@ -1,4 +1,5 @@
 using System.Collections;
+using UnityEditor.Build.Content;
 using UnityEngine;
 
 public class CardMovement : MonoBehaviour
@@ -64,7 +65,7 @@ public class CardMovement : MonoBehaviour
         startRotation = transform.rotation;
         if (startPosition.z < -2)
         {
-            targetPosition = startPosition + new Vector3(0, -2.0f, 1.275f);
+            targetPosition = new Vector3(startPosition.x, GameMeneger.instance.playersShownCards[0] * 0.01f, startPosition.z + 1.275f);
             targetRotationAngles = new Vector3(180, 0, 0);
         }
         else if (startPosition.z > 2)
@@ -98,5 +99,6 @@ public class CardMovement : MonoBehaviour
 
         transform.position = targetPosition;
         transform.rotation = endRotation;
+        GameMeneger.instance.playersShownCards[0]++;
     }
 }
