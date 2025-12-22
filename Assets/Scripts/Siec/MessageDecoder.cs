@@ -67,6 +67,8 @@ public class MessageDecoder : MonoBehaviour
                 break;
             case "ACCEPT_GAME_START":
                 GameMeneger.instance.activeGame = true;
+                if (GameMeneger.instance.host)
+                    GameMeneger.instance.yourTour = true;
                 inGameUI.ChangeButtonInteractable();
                 inGameUI.loadingPanel.SetActive(false);
                 break;

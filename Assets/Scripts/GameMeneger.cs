@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-// TODO nick gracza nie znika po jego wyjsciu, wyk³adanie karty dobrego gracza, sprawdzanie tury graczy (po CARD_ID), tesktury po CARD_ID
+// TODO nick gracza nie znika po jego wyjsciu, wyk³adanie karty dobrego gracza, sprawdzanie tury graczy (po CARD_ID)
 
 public class GameMeneger : MonoBehaviour
 {
@@ -11,6 +11,7 @@ public class GameMeneger : MonoBehaviour
 
     public bool host = false;
     public bool activeGame = false;
+    public bool yourTour = false;
     private int _playerCount = 1;
     public int activePlayers = 0;
     public List<string> players = new List<string>();
