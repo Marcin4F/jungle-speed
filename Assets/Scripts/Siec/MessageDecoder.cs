@@ -7,6 +7,7 @@ public class MessageDecoder : MonoBehaviour
     [SerializeField] MainMenuUI mainMenuUI;
     [SerializeField] TextMeshProUGUI displayText;
     [SerializeField] InGameUI inGameUI;
+    [SerializeField] GameEngine gameEngine;
 
     private void Start()
     {
@@ -70,6 +71,7 @@ public class MessageDecoder : MonoBehaviour
                 inGameUI.loadingPanel.SetActive(false);
                 break;
             case "CARD_ID":
+                gameEngine.CardMover();
                 break;
             case "TOTEM_WON":
                 break;

@@ -8,6 +8,7 @@ public class GameEngine : MonoBehaviour
     private GameObject spawnedCard;
 
     [SerializeField] MainMenuUI mainMenuUI;
+    private CardMovement cardToMove;
 
     void Update()
     {
@@ -31,10 +32,17 @@ public class GameEngine : MonoBehaviour
             if (hitInfo.collider.gameObject.tag == "Card")
             {
                 hitInfo.collider.gameObject.tag = "UsedCard";
-                CardMovement card = hitInfo.collider.GetComponent<CardMovement>();
-                card.MoveCard();
+                cardToMove = hitInfo.collider.GetComponent<CardMovement>();
+                Laczenie.instance.SendMessageToServer("CARD_REVEAL%");
             }
         }
+    }
+
+    public void CardMover()
+    {
+        cardToMove.MoveCard();
+
+        //TODO co jak cardToMove == null
     }
 
     public void SpawnCard(int id)
