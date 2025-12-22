@@ -39,7 +39,13 @@ public class GameMeneger : MonoBehaviour
     {
         instance = this;
         playersCardPositions.Add(new Vector3(0, 0.005f, -5.25f));
-        playersShownCards.Add(0);
-        playersHiddenCards.Add(0);
+        playersCardPositions.Add(new Vector3(-9, 0.005f, 0));
+        playersCardPositions.Add(new Vector3(0, 0.005f, 5.25f));
+        playersCardPositions.Add(new Vector3(9, 0.005f, 0));
+        for (int i = 0; i < 4;  i++)
+        {
+            playersShownCards.Add(0);
+            playersHiddenCards.Add(0);
+        }
     }
 }

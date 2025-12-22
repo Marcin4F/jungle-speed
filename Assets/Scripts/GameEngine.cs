@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class GameEngine : MonoBehaviour
 {
-    private int[] playersHidenCardNumber = new int[4], playersShownCardNumber = new int[4];
-
     [SerializeField] GameObject card;
     private GameObject spawnedCard;
 
@@ -37,12 +35,6 @@ public class GameEngine : MonoBehaviour
                 card.MoveCard();
             }
         }
-    }
-
-    public void SetplayersCardNumber(int[] HidenNumber, int[] ShownNumber)
-    {
-        playersHidenCardNumber = HidenNumber;
-        playersShownCardNumber = ShownNumber;
     }
 
     public void SpawnCard(int id)

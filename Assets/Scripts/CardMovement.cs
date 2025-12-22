@@ -8,7 +8,8 @@ public class CardMovement : MonoBehaviour
 
     private Quaternion startRotation, endRotation;
 
-    private float duration = 0.35f, elapsedTime = 0;
+    private readonly float duration = 0.35f;
+    private float elapsedTime = 0;
 
     public void MoveCard()
     {
@@ -67,21 +68,29 @@ public class CardMovement : MonoBehaviour
         {
             targetPosition = new Vector3(startPosition.x, GameMeneger.instance.playersShownCards[0] * 0.01f, startPosition.z + 1.275f);
             targetRotationAngles = new Vector3(180, 0, 0);
+            GameMeneger.instance.playersShownCards[0]++;
+            GameMeneger.instance.playersHiddenCards[0]--;
         }
         else if (startPosition.z > 2)
         {
-            targetPosition = startPosition + new Vector3(0, -2.0f, -1.275f);
+            targetPosition = new Vector3(startPosition.x, GameMeneger.instance.playersShownCards[2] * 0.01f, startPosition.z - 1.275f);
             targetRotationAngles = new Vector3(180, 0, 0);
+            GameMeneger.instance.playersShownCards[2]++;
+            GameMeneger.instance.playersHiddenCards[2]--;
         }
         else if (startPosition.x < 0)
         {
-            targetPosition = startPosition + new Vector3(1.275f, -2.0f, 0);
+            targetPosition = new Vector3(startPosition.x + 1.275f, GameMeneger.instance.playersShownCards[1] * 0.01f, startPosition.z);
             targetRotationAngles = new Vector3(0, 0, 180);
+            GameMeneger.instance.playersShownCards[1]++;
+            GameMeneger.instance.playersHiddenCards[1]--;
         }
         else
         {
-            targetPosition = startPosition + new Vector3(-1.275f, -2.0f, 0);
+            targetPosition = new Vector3(startPosition.x - 1.275f, GameMeneger.instance.playersShownCards[3] * 0.01f, startPosition.z);
             targetRotationAngles = new Vector3(0, 0, 180);
+            GameMeneger.instance.playersShownCards[3]++;
+            GameMeneger.instance.playersHiddenCards[3]--;
         }
 
         endRotation = Quaternion.Euler(targetRotationAngles);
@@ -99,6 +108,5 @@ public class CardMovement : MonoBehaviour
 
         transform.position = targetPosition;
         transform.rotation = endRotation;
-        GameMeneger.instance.playersShownCards[0]++;
     }
 }
