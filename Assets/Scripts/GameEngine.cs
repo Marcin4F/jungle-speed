@@ -1,5 +1,3 @@
-using JetBrains.Annotations;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class GameEngine : MonoBehaviour
@@ -12,7 +10,7 @@ public class GameEngine : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && GameMeneger.instance.activeGame)
         {
             FireScreenRay();
         }
@@ -38,10 +36,28 @@ public class GameEngine : MonoBehaviour
         }
     }
 
-    public void CardMover()
+    public void CardMover(int id)
     {
         if (cardToMove != null)
         {
+            Renderer[] childRenderers = cardToMove.GetComponentsInChildren<Renderer>();
+            foreach (Renderer r in childRenderers)
+            {
+                if (r.gameObject.CompareTag("DisplayCard"))
+                {
+                    Texture2D newTexture = Resources.Load<Texture2D>("/" + id);
+
+                    if (newTexture != null)
+                    {
+                        r.material.SetTexture("_BaseMap", newTexture);
+                    }
+                    else
+                    {
+                        Debug.LogWarning("No texture for ID: " + id);
+                    }
+                    break;
+                }
+            }
             cardToMove.MoveCard();
         }
     }

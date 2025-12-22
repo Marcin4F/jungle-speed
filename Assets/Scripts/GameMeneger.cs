@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-// TODO w GameEngine
+// TODO nick gracza nie znika po jego wyjsciu, wyk³adanie karty dobrego gracza, sprawdzanie tury graczy (po CARD_ID), tesktury po CARD_ID
 
 public class GameMeneger : MonoBehaviour
 {
