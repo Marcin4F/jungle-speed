@@ -40,9 +40,10 @@ public class GameEngine : MonoBehaviour
 
     public void CardMover()
     {
-        cardToMove.MoveCard();
-
-        //TODO co jak cardToMove == null
+        if (cardToMove != null)
+        {
+            cardToMove.MoveCard();
+        }
     }
 
     public void SpawnCard(int id)
