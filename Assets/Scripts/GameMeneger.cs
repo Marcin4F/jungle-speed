@@ -1,7 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-// TODO nick gracza nie znika po jego wyjsciu, wyk³adanie karty dobrego gracza, sprawdzanie tury graczy (po CARD_ID), menuPauzy przyciski, odswierzanie kto jest hostem, start game nie jest widoczny na poczatku
+// TODO wyk³adanie karty dobrego gracza, sprawdzanie tury graczy (po CARD_ID), menuPauzy przyciski, , start game nie jest widoczny na poczatku
+// ZROBIONE DO TESTOW: odswierzanie kto jest hostem, panel z zaczynaniem gry
 
 public class GameMeneger : MonoBehaviour
 {

@@ -8,7 +8,7 @@ public class InGameUI : MonoBehaviour
     [SerializeField] Button startGame, continueButton, mainMenuButton, quitButton;
     
     [SerializeField] GameObject pausePanel;
-    public GameObject mainPanel, loadingPanel;
+    public GameObject mainPanel, loadingPanel, waitingStartPanel, gameStartsPanel;
     
     [SerializeField] TextMeshProUGUI nick1, nick2, nick3;
     public TextMeshProUGUI codeTextField, playerStatusText;
@@ -36,6 +36,7 @@ public class InGameUI : MonoBehaviour
     {
         loadingPanel.SetActive(false);
         pausePanel.SetActive(false);
+        gameStartsPanel.SetActive(false);
         playerStatusText.gameObject.SetActive(false);
         nick1.SetText("");
         nick2.SetText("");
@@ -95,6 +96,7 @@ public class InGameUI : MonoBehaviour
     private void GameStarter()
     {
         startGame.interactable = false;
+        waitingStartPanel.SetActive(false);
         loadingPanel.SetActive(true);
         Laczenie.instance.SendMessageToServer("GAME_START%");
     }

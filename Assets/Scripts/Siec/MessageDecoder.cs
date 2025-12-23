@@ -71,6 +71,7 @@ public class MessageDecoder : MonoBehaviour
                     GameMeneger.instance.yourTour = true;
                 inGameUI.ChangeButtonInteractable();
                 inGameUI.loadingPanel.SetActive(false);
+                inGameUI.gameStartsPanel.SetActive(true);
                 break;
             case "CARD_ID":
                 gameEngine.CardMover(parts[1]);
@@ -95,6 +96,12 @@ public class MessageDecoder : MonoBehaviour
                 inGameUI.playerStatusText.SetText(parts[1] + " left");
                 inGameUI.playerStatusText.gameObject.SetActive(true);
                 inGameUI.SetNicks();
+                if (GameMeneger.instance.players[0] == mainMenuUI.nick)
+                {
+                    GameMeneger.instance.host = true;
+                    inGameUI.ChangeButtonInteractable();
+                }
+                    
                 break;
             default:
                 Debug.LogWarning($"Nieznana komenda: {command}");
