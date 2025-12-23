@@ -1,4 +1,5 @@
 using TMPro;
+using UnityEditor.Build.Content;
 using UnityEngine;
 
 public class MessageDecoder : MonoBehaviour
@@ -33,6 +34,7 @@ public class MessageDecoder : MonoBehaviour
                 inGameUI.codeTextField.SetText("Code: " + parts[1]);
                 GameMeneger.instance.host = true;
                 GameMeneger.instance.players.Add(mainMenuUI.nick);
+                GameMeneger.instance.playersTableOrder[0] = mainMenuUI.nick;
                 inGameUI.mainPanel.SetActive(true);
                 break;
             case "ACCEPT_JOIN":
@@ -42,11 +44,12 @@ public class MessageDecoder : MonoBehaviour
                 inGameUI.mainPanel.SetActive(true);
                 GameMeneger.instance.activePlayers = int.Parse(parts[2]);
                 GameMeneger.instance.PlayerCount = int.Parse(parts[3]);
-                for(int i = 0; i < GameMeneger.instance.PlayerCount - 1; i++)
+                for (int i = 0; i < GameMeneger.instance.PlayerCount - 1; i++)
                 {
                     GameMeneger.instance.players.Add(parts[i + 4]);
                 }
                 GameMeneger.instance.players.Add(mainMenuUI.nick);
+                
                 inGameUI.SetNicks();
                 break;
             case "JOIN_ERR":

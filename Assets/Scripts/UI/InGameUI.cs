@@ -138,6 +138,8 @@ public class InGameUI : MonoBehaviour
                 { break; }
             tmp.Add(GameMeneger.instance.players[i]);
         }
+
+        GameMeneger.instance.playersTableOrder[0] = mainMenuUI.nick;
         int ilosc = tmp.Count;
         switch(ilosc)
         {
@@ -148,6 +150,7 @@ public class InGameUI : MonoBehaviour
                 nick3.SetText(tmp[0]);
                 GameMeneger.instance.playersCardPositions[0] = stacksPositions[3];
                 GameMeneger.instance.playersCardPositions[1] = stacksPositions[0];
+                GameMeneger.instance.playersTableOrder[3] = tmp[0];
                 break;
             case 2:
                 nick2.SetText(tmp[0]);
@@ -155,6 +158,8 @@ public class InGameUI : MonoBehaviour
                 GameMeneger.instance.playersCardPositions[0] = stacksPositions[2];
                 GameMeneger.instance.playersCardPositions[1] = stacksPositions[3];
                 GameMeneger.instance.playersCardPositions[2] = stacksPositions[0];
+                GameMeneger.instance.playersTableOrder[2] = tmp[2];
+                GameMeneger.instance.playersTableOrder[3] = tmp[3];
                 break;
             case 3:
                 nick1.SetText(tmp[0]);
@@ -164,6 +169,9 @@ public class InGameUI : MonoBehaviour
                 GameMeneger.instance.playersCardPositions[1] = stacksPositions[2];
                 GameMeneger.instance.playersCardPositions[2] = stacksPositions[3];
                 GameMeneger.instance.playersCardPositions[3] = stacksPositions[0];
+                GameMeneger.instance.playersTableOrder[1] = tmp[1];
+                GameMeneger.instance.playersTableOrder[2] = tmp[2];
+                GameMeneger.instance.playersTableOrder[3] = tmp[3];
                 break;
         }
         int ilosc2 = playersCount - ilosc - 1;
@@ -174,12 +182,15 @@ public class InGameUI : MonoBehaviour
             case 1:
                 nick1.SetText(GameMeneger.instance.players[ilosc + 1]);
                 GameMeneger.instance.playersCardPositions[ilosc + 1] = stacksPositions[1];
+                GameMeneger.instance.playersTableOrder[1] = GameMeneger.instance.players[ilosc + 1];
                 break;
             case 2:
                 nick1.SetText(GameMeneger.instance.players[ilosc + 1]);
                 nick2.SetText(GameMeneger.instance.players[ilosc + 2]);
                 GameMeneger.instance.playersCardPositions[ilosc + 1] = stacksPositions[1];
                 GameMeneger.instance.playersCardPositions[ilosc + 2] = stacksPositions[2];
+                GameMeneger.instance.playersTableOrder[1] = GameMeneger.instance.players[ilosc + 1];
+                GameMeneger.instance.playersTableOrder[2] = GameMeneger.instance.players[ilosc + 2];
                 break;
             case 3:
                 nick1.SetText(GameMeneger.instance.players[ilosc + 1]);
@@ -188,6 +199,9 @@ public class InGameUI : MonoBehaviour
                 GameMeneger.instance.playersCardPositions[ilosc + 1] = stacksPositions[1];
                 GameMeneger.instance.playersCardPositions[ilosc + 2] = stacksPositions[2];
                 GameMeneger.instance.playersCardPositions[ilosc + 3] = stacksPositions[3];
+                GameMeneger.instance.playersTableOrder[1] = GameMeneger.instance.players[ilosc + 1];
+                GameMeneger.instance.playersTableOrder[2] = GameMeneger.instance.players[ilosc + 2];
+                GameMeneger.instance.playersTableOrder[3] = GameMeneger.instance.players[ilosc + 3];
                 break;
         }
     }

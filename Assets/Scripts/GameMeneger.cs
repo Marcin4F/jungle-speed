@@ -16,6 +16,7 @@ public class GameMeneger : MonoBehaviour
     private int _playerCount = 1;
     public int activePlayers = 0;
     public List<string> players = new List<string>();
+    public string[] playersTableOrder = new string[4];
     public List<int> playersHiddenCards = new List<int>();
     public List<int> playersShownCards = new List<int>();
     public List<Vector3> playersCardPositions = new List<Vector3>();
@@ -49,6 +50,7 @@ public class GameMeneger : MonoBehaviour
         {
             playersShownCards.Add(0);
             playersHiddenCards.Add(0);
+            playersTableOrder[i] = "%";
         }
     }
 }
