@@ -2335,7 +2335,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1054682660}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1940756719}
+        m_TargetAssemblyTypeName: InGameUI, Assembly-CSharp
+        m_MethodName: QuitGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1054682660
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4044,7 +4056,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1658182363}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1940756719}
+        m_TargetAssemblyTypeName: InGameUI, Assembly-CSharp
+        m_MethodName: ContinueGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1658182363
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4373,7 +4397,7 @@ GameObject:
   - component: {fileID: 1747913928}
   - component: {fileID: 1747913927}
   m_Layer: 5
-  m_Name: MainMenuButto
+  m_Name: MainMenuButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4442,7 +4466,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1747913928}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1940756719}
+        m_TargetAssemblyTypeName: InGameUI, Assembly-CSharp
+        m_MethodName: QuitToMainMenu
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1747913928
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4903,10 +4939,10 @@ MonoBehaviour:
   mainMenuButton: {fileID: 1747913927}
   quitButton: {fileID: 1054682659}
   pausePanel: {fileID: 940435708}
-  waitingStartPanel: {fileID: 1098555989}
-  gameStartsPanel: {fileID: 1422864271}
   mainPanel: {fileID: 1940756715}
   loadingPanel: {fileID: 1992630856}
+  waitingStartPanel: {fileID: 1098555989}
+  gameStartsPanel: {fileID: 1422864271}
   nick1: {fileID: 1083463469}
   nick2: {fileID: 438666873}
   nick3: {fileID: 431696147}

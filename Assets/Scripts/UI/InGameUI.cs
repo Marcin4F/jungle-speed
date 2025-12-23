@@ -101,13 +101,13 @@ public class InGameUI : MonoBehaviour
         Laczenie.instance.SendMessageToServer("GAME_START%");
     }
 
-    private void ContinueGame()
+    public void ContinueGame()
     {
         isPaused = false;
         pausePanel.SetActive(false);
     }
 
-    private void QuitToMainMenu()
+    public void QuitToMainMenu()
     {
         mainPanel.SetActive(false);
         mainMenuUI.mainPanel.SetActive(true);
@@ -118,7 +118,7 @@ public class InGameUI : MonoBehaviour
         mainMenuUI.port = null;
     }   
     
-    private void QuitGame()
+    public void QuitGame()
     {
         Application.Quit();
     }
