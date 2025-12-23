@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-// TODO wyk³adanie karty dobrego gracza, sprawdzanie tury graczy (po CARD_ID), start game nie jest widoczny na poczatku, ustawianie pozycji w InGameUI?
-// ZROBIONE DO TESTOW: odswierzanie kto jest hostem, panel z zaczynaniem gry, menuPauzy przyciski
+// TODO wyk³adanie karty dobrego gracza, sprawdzanie tury graczy (po CARD_ID), start game nie jest widoczny na poczatku
+// ZROBIONE DO TESTOW: odswierzanie kto jest hostem, panel z zaczynaniem gry, menuPauzy przyciski, ustawianie pozycji w InGameUI
 
 public class GameMeneger : MonoBehaviour
 {
