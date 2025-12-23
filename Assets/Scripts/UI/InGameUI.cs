@@ -125,6 +125,11 @@ public class InGameUI : MonoBehaviour
     {
         List<string> tmp = new List<string>();
         int playersCount = GameMeneger.instance.players.Count;
+
+        nick1.SetText("");
+        nick2.SetText("");
+        nick3.SetText("");
+
         for (int i = 0; i < playersCount; i++)
         {
             if(GameMeneger.instance.players[i] == mainMenuUI.nick)

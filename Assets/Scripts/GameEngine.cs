@@ -45,7 +45,7 @@ public class GameEngine : MonoBehaviour
             {
                 if (r.gameObject.CompareTag("DisplayCard"))
                 {
-                    Texture2D newTexture = Resources.Load<Texture2D>("/" + id + ".png");
+                    Texture2D newTexture = Resources.Load<Texture2D>(id);
 
                     if (newTexture != null)
                     {
