@@ -73,7 +73,7 @@ public class MessageDecoder : MonoBehaviour
                 inGameUI.loadingPanel.SetActive(false);
                 break;
             case "CARD_ID":
-                gameEngine.CardMover(int.Parse(parts[1]));
+                gameEngine.CardMover(parts[1]);
                 break;
             case "TOTEM_WON":
                 break;

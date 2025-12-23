@@ -36,7 +36,7 @@ public class GameEngine : MonoBehaviour
         }
     }
 
-    public void CardMover(int id)
+    public void CardMover(string id)
     {
         if (cardToMove != null)
         {
@@ -45,7 +45,7 @@ public class GameEngine : MonoBehaviour
             {
                 if (r.gameObject.CompareTag("DisplayCard"))
                 {
-                    Texture2D newTexture = Resources.Load<Texture2D>("/" + id);
+                    Texture2D newTexture = Resources.Load<Texture2D>("/" + id + ".png");
 
                     if (newTexture != null)
                     {
