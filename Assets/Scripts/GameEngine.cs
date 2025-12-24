@@ -6,7 +6,7 @@ public class GameEngine : MonoBehaviour
     private GameObject spawnedCard;
 
     [SerializeField] MainMenuUI mainMenuUI;
-    private CardMovement cardToMove;
+    public CardMovement myCard;     // karta trafiona raycastem po kliknieciu mysza
 
     void Update()
     {
@@ -30,13 +30,13 @@ public class GameEngine : MonoBehaviour
             if (hitInfo.collider.gameObject.tag == "Card")
             {
                 hitInfo.collider.gameObject.tag = "UsedCard";
-                cardToMove = hitInfo.collider.GetComponent<CardMovement>();
+                myCard = hitInfo.collider.GetComponent<CardMovement>();
                 Laczenie.instance.SendMessageToServer("CARD_REVEAL%");
             }
         }
     }
 
-    public void CardMover(string id)
+    public void CardMover(string id, CardMovement cardToMove)
     {
         if (cardToMove != null)
         {
@@ -45,11 +45,11 @@ public class GameEngine : MonoBehaviour
             {
                 if (r.gameObject.CompareTag("DisplayCard"))
                 {
-                    Texture2D newTexture = Resources.Load<Texture2D>(id);
+                    Texture2D newTexture = Resources.Load<Texture2D>(id);   // wczytanie tesktury
 
                     if (newTexture != null)
                     {
-                        r.material.SetTexture("_BaseMap", newTexture);
+                        r.material.SetTexture("_BaseMap", newTexture);      // ustawienie tekstury karty
                     }
                     else
                     {

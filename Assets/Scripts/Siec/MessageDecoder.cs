@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEditor.Build.Content;
 using UnityEngine;
@@ -9,6 +10,7 @@ public class MessageDecoder : MonoBehaviour
     [SerializeField] TextMeshProUGUI displayText;
     [SerializeField] InGameUI inGameUI;
     [SerializeField] GameEngine gameEngine;
+    [SerializeField] RayCasts g1, g2, g3;
 
     private void Start()
     {
@@ -85,7 +87,22 @@ public class MessageDecoder : MonoBehaviour
                 inGameUI.gameStartsPanel.SetActive(true);
                 break;
             case "CARD_ID":
-                gameEngine.CardMover(parts[1]);
+                int index = Array.IndexOf(GameMeneger.instance.playersTableOrder, parts[2]);
+                CardMovement card;
+                if (index == 0)
+                    card = gameEngine.myCard;
+                else if (index == 1 && g1.SendRay())
+                    card = g1.card;
+                else if (index == 2 && g2.SendRay())
+                    card = g2.card;
+                else if (index == 3 && g3.SendRay())
+                    card = g3.card;
+                else
+                {
+                    Debug.LogError("Nie znalzeiono karty");
+                    break;
+                }
+                gameEngine.CardMover(parts[1], card);
                 break;
             case "TOTEM_WON":
                 break;

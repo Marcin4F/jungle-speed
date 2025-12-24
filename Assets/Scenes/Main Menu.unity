@@ -508,6 +508,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 343673948}
+  - component: {fileID: 343673949}
   m_Layer: 0
   m_Name: G2Ray
   m_TagString: Untagged
@@ -530,6 +531,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &343673949
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 343673947}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb0cda53c9a71894ba7cba2df0240dc1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &430482490
 GameObject:
   m_ObjectHideFlags: 0
@@ -947,6 +960,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 564630167}
+  - component: {fileID: 564630168}
   m_Layer: 0
   m_Name: G1Ray
   m_TagString: Untagged
@@ -969,6 +983,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &564630168
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 564630166}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb0cda53c9a71894ba7cba2df0240dc1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &579917029
 GameObject:
   m_ObjectHideFlags: 0
@@ -980,7 +1006,7 @@ GameObject:
   - component: {fileID: 579917032}
   - component: {fileID: 579917031}
   - component: {fileID: 579917030}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: CardBlocker (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3341,6 +3367,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   card: {fileID: 6589186437419899634, guid: 6a15786d9ea28294b80970407e8c205b, type: 3}
   mainMenuUI: {fileID: 914307291}
+  g1: {fileID: 564630168}
+  g2: {fileID: 343673949}
+  g3: {fileID: 1784955222}
 --- !u!1 &1338103899
 GameObject:
   m_ObjectHideFlags: 0
@@ -3699,7 +3728,7 @@ GameObject:
   - component: {fileID: 1464529283}
   - component: {fileID: 1464529282}
   - component: {fileID: 1464529281}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: CardBlocker (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4185,7 +4214,7 @@ GameObject:
   - component: {fileID: 1666494052}
   - component: {fileID: 1666494051}
   - component: {fileID: 1666494050}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: CardBlocker
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4593,6 +4622,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1784955221}
+  - component: {fileID: 1784955222}
   m_Layer: 0
   m_Name: G3Ray
   m_TagString: Untagged
@@ -4615,6 +4645,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1784955222
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1784955220}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb0cda53c9a71894ba7cba2df0240dc1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1805031117
 GameObject:
   m_ObjectHideFlags: 0
