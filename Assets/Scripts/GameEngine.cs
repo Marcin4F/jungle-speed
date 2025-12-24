@@ -10,7 +10,7 @@ public class GameEngine : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0) && GameMeneger.instance.activeGame)
+        if (Input.GetMouseButtonDown(0) && GameMeneger.instance.activeGame && GameMeneger.instance.yourTour)
         {
             FireScreenRay();
         }

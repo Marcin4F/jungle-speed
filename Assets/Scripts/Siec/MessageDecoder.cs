@@ -72,6 +72,14 @@ public class MessageDecoder : MonoBehaviour
                 GameMeneger.instance.activeGame = true;
                 if (GameMeneger.instance.host)
                     GameMeneger.instance.yourTour = true;
+                for(int i = 0; i < 4; i++)
+                {
+                    if(GameMeneger.instance.playersTableOrder[i] != "%")
+                    {
+                        gameEngine.SpawnStack(i, int.Parse(parts[1]));
+                        GameMeneger.instance.activePlayers++;
+                    }
+                }
                 inGameUI.ChangeButtonInteractable();
                 inGameUI.loadingPanel.SetActive(false);
                 inGameUI.gameStartsPanel.SetActive(true);
