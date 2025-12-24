@@ -124,6 +124,11 @@ public class InGameUI : MonoBehaviour
         nick2.SetText("");
         nick3.SetText("");
 
+        for(int i = 0; i < 4; i++)
+        {
+            GameMeneger.instance.playersTableOrder[i] = "%";
+        }
+
         for (int i = 0; i < playersCount; i++)
         {
             if(GameMeneger.instance.players[i] == mainMenuUI.nick)

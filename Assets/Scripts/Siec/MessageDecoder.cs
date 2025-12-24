@@ -105,6 +105,12 @@ public class MessageDecoder : MonoBehaviour
                     Debug.LogError("Nie znalzeiono karty");
                     break;
                 }
+
+                int nextIndex = (index + 1) % 4;
+                while(GameMeneger.instance.playersTableOrder[nextIndex] == "%")
+                    nextIndex = (nextIndex + 1) % 4;
+                if (nextIndex == 0)
+                    GameMeneger.instance.yourTour = true;
                 gameEngine.CardMover(parts[1], card);
                 break;
             case "TOTEM_WON":
