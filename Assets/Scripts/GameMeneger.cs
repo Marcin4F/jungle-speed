@@ -1,8 +1,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-// TODO start game nie jest widoczny na poczatku, host widzi wiadomoœæ "czekanie na hosta" a nie widzi przycisku, menuPauzy przyciski, gdy wychodzi gracz to karty zostaj¹,
-// automatycznie wys³aæ kart reveal gdy 0 kart, wiadomoœc z synchronizacj¹ iloœci kart!!!
+// TODO start game nie jest widoczny na poczatku, menuPauzy przyciski, gdy wychodzi gracz to karty zostaj¹,
+// automatycznie wys³aæ kart reveal gdy 0 kart
+
+// DO TESTOW: wiadomoœc z synchronizacj¹ iloœci kart, host widzi wiadomoœæ "czekanie na hosta"
+
+[System.Serializable]
+public class PlayerDeck
+{
+    public List<CardMovement> hiddenCards = new List<CardMovement>();
+    public List<CardMovement> shownCards = new List<CardMovement>();
+}
 
 public class GameMeneger : MonoBehaviour
 {
@@ -20,6 +29,7 @@ public class GameMeneger : MonoBehaviour
     public List<int> playersHiddenCards = new List<int>();
     public List<int> playersShownCards = new List<int>();
     public List<Vector3> playersCardPositions = new List<Vector3>();
+    public PlayerDeck[] playerDecks = new PlayerDeck[4];
 
     public int PlayerCount 
     { 
@@ -51,6 +61,7 @@ public class GameMeneger : MonoBehaviour
             playersShownCards.Add(0);
             playersHiddenCards.Add(0);
             playersTableOrder[i] = "%";
+            playerDecks[i] = new PlayerDeck();
         }
     }
 }

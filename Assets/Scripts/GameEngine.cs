@@ -66,10 +66,13 @@ public class GameEngine : MonoBehaviour
     public void SpawnCard(int id)
     {
         spawnedCard = Instantiate(card);
+        CardMovement cardMovement = spawnedCard.GetComponent<CardMovement>();
+
         Vector3 cardPosition = GameMeneger.instance.playersCardPositions[id];
         spawnedCard.transform.position = new Vector3 (cardPosition.x, cardPosition.y + GameMeneger.instance.playersHiddenCards[id] * 0.01f,
             cardPosition.z);
         GameMeneger.instance.playersHiddenCards[id]++;
+        GameMeneger.instance.playerDecks[id].hiddenCards.Add(cardMovement);
     }
 
     public void SpawnStack(int id, int number)
@@ -77,6 +80,33 @@ public class GameEngine : MonoBehaviour
         for (int i = 0; i < number; i++)
         {
             SpawnCard(id);
+        }
+    }
+
+    public void ClearPlayerStack (int playerId, bool clearHidden, bool clearShown)
+    {
+        PlayerDeck deck = GameMeneger.instance.playerDecks[playerId];
+
+        if (clearHidden)
+        {
+            foreach (var card in deck.hiddenCards)
+            {
+                if (card != null) 
+                    Destroy(card.gameObject); // Usuñ obiekt ze sceny
+            }
+            deck.hiddenCards.Clear(); // Wyczyœæ listê
+            GameMeneger.instance.playersHiddenCards[playerId] = 0; // Zresetuj licznik
+        }
+
+        if (clearShown)
+        {
+            foreach (var card in deck.shownCards)
+            {
+                if (card != null) 
+                    Destroy(card.gameObject);
+            }
+            deck.shownCards.Clear();
+            GameMeneger.instance.playersShownCards[playerId] = 0;
         }
     }
 }

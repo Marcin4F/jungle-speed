@@ -42,6 +42,7 @@ public class InGameUI : MonoBehaviour
             else
             {
                 startGame.interactable = false;
+                waitingStartPanel.SetActive(false);
             }
         }
     }
@@ -74,6 +75,7 @@ public class InGameUI : MonoBehaviour
         else
         {
             startGame.gameObject.SetActive(true);
+            waitingStartPanel.SetActive(false);
             if (GameMeneger.instance.PlayerCount > 1)
             {
                 startGame.interactable = true;
