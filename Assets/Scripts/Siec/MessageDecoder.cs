@@ -24,6 +24,15 @@ public class MessageDecoder : MonoBehaviour
         }
     }
 
+    private void checkIfTour(int index)
+    {
+        int nextIndex = (index + 1) % 4;
+        while (GameMeneger.instance.playersTableOrder[nextIndex] == "%")
+            nextIndex = (nextIndex + 1) % 4;
+        if (nextIndex == 0)
+            GameMeneger.instance.yourTour = true;
+    }
+
     private void decodeMessage(string message)
     {
         string[] parts = message.Split(' ');
@@ -87,10 +96,20 @@ public class MessageDecoder : MonoBehaviour
                 inGameUI.gameStartsPanel.SetActive(true);
                 break;
             case "CARD_ID":
-                if (parts[1] == null || parts[1] == "-1" || parts[1] == string.Empty || parts[1] == " ")
-                    break;
-
                 int index = Array.IndexOf(GameMeneger.instance.playersTableOrder, parts[2]);
+
+                if (parts[1] == "-1" || index == -1)
+                {
+                    Debug.LogError("Przyszlo -1 w cardID");
+                    break;
+                }
+
+                else if (parts[1] == null || parts[1] == string.Empty || parts[1] == " ")
+                {
+                    checkIfTour(index);
+                    break;
+                }
+                
                 CardMovement card;
                 if (index == 0)
                     card = gameEngine.myCard;
@@ -106,11 +125,7 @@ public class MessageDecoder : MonoBehaviour
                     break;
                 }
 
-                int nextIndex = (index + 1) % 4;
-                while(GameMeneger.instance.playersTableOrder[nextIndex] == "%")
-                    nextIndex = (nextIndex + 1) % 4;
-                if (nextIndex == 0)
-                    GameMeneger.instance.yourTour = true;
+                checkIfTour(index);
                 gameEngine.CardMover(parts[1], card);
                 break;
             case "TOTEM_WON":

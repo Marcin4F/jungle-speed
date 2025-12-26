@@ -1,9 +1,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-// TODO start game nie jest widoczny na poczatku, pomijanie tury dla graczy ktorzy nie maja kart
+// TODO start game nie jest widoczny na poczatku
+
 // ZROBIONE DO TESTOW: odswierzanie kto jest hostem, panel z zaczynaniem gry, menuPauzy przyciski, ustawianie pozycji w InGameUI, spawn stosow kart
-// wykladanie karty gracza, sprawdzanie tury graczy (po CARD_ID)
+// wykladanie karty gracza, sprawdzanie tury graczy (po CARD_ID), pomijanie tury dla graczy ktorzy nie maja kart
 
 public class GameMeneger : MonoBehaviour
 {
