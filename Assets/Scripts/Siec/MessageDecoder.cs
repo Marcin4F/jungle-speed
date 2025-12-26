@@ -162,6 +162,10 @@ public class MessageDecoder : MonoBehaviour
                 break;
 
             case "TOTEM_WON":
+                for (int i = 0; i < 4; i++)
+                {
+                    gameEngine.ClearPlayerStack(0, false, true);
+                }
                 break;
 
             case "TOTEM_LOST":
