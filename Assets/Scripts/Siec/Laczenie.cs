@@ -143,7 +143,7 @@ public class Laczenie : MonoBehaviour
         }
     }
 
-    public void CloseConnection()
+    public void CloseConnection()       // zamkniecie polaczenia
     {
         if (!isConnected) return;
 

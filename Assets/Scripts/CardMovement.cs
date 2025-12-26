@@ -15,11 +15,11 @@ public class CardMovement : MonoBehaviour
         StartCoroutine(FirstCardMovement());
     }
 
-    IEnumerator FirstCardMovement()
+    IEnumerator FirstCardMovement()     // pierwszy ruch (do gory)
     {
         startPosition = transform.position;
         startRotation = transform.rotation;
-        if(startPosition.z < -2)
+        if(startPosition.z < -2)            // ruch w odpowiednia strone
         {
             targetPosition = startPosition + new Vector3(0, 2.0f, 1.275f);
             targetRotationAngles = new Vector3(270, 0, 0);
@@ -56,7 +56,7 @@ public class CardMovement : MonoBehaviour
         transform.position = targetPosition;
         transform.rotation = endRotation;
         elapsedTime = 0;
-        StartCoroutine(SecondCardMovement());
+        StartCoroutine(SecondCardMovement());       // zaczecie drugiego ruchu
     }
 
     IEnumerator SecondCardMovement()
@@ -65,9 +65,9 @@ public class CardMovement : MonoBehaviour
         startRotation = transform.rotation;
         if (startPosition.z < -2)
         {
-            targetPosition = new Vector3(startPosition.x, GameMeneger.instance.playersShownCards[0] * 0.01f, startPosition.z + 1.275f);
+            targetPosition = new Vector3(startPosition.x, GameMeneger.instance.playersShownCards[0] * 0.01f, startPosition.z + 1.275f);     // wartosc y wyliczana na podstawie ilosci kart na stosie odkrytych
             targetRotationAngles = new Vector3(180, 0, 0);
-            GameMeneger.instance.playersShownCards[0]++;
+            GameMeneger.instance.playersShownCards[0]++;        // zmiany w ilosci kart odkrytych/zakrytych
             GameMeneger.instance.playersHiddenCards[0]--;
         }
         else if (startPosition.z > 2)
@@ -105,7 +105,7 @@ public class CardMovement : MonoBehaviour
             yield return null;
         }
 
-        transform.position = targetPosition;
+        transform.position = targetPosition;        // poprawa pozycji do docelowej
         transform.rotation = endRotation;
     }
 }

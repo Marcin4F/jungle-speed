@@ -9,14 +9,13 @@ public class MainMenuUI : MonoBehaviour
     [SerializeField] Button joinGameButton, startLobbyButton, quitButton, startButton, backButton;
     public TMP_InputField nickInput, codeInput, ipAddressInput, portInput;
     [SerializeField] TextMeshProUGUI startButtonText;
-    public string nick, code, ipAddress, port;
+    public string nick, code, ipAddress, port;      // parametry polaczenia
     private readonly string allowedIPString = "0123456789.", allowedNameString = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_+=!*()",
-        allowedCodeString = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789", allowedPortString = "0123456789";
-    private char type;
+        allowedCodeString = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789", allowedPortString = "0123456789";     // mozliwe znaki do uzycia przy wpisywaniu danych elementow
+    private char type;          // typ polaczenia -> dolaczanie do pokoju czy jego tworzenie: j - join, s - start
 
-    // kod generowany przez serwer i odsy³any w ACCEPT_START, dodaæ wyœwietlanie kodu w UI gry
 
-    private void Start()
+    private void Start()        // setup
     {
         connectingServerPanel.SetActive(false);
         inputUIPanel.SetActive(false);
@@ -30,7 +29,7 @@ public class MainMenuUI : MonoBehaviour
     {
         inputUIPanel.SetActive(true);
         startButtonText.text = "Start";
-        codePanel.SetActive(false);
+        codePanel.SetActive(false);         // jezeli tworzymy pokoj to nie podajemy kodu pokoju
         type = 's';
         InputUIPanel();
         startButton.onClick.AddListener(StartLobby);
@@ -45,7 +44,7 @@ public class MainMenuUI : MonoBehaviour
         startButton.onClick.AddListener(StartLobby);
     }
 
-    void InputUIPanel()
+    void InputUIPanel()         // obsluga panelu z polami do wpisywania danych polaczenia
     {
         mainPanel.SetActive(false);
         invalidIpAddressPanel.SetActive(false);
@@ -54,6 +53,7 @@ public class MainMenuUI : MonoBehaviour
         connectionErrorPanel.SetActive(false);
         connectingServerPanel.SetActive(false);
 
+        // dodanie odpowiednich walidatorow
         nickInput.characterValidation = TMP_InputField.CharacterValidation.CustomValidator;
         nickInput.onValidateInput += ValidateNameChar;
 
@@ -67,9 +67,9 @@ public class MainMenuUI : MonoBehaviour
         portInput.onValidateInput += ValidatePortChar;
     }
 
-    void StartLobby()
+    void StartLobby()       // zaczecie gry
     {
-        if (type == 's' && nick.Length != 0 && ipAddress.Length != 0 && port.Length != 0)
+        if (type == 's' && nick.Length != 0 && ipAddress.Length != 0 && port.Length != 0)       // jezeli tworzymy pokoj (kod moze byc pusty)
         {
             Laczenie.instance.ConnectToServer(type);
             connectingServerPanel.SetActive(true);
@@ -81,17 +81,17 @@ public class MainMenuUI : MonoBehaviour
         }
         else
         {
-            emptyFieldPanel.SetActive(true);
+            emptyFieldPanel.SetActive(true);        // proba polaczenia z pustym polem
         }
     }
 
-    public void BackToMenu()
+    public void BackToMenu()        // wyjscie do menu
     {
         codePanel.SetActive(true);
         inputUIPanel.SetActive(false);
         mainPanel.SetActive(true);
 
-        nick = null;
+        nick = null;        // reset parametrow polaczenia
         code = null;
         ipAddress = null;
         port = null;

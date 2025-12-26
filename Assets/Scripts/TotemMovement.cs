@@ -7,15 +7,15 @@ public class TotemMovement : MonoBehaviour
 
     private float duration = 0.2f, elapsedTime = 0;
 
-    public void MoveTotem()
+    public void MoveTotem(int id)
     {
-        StartCoroutine(MovingTotem(0));
+        StartCoroutine(MovingTotem(id));
     }
 
     private IEnumerator MovingTotem(int id)
     {
         startPosition = transform.position;
-        switch(id)
+        switch(id)      // przesuniecie do odpowiedniego gracza
         {
             case 0:
                 targetPosition = startPosition + new Vector3(2, 0, -5.25f);
@@ -31,7 +31,7 @@ public class TotemMovement : MonoBehaviour
                 break;
         }
 
-        while (elapsedTime < duration)
+        while (elapsedTime < duration)      // przesuwanie totemu
         {
             elapsedTime += Time.deltaTime;
             float t = elapsedTime / duration;
@@ -40,6 +40,6 @@ public class TotemMovement : MonoBehaviour
 
             yield return null;
         }
-        transform.position = targetPosition;
+        transform.position = targetPosition;    // poprawienie pozycji
     }
 }

@@ -11,17 +11,17 @@ public class GameEngine : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0) && GameMeneger.instance.activeGame && GameMeneger.instance.yourTour)
+        if (Input.GetMouseButtonDown(0) && GameMeneger.instance.activeGame && GameMeneger.instance.yourTour)    // odkrycie karty - tylko jezeli trwa gra i twoja tura
         {
             FireScreenRay();
         }
 
-        else if (Input.GetMouseButtonDown(1))
+        else if (Input.GetMouseButtonDown(1))       // DO TESTOW USUNAC
         {
             SpawnStack(0, 50);
         }
 
-        else if (Input.GetKeyDown(KeyCode.Space))
+        else if (Input.GetKeyDown(KeyCode.Space))       // proba chwycenia totemu
         {
             Laczenie.instance.SendMessageToServer("TOTEM%");
             //totemMovement.MoveTotem();
@@ -34,24 +34,24 @@ public class GameEngine : MonoBehaviour
 
         if (Physics.Raycast(cameraRay, out RaycastHit hitInfo))
         {
-            if (hitInfo.collider.gameObject.tag == "Card")
+            if (hitInfo.collider.gameObject.tag == "Card")      // sprawdzamy czy to karta ktora mozna ruszyc
             {
                 hitInfo.collider.gameObject.tag = "UsedCard";
-                myCard = hitInfo.collider.GetComponent<CardMovement>();
-                Laczenie.instance.SendMessageToServer("CARD_REVEAL%");
-                GameMeneger.instance.yourTour = false;
+                myCard = hitInfo.collider.GetComponent<CardMovement>();     // zapisujemy obiekt ktory trafil raycast
+                Laczenie.instance.SendMessageToServer("CARD_REVEAL%");      // komunikat do serwera
+                GameMeneger.instance.yourTour = false;                      // zakonczenie tury -> brak spamu do serwera
             }
         }
     }
 
-    public void CardMover(string id, CardMovement cardToMove)
+    public void CardMover(string id, CardMovement cardToMove)       // przygotowanie karty do ruchu
     {
         if (cardToMove != null)
         {
-            Renderer[] childRenderers = cardToMove.GetComponentsInChildren<Renderer>();
+            Renderer[] childRenderers = cardToMove.GetComponentsInChildren<Renderer>();     // renderer dzieci karty
             foreach (Renderer r in childRenderers)
             {
-                if (r.gameObject.CompareTag("DisplayCard"))
+                if (r.gameObject.CompareTag("DisplayCard"))     // uzyskanie strony, ktora ma wyswietlac symbol
                 {
                     Texture2D newTexture = Resources.Load<Texture2D>(id);   // wczytanie tesktury
 
@@ -66,23 +66,23 @@ public class GameEngine : MonoBehaviour
                     break;
                 }
             }
-            cardToMove.MoveCard();
+            cardToMove.MoveCard();      // ruch karty
         }
     }
 
-    public void SpawnCard(int id)
+    public void SpawnCard(int id)       // spawn kart
     {
         spawnedCard = Instantiate(card);
-        CardMovement cardMovement = spawnedCard.GetComponent<CardMovement>();
+        CardMovement cardMovement = spawnedCard.GetComponent<CardMovement>();       // uzyskanie skryptu cardMovement dla nowej karty (potrzebne przy usuwaniu kart)
 
-        Vector3 cardPosition = GameMeneger.instance.playersCardPositions[id];
+        Vector3 cardPosition = GameMeneger.instance.playersCardPositions[id];       // przesuniecie karty na odpowiednia pozycje (Y wyliczany zgodnie z iloscia kart na stosie)
         spawnedCard.transform.position = new Vector3 (cardPosition.x, cardPosition.y + GameMeneger.instance.playersHiddenCards[id] * 0.01f,
             cardPosition.z);
-        GameMeneger.instance.playersHiddenCards[id]++;
-        GameMeneger.instance.playerDecks[id].hiddenCards.Add(cardMovement);
+        GameMeneger.instance.playersHiddenCards[id]++;          // zwiekszenie ilosc zakrytych kart
+        GameMeneger.instance.playerDecks[id].hiddenCards.Add(cardMovement);         // dodanie obiektu karty do listy
     }
 
-    public void SpawnStack(int id, int number)
+    public void SpawnStack(int id, int number)      // spawn stosu kart o zadanej ilosci
     {
         for (int i = 0; i < number; i++)
         {
@@ -90,19 +90,19 @@ public class GameEngine : MonoBehaviour
         }
     }
 
-    public void ClearPlayerStack (int playerId, bool clearHidden, bool clearShown)
+    public void ClearPlayerStack (int playerId, bool clearHidden, bool clearShown)      // usuwanie stosu kart dla danego gracza
     {
-        PlayerDeck deck = GameMeneger.instance.playerDecks[playerId];
+        PlayerDeck deck = GameMeneger.instance.playerDecks[playerId];       // wczytanie klasy ze stosami danego gracza
 
         if (clearHidden)
         {
             foreach (var card in deck.hiddenCards)
             {
                 if (card != null) 
-                    Destroy(card.gameObject); // Usuñ obiekt ze sceny
+                    Destroy(card.gameObject);           // Usuñ obiekt ze sceny
             }
-            deck.hiddenCards.Clear(); // Wyczyœæ listê
-            GameMeneger.instance.playersHiddenCards[playerId] = 0; // Zresetuj licznik
+            deck.hiddenCards.Clear();                   // Wyczyœæ listê
+            GameMeneger.instance.playersHiddenCards[playerId] = 0;      // Zresetuj licznik
         }
 
         if (clearShown)

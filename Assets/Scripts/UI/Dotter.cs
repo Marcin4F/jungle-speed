@@ -11,13 +11,13 @@ public class Dotter : MonoBehaviour
 
     void OnEnable()
     {
-        StopAllCoroutines();
+        StopAllCoroutines();        // zakoncz trwajace korutyny (zabezpieczenie przed nakladaniem kilku na ten sam obiekt)
 
         starter = displayText.text;
         StartCoroutine(ChangeText());
     }
 
-    IEnumerator ChangeText()
+    IEnumerator ChangeText()        // pokazywanie kropek
     {
         while (true)
         {
