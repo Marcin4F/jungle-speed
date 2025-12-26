@@ -6,6 +6,7 @@ public class GameEngine : MonoBehaviour
     private GameObject spawnedCard;
 
     [SerializeField] MainMenuUI mainMenuUI;
+    [SerializeField] TotemMovement totemMovement;
     public CardMovement myCard;     // karta trafiona raycastem po kliknieciu mysza
 
     void Update()
@@ -15,9 +16,15 @@ public class GameEngine : MonoBehaviour
             FireScreenRay();
         }
 
-        if (Input.GetMouseButtonDown(1))
+        else if (Input.GetMouseButtonDown(1))
         {
             SpawnStack(0, 50);
+        }
+
+        else if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Laczenie.instance.SendMessageToServer("TOTEM%");
+            //totemMovement.MoveTotem();
         }
     }
 

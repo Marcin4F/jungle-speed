@@ -1,9 +1,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-// TODO start game nie jest widoczny na poczatku, menuPauzy przyciski
+// TODO start game nie jest widoczny na poczatku
 
 // DO TESTOW: wiadomoœc z synchronizacj¹ iloœci kart, host widzi wiadomoœæ "czekanie na hosta", gdy wychodzi gracz to karty zostaj¹, automatycznie wys³aæ kart reveal gdy 0 kart
+// menuPauzy przyciski, 
 
 [System.Serializable]
 public class PlayerDeck

@@ -37,7 +37,7 @@ public class MessageDecoder : MonoBehaviour
                 Laczenie.instance.SendMessageToServer("CARD_REVEAL%");
                 return;
             }
-            GameMeneger.instance.yourTour = true;
+        GameMeneger.instance.yourTour = true;
         }
     }
 

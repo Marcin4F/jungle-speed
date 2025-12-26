@@ -60,6 +60,9 @@ public class InGameUI : MonoBehaviour
             {
                 isPaused = true;
                 pausePanel.SetActive(true);
+                continueButton.onClick.AddListener(ContinueGame);
+                mainMenuButton.onClick.AddListener(QuitToMainMenu);
+                quitButton.onClick.AddListener(QuitGame);
             }
         }
     }

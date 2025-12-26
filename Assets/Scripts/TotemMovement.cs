@@ -42,12 +42,4 @@ public class TotemMovement : MonoBehaviour
         }
         transform.position = targetPosition;
     }
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            MoveTotem();
-        }
-    }
 }
