@@ -1,10 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-// TODO start game nie jest widoczny na poczatku
-
-// ZROBIONE DO TESTOW: odswierzanie kto jest hostem, panel z zaczynaniem gry, menuPauzy przyciski, ustawianie pozycji w InGameUI, spawn stosow kart
-// wykladanie karty gracza, sprawdzanie tury graczy (po CARD_ID), pomijanie tury dla graczy ktorzy nie maja kart
+// TODO start game nie jest widoczny na poczatku, host widzi wiadomoœæ "czekanie na hosta" a nie widzi przycisku, menuPauzy przyciski, gdy wychodzi gracz to karty zostaj¹,
+// automatycznie wys³aæ kart reveal gdy 0 kart, wiadomoœc z synchronizacj¹ iloœci kart!!!
 
 public class GameMeneger : MonoBehaviour
 {
