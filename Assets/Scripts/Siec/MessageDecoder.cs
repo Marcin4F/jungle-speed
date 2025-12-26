@@ -185,6 +185,10 @@ public class MessageDecoder : MonoBehaviour
             case "PLAYER_DISC":
                 GameMeneger.instance.PlayerCount--;
                 string playerDisc = parts[1];
+
+                index = Array.IndexOf(GameMeneger.instance.playersTableOrder, playerDisc);      // usuniecie odkrytych kart gdy wyszedl gracz
+                gameEngine.ClearPlayerStack(index, true, true);
+
                 GameMeneger.instance.players.Remove(playerDisc);
                 inGameUI.playerStatusText.SetText(playerDisc + " left");
                 inGameUI.playerStatusText.gameObject.SetActive(true);
@@ -199,8 +203,6 @@ public class MessageDecoder : MonoBehaviour
                 if (GameMeneger.instance.activeGame)
                     GameMeneger.instance.activePlayers--;
 
-                index = Array.IndexOf(GameMeneger.instance.playersTableOrder, playerDisc);      // usuniecie odkrytych kart gdy wyszedl gracz
-                gameEngine.ClearPlayerStack(index, false, true);
                 break;
 
             default:
