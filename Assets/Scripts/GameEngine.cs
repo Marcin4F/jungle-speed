@@ -32,6 +32,7 @@ public class GameEngine : MonoBehaviour
                 hitInfo.collider.gameObject.tag = "UsedCard";
                 myCard = hitInfo.collider.GetComponent<CardMovement>();
                 Laczenie.instance.SendMessageToServer("CARD_REVEAL%");
+                GameMeneger.instance.yourTour = false;
             }
         }
     }

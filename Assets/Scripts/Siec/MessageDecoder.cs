@@ -105,7 +105,7 @@ public class MessageDecoder : MonoBehaviour
                     break;
                 }
 
-                else if (parts[1] == null || parts[1] == string.Empty || parts[1] == " ")
+                else if (parts[1] == "#")
                 {
                     checkIfTour(index);
                     break;
