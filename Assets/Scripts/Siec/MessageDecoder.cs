@@ -153,19 +153,17 @@ public class MessageDecoder : MonoBehaviour
             case "DECK_SIZE":
                 for (int i = 0; i < GameMeneger.instance.activePlayers; i++)        // dla wszystkich aktywnych graczy
                 {
-                    gameEngine.ClearPlayerStack(i, true, false);        // usuniecie stosu kart zakrytych
                     string player = parts[i * 2 + 1];                   // nick kolejnego gracza
                     index = Array.IndexOf(GameMeneger.instance.playersTableOrder, player);      // indeks tego gracza
                     if (index >= 0)
+                    {
                         gameEngine.SpawnStack(index, int.Parse(parts[i * 2 + 2]));            // spawn nowego stosu kart
+                        gameEngine.ClearPlayerStack(i, true, false);        // usuniecie stosu kart zakrytych
+                    }   
                 }
                 break;
 
             case "TOTEM_WON":
-                for (int i = 0; i < 4; i++)
-                {
-                    gameEngine.ClearPlayerStack(0, false, true);
-                }
                 break;
 
             case "TOTEM_LOST":
