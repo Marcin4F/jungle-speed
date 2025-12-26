@@ -151,11 +151,15 @@ public class MessageDecoder : MonoBehaviour
                 break;
 
             case "DECK_SIZE":
+                Debug.Log("ilosc graczy: " + GameMeneger.instance.activePlayers);
                 for (int i = 0; i < GameMeneger.instance.activePlayers; i++)        // dla wszystkich aktywnych graczy
                 {
                     gameEngine.ClearPlayerStack(i, true, false);        // usuniecie stosu kart zakrytych
+                    Debug.Log("test");
                     string player = parts[i * 2 + 1];                   // nick kolejnego gracza
+                    Debug.Log(player);
                     index = Array.IndexOf(GameMeneger.instance.playersTableOrder, player);      // indeks tego gracza
+                    Debug.Log(index);
                     if (index >= 0)
                         gameEngine.SpawnStack(index, int.Parse(parts[i * 2 + 2]));            // spawn nowego stosu kart
                 }

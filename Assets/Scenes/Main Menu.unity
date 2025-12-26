@@ -2307,7 +2307,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 0
+  m_Interactable: 1
   m_TargetGraphic: {fileID: 1054682660}
   m_OnClick:
     m_PersistentCalls:
@@ -3252,6 +3252,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   card: {fileID: 6589186437419899634, guid: 6a15786d9ea28294b80970407e8c205b, type: 3}
   mainMenuUI: {fileID: 914307291}
+  totemMovement: {fileID: 0}
   myCard: {fileID: 0}
 --- !u!1 &1338103899
 GameObject:
@@ -4031,7 +4032,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 0
+  m_Interactable: 1
   m_TargetGraphic: {fileID: 1658182363}
   m_OnClick:
     m_PersistentCalls:
@@ -4432,7 +4433,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 0
+  m_Interactable: 1
   m_TargetGraphic: {fileID: 1747913928}
   m_OnClick:
     m_PersistentCalls:
