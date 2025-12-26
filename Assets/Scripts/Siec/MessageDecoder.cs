@@ -154,10 +154,10 @@ public class MessageDecoder : MonoBehaviour
                 for (int i = 0; i < GameMeneger.instance.activePlayers; i++)        // dla wszystkich aktywnych graczy
                 {
                     gameEngine.ClearPlayerStack(i, true, false);        // usuniecie stosu kart zakrytych
-                    string player = parts[(i - 1) / 2];                 // nick kolejnego gracza
+                    string player = parts[i * 2 + 1];                   // nick kolejnego gracza
                     index = Array.IndexOf(GameMeneger.instance.playersTableOrder, player);      // indeks tego gracza
                     if (index >= 0)
-                        gameEngine.SpawnStack(index, int.Parse(parts[(i - 2) / 2]));            // spawn nowego stosu kart
+                        gameEngine.SpawnStack(index, int.Parse(parts[i * 2 + 2]));            // spawn nowego stosu kart
                 }
                 break;
 
