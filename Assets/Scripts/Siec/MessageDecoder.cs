@@ -93,6 +93,7 @@ public class MessageDecoder : MonoBehaviour
                 }
                 inGameUI.ChangeButtonInteractable();
                 inGameUI.loadingPanel.SetActive(false);
+                inGameUI.waitingStartPanel.SetActive(false);
                 inGameUI.gameStartsPanel.SetActive(true);
                 break;
             case "CARD_ID":

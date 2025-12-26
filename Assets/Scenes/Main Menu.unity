@@ -543,6 +543,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb0cda53c9a71894ba7cba2df0240dc1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  card: {fileID: 0}
 --- !u!1 &430482490
 GameObject:
   m_ObjectHideFlags: 0
@@ -995,6 +996,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb0cda53c9a71894ba7cba2df0240dc1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  card: {fileID: 0}
 --- !u!1 &579917029
 GameObject:
   m_ObjectHideFlags: 0
@@ -3367,9 +3369,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   card: {fileID: 6589186437419899634, guid: 6a15786d9ea28294b80970407e8c205b, type: 3}
   mainMenuUI: {fileID: 914307291}
-  g1: {fileID: 564630168}
-  g2: {fileID: 343673949}
-  g3: {fileID: 1784955222}
+  myCard: {fileID: 0}
 --- !u!1 &1338103899
 GameObject:
   m_ObjectHideFlags: 0
@@ -4480,6 +4480,9 @@ MonoBehaviour:
   displayText: {fileID: 650810447}
   inGameUI: {fileID: 1940756719}
   gameEngine: {fileID: 1326804410}
+  g1: {fileID: 564630168}
+  g2: {fileID: 343673949}
+  g3: {fileID: 1784955222}
 --- !u!1 &1747913925
 GameObject:
   m_ObjectHideFlags: 0
@@ -4657,6 +4660,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb0cda53c9a71894ba7cba2df0240dc1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  card: {fileID: 0}
 --- !u!1 &1805031117
 GameObject:
   m_ObjectHideFlags: 0
