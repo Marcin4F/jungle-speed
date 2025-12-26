@@ -31,7 +31,14 @@ public class MessageDecoder : MonoBehaviour
         while (GameMeneger.instance.playersTableOrder[nextIndex] == "%")    // pomijamy "pustych" graczy
             nextIndex = (nextIndex + 1) % 4;
         if (nextIndex == 0)     // jezeli nastpeny indkes to 0 -> twoja tura (kazdy gracz u "siebie" jest na indkesie 0)
+        {
+            if (GameMeneger.instance.playersHiddenCards[0] == 0)
+            {
+                Laczenie.instance.SendMessageToServer("CARD_REVEAL%");
+                return;
+            }
             GameMeneger.instance.yourTour = true;
+        }
     }
 
     private void decodeMessage(string message)
