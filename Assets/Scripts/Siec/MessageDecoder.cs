@@ -157,7 +157,8 @@ public class MessageDecoder : MonoBehaviour
                     index = Array.IndexOf(GameMeneger.instance.playersTableOrder, player);      // indeks tego gracza
                     if (index >= 0)
                     {
-                        gameEngine.ClearPlayerStack(i, true, false);        // usuniecie stosu kart zakrytych
+                        Debug.Log("index graqcza: " + index);
+                        gameEngine.ClearPlayerStack(index, true, false);        // usuniecie stosu kart zakrytych
                         gameEngine.SpawnStack(index, int.Parse(parts[i * 2 + 2]));            // spawn nowego stosu kart
                     }   
                 }

@@ -98,8 +98,10 @@ public class GameEngine : MonoBehaviour
         {
             foreach (var card in deck.hiddenCards)
             {
-                if (card != null) 
+                if (card != null)
+                {
                     Destroy(card.gameObject);           // Usuñ obiekt ze sceny
+                }
             }
             deck.hiddenCards.Clear();                   // Wyczyœæ listê
             GameMeneger.instance.playersHiddenCards[playerId] = 0;      // Zresetuj licznik
