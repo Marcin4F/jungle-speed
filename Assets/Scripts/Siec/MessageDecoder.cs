@@ -126,7 +126,13 @@ public class MessageDecoder : MonoBehaviour
             case "CARD_ID":
                 index = Array.IndexOf(GameMeneger.instance.playersTableOrder, parts[2]);        // indeks gracza ktory odkrywa karte
 
-                if (parts[1] == "-1" || index == -1)        // cos nie tak
+                if (index == -1)
+                {
+                    Debug.LogError("Nie ma gracza z cardID");
+                    break;
+                }
+
+                if (parts[1] == "-1")        // cos nie tak
                 {
                     Debug.LogWarning("Przyszlo -1 w cardID");
                     if (parts[3] != null && parts[3] == mainMenuUI.nick)
