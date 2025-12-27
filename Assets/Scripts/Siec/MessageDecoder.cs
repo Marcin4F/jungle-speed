@@ -136,8 +136,8 @@ public class MessageDecoder : MonoBehaviour
                     checkIfTour(index);
                     break;
                 }
-                
-                CardMovement card;
+
+                    CardMovement card;
                 if (index == 0)                 // znalezienie odpowiedniej karty
                     card = gameEngine.myCard;
                 else if (index == 1 && g1.SendRay())
@@ -243,6 +243,7 @@ public class MessageDecoder : MonoBehaviour
                     }
                     GameMeneger.instance.winners.Clear();
                 }
+                inGameUI.ChangeButtonInteractable();
                 break;
 
             default:
