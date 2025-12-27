@@ -227,17 +227,15 @@ public class MessageDecoder : MonoBehaviour
                 {
                     case 1:
                         inGameUI.youWonText.SetText("You won!");
+                        inGameUI.youWonText.gameObject.SetActive(true);
                         break;
                     case 2:
                         inGameUI.youWonText.SetText("Second place!");
-                        break;
-                    case 3:
-                        inGameUI.youWonText.SetText("Third place!");
+                        inGameUI.youWonText.gameObject.SetActive(true);
                         break;
                     default:
                         break;
                 }
-                inGameUI.youWonText.gameObject.SetActive(true);
                 break;
 
             case "GAME_OVER":
@@ -252,11 +250,11 @@ public class MessageDecoder : MonoBehaviour
                 }
                 else
                 {
-                    inGameUI.gameWinnersTextField.SetText("WINNERS:\n" + GameMeneger.instance.winners[0]);
+                    inGameUI.gameWinnersTextField.SetText("WINNERS:\n 1: " + GameMeneger.instance.winners[0]);
                     for (int i = 1; i < winners; i++)
                     {
                         string currentText = inGameUI.gameWinnersTextField.text;
-                        inGameUI.gameWinnersTextField.SetText(currentText + "\n" + GameMeneger.instance.winners[i]);
+                        inGameUI.gameWinnersTextField.SetText(currentText + "\n" + i + 1 + ": " + GameMeneger.instance.winners[i]);
                     }
                     GameMeneger.instance.winners.Clear();
                 }
