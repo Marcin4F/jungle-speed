@@ -123,12 +123,12 @@ public class InGameUI : MonoBehaviour
         mainMenuUI.ipAddressInput.text = null;
         mainMenuUI.portInput.text = null;
 
-        GameMeneger.instance.ResetParameters();
-
         for (int i = 0; i < 4; i++)
         {
             gameEngine.ClearPlayerStack(i, true, true);
         }
+
+        GameMeneger.instance.ResetParameters();
     }   
     
     private void QuitGame()      // wyjscie z gry
