@@ -6,7 +6,6 @@ public class GameEngine : MonoBehaviour
     private GameObject spawnedCard;
 
     [SerializeField] MainMenuUI mainMenuUI;
-    [SerializeField] TotemMovement totemMovement;
     public CardMovement myCard;     // karta trafiona raycastem po kliknieciu mysza
 
     void Update()
@@ -24,7 +23,6 @@ public class GameEngine : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.Space))       // proba chwycenia totemu
         {
             Laczenie.instance.SendMessageToServer("TOTEM%");
-            //totemMovement.MoveTotem();
         }
     }
 

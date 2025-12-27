@@ -1,10 +1,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-// TODO start game nie jest widoczny na poczatku, blokada przy -1 w card_id, back w menu i ³¹czenie kilka razy, 
-// obsluga totem WIN i remisow
+// TODO start game nie jest widoczny na poczatku, blokada przy -1 w card_id, obsluga totem WIN i remisow
 
-// DO TESTOW po wyjœciu do main menu tekst w polach zostaje, unknown error przy z³ym kodzie
+// DO TESTOW po wyjœciu do main menu tekst w polach zostaje, unknown error przy z³ym kodzie, back w menu i ³¹czenie kilka razy
 
 
 [System.Serializable]

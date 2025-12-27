@@ -12,6 +12,9 @@ public class MessageDecoder : MonoBehaviour
     [SerializeField] InGameUI inGameUI;
     [SerializeField] GameEngine gameEngine;
     [SerializeField] RayCasts g1, g2, g3;       // obiekty z raycastem do odkrywania kart innych graczy
+    [SerializeField] TotemMovement totemMovement;
+
+    private int index;
 
     private void Start()
     {
@@ -25,9 +28,9 @@ public class MessageDecoder : MonoBehaviour
         }
     }
 
-    private void checkIfTour(int index)     // sprawdzanie czy teraz twoja tura
+    private void checkIfTour(int playerIndex)     // sprawdzanie czy teraz twoja tura
     {
-        int nextIndex = (index + 1) % 4;    // nastepny indeks
+        int nextIndex = (playerIndex + 1) % 4;    // nastepny indeks
         while (GameMeneger.instance.playersTableOrder[nextIndex] == "%")    // pomijamy "pustych" graczy
             nextIndex = (nextIndex + 1) % 4;
         if (nextIndex == 0)     // jezeli nastpeny indkes to 0 -> twoja tura (kazdy gracz u "siebie" jest na indkesie 0)
@@ -112,7 +115,7 @@ public class MessageDecoder : MonoBehaviour
                 break;
 
             case "CARD_ID":
-                int index = Array.IndexOf(GameMeneger.instance.playersTableOrder, parts[2]);        // indeks gracza ktory odkrywa karte
+                index = Array.IndexOf(GameMeneger.instance.playersTableOrder, parts[2]);        // indeks gracza ktory odkrywa karte
 
                 if (parts[1] == "-1" || index == -1)        // cos nie tak
                 {
@@ -160,13 +163,20 @@ public class MessageDecoder : MonoBehaviour
                     index = Array.IndexOf(GameMeneger.instance.playersTableOrder, player);      // indeks tego gracza
                     if (index >= 0)
                     {
-                        gameEngine.ClearPlayerStack(index, true, false);                // usuniecie stosu kart zakrytych
-                        gameEngine.SpawnStack(index, int.Parse(parts[i * 2 + 2]));      // spawn nowego stosu kart
+                        int cardsNumber = int.Parse(parts[i * 2 + 2]);
+                        if (GameMeneger.instance.playersHiddenCards[index] != cardsNumber)
+                            gameEngine.ClearPlayerStack(index, true, true);
+                        else
+                            gameEngine.ClearPlayerStack(index, true, false);                // usuniecie stosu kart zakrytych
+                        gameEngine.SpawnStack(index, cardsNumber);      // spawn nowego stosu kart
                     }   
                 }
                 break;
 
             case "TOTEM_WON":
+                index = Array.IndexOf(GameMeneger.instance.playersTableOrder, parts[1]);
+                gameEngine.ClearPlayerStack(index, false, true);
+                totemMovement.MoveTotem(index);
                 break;
 
             case "TOTEM_LOST":

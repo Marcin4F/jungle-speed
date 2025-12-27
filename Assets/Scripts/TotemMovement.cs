@@ -21,10 +21,10 @@ public class TotemMovement : MonoBehaviour
                 targetPosition = startPosition + new Vector3(2, 0, -5.25f);
                 break;
             case 1:
-                targetPosition = startPosition + new Vector3(-2, 0, 5.25f);
+                targetPosition = startPosition + new Vector3(-9, 0, -2);
                 break;
             case 2:
-                targetPosition = startPosition + new Vector3(-9, 0, -2);
+                targetPosition = startPosition + new Vector3(-2, 0, 5.25f);
                 break;
             case 3:
                 targetPosition = startPosition + new Vector3(9, 0, 2);
