@@ -3,7 +3,7 @@ using UnityEngine;
 
 // TODO start game nie jest widoczny na poczatku, blokada przy -1 w card_id, obsluga remisow
 
-// DO TESTOW: po wyjœciu z gry i ponownym wejœciu karty zostaj¹ na stole, 
+// DO TESTOW: po wyjœciu z gry i ponownym wejœciu karty zostaj¹ na stole, niewysy³anie card_reveal gdy koniec gry
 
 
 [System.Serializable]

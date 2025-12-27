@@ -37,10 +37,17 @@ public class MessageDecoder : MonoBehaviour
         {
             if (GameMeneger.instance.playersHiddenCards[0] == 0)
             {
-                Laczenie.instance.SendMessageToServer("CARD_REVEAL%");
+                for (int i = 0; i < GameMeneger.instance.activePlayers;  i++)
+                {
+                    if (GameMeneger.instance.playersHiddenCards[i] != 0)
+                    {
+                        Laczenie.instance.SendMessageToServer("CARD_REVEAL%");
+                        return;
+                    }
+                }
                 return;
             }
-        GameMeneger.instance.yourTour = true;
+            GameMeneger.instance.yourTour = true;
         }
     }
 
