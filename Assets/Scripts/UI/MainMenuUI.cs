@@ -32,6 +32,7 @@ public class MainMenuUI : MonoBehaviour
         codePanel.SetActive(false);         // jezeli tworzymy pokoj to nie podajemy kodu pokoju
         type = 's';
         InputUIPanel();
+        startButton.onClick.RemoveAllListeners();
         startButton.onClick.AddListener(StartLobby);
     }
 
@@ -41,6 +42,7 @@ public class MainMenuUI : MonoBehaviour
         startButtonText.text = "Join";
         type = 'j';
         InputUIPanel();
+        startButton.onClick.RemoveAllListeners();
         startButton.onClick.AddListener(StartLobby);
     }
 

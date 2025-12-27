@@ -11,7 +11,7 @@ public class Laczenie : MonoBehaviour
 
     private TcpClient client;
     private NetworkStream stream;
-    private bool isConnected = false;
+    private bool isConnected = false, isConnecting = false;
 
     public static Laczenie instance;
 
@@ -27,10 +27,13 @@ public class Laczenie : MonoBehaviour
 
     public async void ConnectToServer(char type)
     {
-        if (isConnected) return;
+        if (isConnected || isConnecting) 
+            return;
+        isConnecting = true;
 
         if (type != 's' && type != 'j')
         {
+            isConnecting = false;
             Debug.LogError($"[ConnectToServer] Invalid connection type: '{type}'. Must be 's' or 'j'.");
             return;
         }
@@ -82,6 +85,10 @@ public class Laczenie : MonoBehaviour
         {
             mainMenuUI.connectingServerPanel.SetActive(false);
             Debug.LogError($"Bl¹d ConnectToSerwer: {e.Message}");
+        }
+        finally
+        {
+            isConnecting = false;
         }
     }
 

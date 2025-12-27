@@ -87,6 +87,9 @@ public class MessageDecoder : MonoBehaviour
                     case "NICK_TAKEN":
                         displayText.text = "Player with that nick already exists.\r\nPleas change your nick.";
                         break;
+                    default:
+                        displayText.text = "Unknown error.";
+                        break;
                 }
                 break;
 
