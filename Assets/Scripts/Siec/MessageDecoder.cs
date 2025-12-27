@@ -222,9 +222,26 @@ public class MessageDecoder : MonoBehaviour
 
             case "GAME_FINISHED":
                 GameMeneger.instance.winners.Add(parts[1]);
+                int place = GameMeneger.instance.winners.Count;
+                switch (place)
+                {
+                    case 1:
+                        inGameUI.youWonText.SetText("You won!");
+                        break;
+                    case 2:
+                        inGameUI.youWonText.SetText("Second place!");
+                        break;
+                    case 3:
+                        inGameUI.youWonText.SetText("Third place!");
+                        break;
+                    default:
+                        break;
+                }
+                inGameUI.youWonText.gameObject.SetActive(true);
                 break;
 
             case "GAME_OVER":
+                inGameUI.youWonText.gameObject.SetActive(false);
                 GameMeneger.instance.yourTour = false;
                 GameMeneger.instance.activeGame = false;
                 inGameUI.gameOverPanel.SetActive(true);

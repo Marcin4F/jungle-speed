@@ -11,7 +11,7 @@ public class InGameUI : MonoBehaviour
     public GameObject mainPanel, loadingPanel, waitingStartPanel, gameStartsPanel, gameOverPanel;
     
     [SerializeField] TextMeshProUGUI nick1, nick2, nick3;       // wyswietlane nicki graczy
-    public TextMeshProUGUI codeTextField, playerStatusText, gameWinnersTextField;     // code -> kod pokoju, gameWinnsers -> lista graczy ktorzy wygrali
+    public TextMeshProUGUI codeTextField, playerStatusText, gameWinnersTextField, youWonText;     // code -> kod pokoju, gameWinnsers -> lista graczy ktorzy wygrali
 
     private bool isPaused = false;
 
@@ -36,6 +36,7 @@ public class InGameUI : MonoBehaviour
         gameStartsPanel.SetActive(false);
         playerStatusText.gameObject.SetActive(false);
         gameOverPanel.SetActive(false);
+        youWonText.gameObject.SetActive(false);
         nick1.SetText("");
         nick2.SetText("");
         nick3.SetText("");
