@@ -114,10 +114,10 @@ public class InGameUI : MonoBehaviour
         mainMenuUI.ipAddress = null;
         mainMenuUI.port = null;
 
-        mainMenuUI.nickInput = null;
-        mainMenuUI.codeInput = null;
-        mainMenuUI.ipAddressInput = null;
-        mainMenuUI.portInput = null;
+        mainMenuUI.nickInput.text = null;
+        mainMenuUI.codeInput.text = null;
+        mainMenuUI.ipAddressInput.text = null;
+        mainMenuUI.portInput.text = null;
     }   
     
     public void QuitGame()      // wyjscie z gry

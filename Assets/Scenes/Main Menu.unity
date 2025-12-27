@@ -3252,7 +3252,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   card: {fileID: 6589186437419899634, guid: 6a15786d9ea28294b80970407e8c205b, type: 3}
   mainMenuUI: {fileID: 914307291}
-  totemMovement: {fileID: 0}
   myCard: {fileID: 0}
 --- !u!1 &1338103899
 GameObject:
@@ -4355,6 +4354,7 @@ MonoBehaviour:
   g1: {fileID: 564630168}
   g2: {fileID: 343673949}
   g3: {fileID: 1784955222}
+  totemMovement: {fileID: 290431715}
 --- !u!1 &1747913925
 GameObject:
   m_ObjectHideFlags: 0
