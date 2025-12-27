@@ -175,16 +175,16 @@ public class InGameUI : MonoBehaviour
             case 2:
                 nick2.SetText(tmp[0]);
                 nick3.SetText(tmp[1]);
-                GameMeneger.instance.playersTableOrder[2] = tmp[2];
-                GameMeneger.instance.playersTableOrder[3] = tmp[3];
+                GameMeneger.instance.playersTableOrder[2] = tmp[0];
+                GameMeneger.instance.playersTableOrder[3] = tmp[1];
                 break;
             case 3:
                 nick1.SetText(tmp[0]);
                 nick2.SetText(tmp[1]);
                 nick3.SetText(tmp[2]);
-                GameMeneger.instance.playersTableOrder[1] = tmp[1];
-                GameMeneger.instance.playersTableOrder[2] = tmp[2];
-                GameMeneger.instance.playersTableOrder[3] = tmp[3];
+                GameMeneger.instance.playersTableOrder[1] = tmp[0];
+                GameMeneger.instance.playersTableOrder[2] = tmp[1];
+                GameMeneger.instance.playersTableOrder[3] = tmp[2];
                 break;
         }
         int ilosc2 = playersCount - ilosc - 1;      // ilu graczy jeszcze zostalo do wpisania -> gracze ktorzy dolaczyli po nas -> dodajemy normalnie od lewej
