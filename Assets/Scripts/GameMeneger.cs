@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-// TODO start game nie jest widoczny na poczatku, blokada przy -1 w card_id, obsluga remisow
+// TODO blokada przy -1 w card_id
 
-// DO TESTOW: po wyjœciu z gry i ponownym wejœciu karty zostaj¹ na stole, niewysy³anie card_reveal gdy koniec gry
+// DO TESTOW: po wyjœciu z gry i ponownym wejœciu karty zostaj¹ na stole, niewysy³anie card_reveal gdy koniec gry, start game nie jest widoczny na poczatku, GameOVER
 
 
 [System.Serializable]

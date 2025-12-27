@@ -65,6 +65,7 @@ public class MessageDecoder : MonoBehaviour
                 GameMeneger.instance.players.Add(mainMenuUI.nick);
                 GameMeneger.instance.playersTableOrder[0] = mainMenuUI.nick;
                 inGameUI.mainPanel.SetActive(true);
+                inGameUI.ChangeButtonInteractable();
                 break;
 
             case "ACCEPT_JOIN":
@@ -221,6 +222,27 @@ public class MessageDecoder : MonoBehaviour
 
             case "GAME_FINISHED":
                 GameMeneger.instance.winners.Add(parts[1]);
+                break;
+
+            case "GAME_OVER":
+                GameMeneger.instance.yourTour = false;
+                GameMeneger.instance.activeGame = false;
+                inGameUI.gameOverPanel.SetActive(true);
+                int winners = GameMeneger.instance.winners.Count;
+                if (winners != 0)
+                {
+                    inGameUI.gameWinnersTextField.SetText("Game ended in a draw.");
+                }
+                else
+                {
+                    inGameUI.gameWinnersTextField.SetText("WINNERS:\n" + GameMeneger.instance.winners[0]);
+                    for (int i = 1; i < winners; i++)
+                    {
+                        string currentText = inGameUI.gameWinnersTextField.text;
+                        inGameUI.gameWinnersTextField.SetText(currentText + "\n" + GameMeneger.instance.winners[i]);
+                    }
+                    GameMeneger.instance.winners.Clear();
+                }
                 break;
 
             default:

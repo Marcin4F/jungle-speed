@@ -5,13 +5,13 @@ using UnityEngine.UI;
 
 public class InGameUI : MonoBehaviour
 {
-    [SerializeField] Button startGame, continueButton, mainMenuButton, quitButton;
+    [SerializeField] Button startGame, continueButton, mainMenuButton, quitButton, closeButton;
     
     [SerializeField] GameObject pausePanel;
-    public GameObject mainPanel, loadingPanel, waitingStartPanel, gameStartsPanel;
+    public GameObject mainPanel, loadingPanel, waitingStartPanel, gameStartsPanel, gameOverPanel;
     
     [SerializeField] TextMeshProUGUI nick1, nick2, nick3;       // wyswietlane nicki graczy
-    public TextMeshProUGUI codeTextField, playerStatusText;     // code -> kod pokoju
+    public TextMeshProUGUI codeTextField, playerStatusText, gameWinnersTextField;     // code -> kod pokoju, gameWinnsers -> lista graczy ktorzy wygrali
 
     private bool isPaused = false;
 
@@ -26,6 +26,7 @@ public class InGameUI : MonoBehaviour
         continueButton.onClick.AddListener(ContinueGame);
         mainMenuButton.onClick.AddListener(QuitToMainMenu);
         quitButton.onClick.AddListener(QuitGame);
+        closeButton.onClick.AddListener(CloseWinnsers);
     }
 
     private void OnEnable()         // poczatkowy setup
@@ -34,6 +35,7 @@ public class InGameUI : MonoBehaviour
         pausePanel.SetActive(false);
         gameStartsPanel.SetActive(false);
         playerStatusText.gameObject.SetActive(false);
+        gameOverPanel.SetActive(false);
         nick1.SetText("");
         nick2.SetText("");
         nick3.SetText("");
@@ -99,13 +101,13 @@ public class InGameUI : MonoBehaviour
         Laczenie.instance.SendMessageToServer("GAME_START%");
     }
 
-    public void ContinueGame()
+    private void ContinueGame()
     {
         isPaused = false;
         pausePanel.SetActive(false);
     }
 
-    public void QuitToMainMenu()        // wyjscie do menu
+    private void QuitToMainMenu()        // wyjscie do menu
     {
         mainPanel.SetActive(false);
         mainMenuUI.mainPanel.SetActive(true);
@@ -128,9 +130,14 @@ public class InGameUI : MonoBehaviour
         }
     }   
     
-    public void QuitGame()      // wyjscie z gry
+    private void QuitGame()      // wyjscie z gry
     {
         Application.Quit();
+    }
+
+    private void CloseWinnsers()
+    {
+        gameOverPanel.SetActive(false);
     }
 
     public void SetNicks()      // ustawienie nickow graczy w odpowiedniej kolejnosci
