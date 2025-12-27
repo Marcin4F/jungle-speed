@@ -5565,7 +5565,7 @@ MonoBehaviour:
   codeTextField: {fileID: 1261584412}
   playerStatusText: {fileID: 1015458249}
   gameWinnersTextField: {fileID: 1404511315}
-  youWonText: {fileID: 0}
+  youWonText: {fileID: 2076486460}
   mainMenuUI: {fileID: 914307291}
   laczenie: {fileID: 1724628354}
   gameEngine: {fileID: 1326804410}
