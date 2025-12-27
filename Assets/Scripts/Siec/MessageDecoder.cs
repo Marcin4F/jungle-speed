@@ -196,6 +196,15 @@ public class MessageDecoder : MonoBehaviour
                 totemMovement.MoveTotem(index);
                 break;
 
+            case "TOTEM_INVALID":
+                index = Array.IndexOf(GameMeneger.instance.playersTableOrder, parts[1]);
+                for (int i = 0; i < 4; i++)
+                {
+                    gameEngine.ClearPlayerStack(i, false, true);
+                }
+                totemMovement.MoveTotem(index);
+                break;
+
             case "PLAYER_NEW":
                 GameMeneger.instance.PlayerCount++;
                 if (!GameMeneger.instance.activeGame)
