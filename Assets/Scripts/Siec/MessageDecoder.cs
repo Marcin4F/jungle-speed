@@ -257,7 +257,7 @@ public class MessageDecoder : MonoBehaviour
                 inGameUI.youWonText.gameObject.SetActive(false);        // reset parametrow
                 GameMeneger.instance.yourTurn = false;
                 GameMeneger.instance.activeGame = false;
-                for (int i = 0; i < GameMeneger.instance.activePlayers; i++)
+                for (int i = 0; i < 4; i++)
                 {
                     gameEngine.ClearPlayerStack(i, true, true);
                 }
