@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using TMPro;
 using UnityEditor.Build.Content;
 using UnityEngine;
@@ -191,13 +192,15 @@ public class MessageDecoder : MonoBehaviour
 
             case "PLAYER_NEW":
                 GameMeneger.instance.PlayerCount++;
-                GameMeneger.instance.players.Add(parts[1]);
-                inGameUI.playerStatusText.SetText(parts[1] + " joined");
-                inGameUI.playerStatusText.gameObject.SetActive(true);
-                if(!GameMeneger.instance.activeGame)
+                if (!GameMeneger.instance.activeGame)
                 {
+                    GameMeneger.instance.players.Add(parts[1]);             // jezeli nie trwa gra to dodajemy gracza do listy graczy
                     inGameUI.SetNicks();
                 }
+                else
+                    GameMeneger.instance.spectators.Add(parts[1]);          // je¿eli trwa gra to dodajemy gracza do listy widzow
+                inGameUI.playerStatusText.SetText(parts[1] + " joined");
+                inGameUI.playerStatusText.gameObject.SetActive(true);
                 break;
 
             case "PLAYER_DISC":
@@ -207,7 +210,14 @@ public class MessageDecoder : MonoBehaviour
                 index = Array.IndexOf(GameMeneger.instance.playersTableOrder, playerDisc);      // usuniecie odkrytych kart gdy wyszedl gracz
                 gameEngine.ClearPlayerStack(index, true, true);
 
-                GameMeneger.instance.players.Remove(playerDisc);
+                if (GameMeneger.instance.players.Contains(playerDisc))      // usuniecie gracza z odowiedniej listy
+                {
+                    GameMeneger.instance.players.Remove(playerDisc);
+                    GameMeneger.instance.activePlayers--;
+                }
+                else
+                    GameMeneger.instance.spectators.Remove(playerDisc);
+
                 inGameUI.playerStatusText.SetText(playerDisc + " left");
                 inGameUI.playerStatusText.gameObject.SetActive(true);
                 inGameUI.SetNicks();
@@ -217,9 +227,6 @@ public class MessageDecoder : MonoBehaviour
                     GameMeneger.instance.host = true;
                     inGameUI.ChangeButtonInteractable();
                 }
-
-                if (GameMeneger.instance.activeGame)
-                    GameMeneger.instance.activePlayers--;
                 break;
 
             case "GAME_FINISHED":
@@ -247,9 +254,11 @@ public class MessageDecoder : MonoBehaviour
                 break;
 
             case "GAME_OVER":
-                inGameUI.youWonText.gameObject.SetActive(false);
+                inGameUI.youWonText.gameObject.SetActive(false);        // reset parametrow
                 GameMeneger.instance.yourTurn = false;
                 GameMeneger.instance.activeGame = false;
+                GameMeneger.instance.activePlayers = 0;
+
                 inGameUI.gameOverPanel.SetActive(true);
                 int winners = GameMeneger.instance.winners.Count;
                 if (winners != 0)
@@ -266,6 +275,8 @@ public class MessageDecoder : MonoBehaviour
                     }
                     GameMeneger.instance.winners.Clear();
                 }
+                GameMeneger.instance.players.AddRange(GameMeneger.instance.spectators);     // dodanie widzow jako graczy
+                inGameUI.SetNicks();
                 inGameUI.ChangeButtonInteractable();
                 break;
 

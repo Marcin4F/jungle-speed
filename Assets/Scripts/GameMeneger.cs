@@ -1,9 +1,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-// TODO blokada przy -1 w card_id
+// TODO 
 
-// DO TESTOW: po wyjœciu z gry i ponownym wejœciu karty zostaj¹ na stole, niewysy³anie card_reveal gdy koniec gry, start game nie jest widoczny na poczatku, GameOVER
+// DO TESTOW: po wyjœciu z gry i ponownym wejœciu karty zostaj¹ na stole, niewysy³anie card_reveal gdy koniec gry, start game nie jest widoczny na poczatku, GameOVER, blokada przy -1 w card_id
+// panel z wygraniem gry, wiadomosc your turn, dolaczanie jako widz, stawanie sie graczem po skonczonej grze
 
 
 [System.Serializable]
@@ -27,6 +28,7 @@ public class GameMeneger : MonoBehaviour
     public List<string> players = new List<string>();           // gracze (kolejnosc jaka widzi serwer -> kolejnosc dolaczania do pokoju)
     public string[] playersTableOrder = new string[4];          // gracze (kolejnosc stolikowa, zaczynajac od nas)
     public List<string> winners = new List<string>();           // lista zwyciezcow w kolejnosc
+    public List<string> spectators = new List<string>();        // widzowie
     public List<int> playersHiddenCards = new List<int>();      // ilosc ukrytych kart kazdego gracza
     public List<int> playersShownCards = new List<int>();       // ilosc odkrytych kart kazdego gracza
     public List<Vector3> playersCardPositions = new List<Vector3>();        // pozycje kazdego stosu (zakryte)
@@ -43,9 +45,7 @@ public class GameMeneger : MonoBehaviour
                 _playerCount = value;
 
                 if (host)
-                {
                     inGameUI.ChangeButtonInteractable();        // zmiana dostepnosci przycisku start game przy zmianie ilosci graczy (jezeli jestes hostem)
-                }
             }
         }
     }
