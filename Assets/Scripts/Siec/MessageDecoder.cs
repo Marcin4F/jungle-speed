@@ -179,9 +179,6 @@ public class MessageDecoder : MonoBehaviour
                 totemMovement.MoveTotem(index);
                 break;
 
-            case "TOTEM_LOST":
-                break;
-
             case "PLAYER_NEW":
                 GameMeneger.instance.PlayerCount++;
                 GameMeneger.instance.players.Add(parts[1]);
@@ -213,7 +210,10 @@ public class MessageDecoder : MonoBehaviour
 
                 if (GameMeneger.instance.activeGame)
                     GameMeneger.instance.activePlayers--;
+                break;
 
+            case "GAME_FINISHED":
+                GameMeneger.instance.winners.Add(parts[1]);
                 break;
 
             default:

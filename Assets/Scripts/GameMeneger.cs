@@ -3,7 +3,7 @@ using UnityEngine;
 
 // TODO start game nie jest widoczny na poczatku, blokada przy -1 w card_id, obsluga remisow
 
-// DO TESTOW po wyjœciu do main menu tekst w polach zostaje, unknown error przy z³ym kodzie, back w menu i ³¹czenie kilka razy, obsluga totem WIN
+// DO TESTOW: po wyjœciu z gry i ponownym wejœciu karty zostaj¹ na stole, 
 
 
 [System.Serializable]
@@ -26,6 +26,7 @@ public class GameMeneger : MonoBehaviour
     public int activePlayers = 0;           // ilosc aktywnych graczy, 0 bo na poczatku nie trwa gra
     public List<string> players = new List<string>();           // gracze (kolejnosc jaka widzi serwer -> kolejnosc dolaczania do pokoju)
     public string[] playersTableOrder = new string[4];          // gracze (kolejnosc stolikowa, zaczynajac od nas)
+    public List<string> winners = new List<string>();           // lista zwyciezcow w kolejnosc
     public List<int> playersHiddenCards = new List<int>();      // ilosc ukrytych kart kazdego gracza
     public List<int> playersShownCards = new List<int>();       // ilosc odkrytych kart kazdego gracza
     public List<Vector3> playersCardPositions = new List<Vector3>();        // pozycje kazdego stosu (zakryte)
@@ -75,6 +76,7 @@ public class GameMeneger : MonoBehaviour
         players.Clear();
         playersHiddenCards.Clear();
         playersShownCards.Clear();
+        winners.Clear();
 
         for (int i = 0; i < 4; i++)
         {

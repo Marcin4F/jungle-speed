@@ -17,6 +17,7 @@ public class InGameUI : MonoBehaviour
 
     [SerializeField] MainMenuUI mainMenuUI;
     [SerializeField] Laczenie laczenie;
+    [SerializeField] GameEngine gameEngine;
 
     private void Start()
     {
@@ -120,6 +121,11 @@ public class InGameUI : MonoBehaviour
         mainMenuUI.portInput.text = null;
 
         GameMeneger.instance.ResetParameters();
+
+        for (int i = 0; i < 4; i++)
+        {
+            gameEngine.ClearPlayerStack(i, true, true);
+        }
     }   
     
     public void QuitGame()      // wyjscie z gry
