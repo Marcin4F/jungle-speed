@@ -47,7 +47,7 @@ public class MessageDecoder : MonoBehaviour
                 }
                 return;
             }
-            GameMeneger.instance.yourTour = true;
+            GameMeneger.instance.yourTurn = true;
         }
     }
 
@@ -107,7 +107,7 @@ public class MessageDecoder : MonoBehaviour
             case "ACCEPT_GAME_START":
                 GameMeneger.instance.activeGame = true;
                 if (GameMeneger.instance.host)
-                    GameMeneger.instance.yourTour = true;
+                    GameMeneger.instance.yourTurn = true;
                 for(int i = 0; i < 4; i++)
                 {
                     if(GameMeneger.instance.playersTableOrder[i] != "%")
@@ -127,7 +127,9 @@ public class MessageDecoder : MonoBehaviour
 
                 if (parts[1] == "-1" || index == -1)        // cos nie tak
                 {
-                    Debug.LogError("Przyszlo -1 w cardID");
+                    Debug.LogWarning("Przyszlo -1 w cardID");
+                    if (parts[3] != null && parts[3] == mainMenuUI.nick)
+                        GameMeneger.instance.yourTurn = true;
                     break;
                 }
 
@@ -226,12 +228,18 @@ public class MessageDecoder : MonoBehaviour
                 switch (place)
                 {
                     case 1:
-                        inGameUI.youWonText.SetText("You won!");
-                        inGameUI.youWonText.gameObject.SetActive(true);
+                        if (GameMeneger.instance.activePlayers >= 3)
+                        {
+                            inGameUI.youWonText.SetText("You won!");
+                            inGameUI.youWonText.gameObject.SetActive(true);
+                        }
                         break;
                     case 2:
-                        inGameUI.youWonText.SetText("Second place!");
-                        inGameUI.youWonText.gameObject.SetActive(true);
+                        if(GameMeneger.instance.activePlayers == 4)
+                        {
+                            inGameUI.youWonText.SetText("Second place!");
+                            inGameUI.youWonText.gameObject.SetActive(true);
+                        }
                         break;
                     default:
                         break;
@@ -240,7 +248,7 @@ public class MessageDecoder : MonoBehaviour
 
             case "GAME_OVER":
                 inGameUI.youWonText.gameObject.SetActive(false);
-                GameMeneger.instance.yourTour = false;
+                GameMeneger.instance.yourTurn = false;
                 GameMeneger.instance.activeGame = false;
                 inGameUI.gameOverPanel.SetActive(true);
                 int winners = GameMeneger.instance.winners.Count;

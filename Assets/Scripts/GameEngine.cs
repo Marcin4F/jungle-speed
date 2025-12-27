@@ -10,7 +10,7 @@ public class GameEngine : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0) && GameMeneger.instance.activeGame && GameMeneger.instance.yourTour)    // odkrycie karty - tylko jezeli trwa gra i twoja tura
+        if (Input.GetMouseButtonDown(0) && GameMeneger.instance.activeGame && GameMeneger.instance.yourTurn)    // odkrycie karty - tylko jezeli trwa gra i twoja tura
         {
             FireScreenRay();
         }
@@ -37,7 +37,7 @@ public class GameEngine : MonoBehaviour
                 hitInfo.collider.gameObject.tag = "UsedCard";
                 myCard = hitInfo.collider.GetComponent<CardMovement>();     // zapisujemy obiekt ktory trafil raycast
                 Laczenie.instance.SendMessageToServer("CARD_REVEAL%");      // komunikat do serwera
-                GameMeneger.instance.yourTour = false;                      // zakonczenie tury -> brak spamu do serwera
+                GameMeneger.instance.yourTurn = false;                      // zakonczenie tury -> brak spamu do serwera
             }
         }
     }
