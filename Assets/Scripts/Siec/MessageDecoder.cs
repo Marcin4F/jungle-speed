@@ -261,7 +261,7 @@ public class MessageDecoder : MonoBehaviour
 
                 inGameUI.gameOverPanel.SetActive(true);
                 int winners = GameMeneger.instance.winners.Count;
-                if (winners != 0)
+                if (winners == 0)
                 {
                     inGameUI.gameWinnersTextField.SetText("Game ended in a draw.");
                 }
