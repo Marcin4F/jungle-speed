@@ -118,6 +118,8 @@ public class InGameUI : MonoBehaviour
         mainMenuUI.codeInput.text = null;
         mainMenuUI.ipAddressInput.text = null;
         mainMenuUI.portInput.text = null;
+
+        GameMeneger.instance.ResetParameters();
     }   
     
     public void QuitGame()      // wyjscie z gry

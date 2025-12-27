@@ -64,4 +64,25 @@ public class GameMeneger : MonoBehaviour
             playerDecks[i] = new PlayerDeck();      // dodanie pustych deckow kart dla kazdego gracza
         }
     }
+
+    public void ResetParameters()
+    {
+        host = false;
+        activeGame = false;
+        yourTour = false;
+        _playerCount = 1;
+        activePlayers = 0;
+        players.Clear();
+        playersHiddenCards.Clear();
+        playersShownCards.Clear();
+
+        for (int i = 0; i < 4; i++)
+        {
+            playersTableOrder[i] = "%";
+            playerDecks[i].hiddenCards.Clear();
+            playerDecks[i].shownCards.Clear();
+            playersShownCards.Add(0);
+            playersHiddenCards.Add(0);
+        }
+    }
 }
