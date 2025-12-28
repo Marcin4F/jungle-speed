@@ -83,6 +83,9 @@ public class MessageDecoder : MonoBehaviour
                 GameMeneger.instance.players.Add(mainMenuUI.nick);
                 
                 inGameUI.SetNicks();
+
+                if (parts[1] == "1")
+                    inGameUI.waitingStartPanel.SetActive(false);
                 break;
 
             case "JOIN_ERR":
