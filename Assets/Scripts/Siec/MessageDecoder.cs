@@ -39,16 +39,19 @@ public class MessageDecoder : MonoBehaviour
         {
             if (GameMeneger.instance.playersHiddenCards[0] == 0)
             {
+                Debug.LogWarning("NIE MA KART");
                 for (int i = 0; i < 4;  i++)
                 {
                     if (GameMeneger.instance.playersHiddenCards[i] != 0)
                     {
+                        Debug.LogWarning("WYSLANO DO SERWERA");
                         Laczenie.instance.SendMessageToServer("CARD_REVEAL%");
                         return;
                     }
                 }
                 return;
             }
+            Debug.LogWarning("ILE KART: " + GameMeneger.instance.playersHiddenCards[0]);
             GameMeneger.instance.yourTurn = true;
         }
     }
