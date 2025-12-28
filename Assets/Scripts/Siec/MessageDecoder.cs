@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Linq;
 using TMPro;
 using UnityEditor.Build.Content;
@@ -50,6 +51,12 @@ public class MessageDecoder : MonoBehaviour
             }
             GameMeneger.instance.yourTurn = true;
         }
+    }
+
+    IEnumerator CardCooldown()
+    {
+        yield return new WaitForSeconds(0.7f);
+        checkIfTour(index);
     }
 
     private void decodeMessage(string message)
@@ -173,7 +180,7 @@ public class MessageDecoder : MonoBehaviour
                 }
                 else
                     Debug.LogError("Card is null - message decoder");
-                checkIfTour(index);
+                StartCoroutine(CardCooldown());
                 break;
 
             case "DECK_SIZE":
