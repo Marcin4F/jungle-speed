@@ -38,7 +38,7 @@ public class MessageDecoder : MonoBehaviour
         {
             if (GameMeneger.instance.playersHiddenCards[0] == 0)
             {
-                for (int i = 0; i < GameMeneger.instance.activePlayers;  i++)
+                for (int i = 0; i < 4;  i++)
                 {
                     if (GameMeneger.instance.playersHiddenCards[i] != 0)
                     {
