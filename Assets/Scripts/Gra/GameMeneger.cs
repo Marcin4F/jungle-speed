@@ -60,6 +60,7 @@ public class GameMeneger : MonoBehaviour
                 _yourTurn = value;
                 if(_yourTurn)
                 {
+                    inGameUI.youWonText.GetComponent<AutoHide>().hideDelay = 1;
                     inGameUI.youWonText.SetText("Your turn");
                     inGameUI.youWonText.gameObject.SetActive(true);
                 }

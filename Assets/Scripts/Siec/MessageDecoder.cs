@@ -257,12 +257,16 @@ public class MessageDecoder : MonoBehaviour
 
             case "GAME_FINISHED":
                 GameMeneger.instance.winners.Add(parts[1]);
+                index = Array.IndexOf(GameMeneger.instance.playersTableOrder, parts[1]);
+                GameMeneger.instance.playersTableOrder[index] = "%";
+                GameMeneger.instance.activePlayers--;
                 int place = GameMeneger.instance.winners.Count;
                 switch (place)
                 {
                     case 1:
                         if (GameMeneger.instance.activePlayers >= 3)
                         {
+                            inGameUI.youWonText.GetComponent<AutoHide>().hideDelay = 5;
                             inGameUI.youWonText.SetText("You won!");
                             inGameUI.youWonText.gameObject.SetActive(true);
                         }
@@ -270,6 +274,7 @@ public class MessageDecoder : MonoBehaviour
                     case 2:
                         if(GameMeneger.instance.activePlayers == 4)
                         {
+                            inGameUI.youWonText.GetComponent<AutoHide>().hideDelay = 5;
                             inGameUI.youWonText.SetText("Second place!");
                             inGameUI.youWonText.gameObject.SetActive(true);
                         }

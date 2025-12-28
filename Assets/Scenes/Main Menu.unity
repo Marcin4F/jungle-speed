@@ -6036,7 +6036,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69e38feab72360c4eb084d8099e8750a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hideDelay: 3
+  hideDelay: 1
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
