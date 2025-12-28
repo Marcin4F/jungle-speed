@@ -1,3 +1,4 @@
+using UnityEditor.Build.Content;
 using UnityEditor.PackageManager;
 using UnityEngine;
 
@@ -22,7 +23,7 @@ public class GameEngine : MonoBehaviour
         }
     }
 
-    void FireScreenRay()
+    private void FireScreenRay()
     {
         Ray cameraRay = Camera.main.ScreenPointToRay(Input.mousePosition);
 
@@ -41,46 +42,61 @@ public class GameEngine : MonoBehaviour
     {
         if (cardToMove != null)
         {
-            cardToMove.gameObject.tag = "UsedCard";
-            Renderer[] childRenderers = cardToMove.GetComponentsInChildren<Renderer>();     // renderer dzieci karty
-            foreach (Renderer r in childRenderers)
-            {
-                if (r.gameObject.CompareTag("DisplayCard"))     // uzyskanie strony, ktora ma wyswietlac symbol
-                {
-                    Texture2D newTexture = Resources.Load<Texture2D>(id);   // wczytanie tesktury
-
-                    if (newTexture != null)
-                    {
-                        r.material.SetTexture("_BaseMap", newTexture);      // ustawienie tekstury karty
-                    }
-                    else
-                    {
-                        Debug.LogWarning("No texture for ID: " + id);
-                    }
-                    break;
-                }
-            }
-            cardToMove.MoveCard();      // ruch karty
+            AddTextureToCard(id, cardToMove);   // dodanie tekstury do karty
+            cardToMove.MoveCard();              // ruch karty
         }
     }
 
-    public void SpawnCard(int id)       // spawn kart
+    public void SpawnCard(int id, bool visable, string CardID)       // spawn kart (id -> numer gracza wedlug TableOrder, visable -> czy stos odkrytych (true -> tak), CardID -> numer tekstury (!tylko je¿eli visable == true)
     {
         spawnedCard = Instantiate(card);
         CardMovement cardMovement = spawnedCard.GetComponent<CardMovement>();       // uzyskanie skryptu cardMovement dla nowej karty (potrzebne przy usuwaniu kart)
-
         Vector3 cardPosition = GameMeneger.instance.playersCardPositions[id];       // przesuniecie karty na odpowiednia pozycje (Y wyliczany zgodnie z iloscia kart na stosie)
-        spawnedCard.transform.position = new Vector3 (cardPosition.x, cardPosition.y + GameMeneger.instance.playersHiddenCards[id] * 0.01f,
-            cardPosition.z);
-        GameMeneger.instance.playersHiddenCards[id]++;          // zwiekszenie ilosc zakrytych kart
-        GameMeneger.instance.playerDecks[id].hiddenCards.Add(cardMovement);         // dodanie obiektu karty do listy
+
+        if (!visable)
+        {
+            spawnedCard.transform.position = new Vector3(cardPosition.x, cardPosition.y + GameMeneger.instance.playersHiddenCards[id] * 0.01f, cardPosition.z);
+            GameMeneger.instance.playersHiddenCards[id]++;          // zwiekszenie ilosc zakrytych kart
+            GameMeneger.instance.playerDecks[id].hiddenCards.Add(cardMovement);         // dodanie obiektu karty do listy
+        }
+
+        else
+        {
+            AddTextureToCard(CardID, cardMovement);
+
+            cardPosition.y += GameMeneger.instance.playersShownCards[id] * 0.01f;
+            Vector3 targetRotation = new Vector3 (0, 0, 0);
+            switch (id)
+            {
+                case 0:
+                    cardPosition += new Vector3(0, 0, 2.55f);
+                    targetRotation += new Vector3(180, 0, 0);
+                    break;
+                case 1:
+                    cardPosition += new Vector3(2.55f, 0, 0);
+                    targetRotation += new Vector3(180, 0, 0);
+                    break;
+                case 2:
+                    cardPosition += new Vector3(0, 0, -2.55f);
+                    targetRotation += new Vector3(0, 0, 180);
+                    break;
+                case 3:
+                    cardPosition += new Vector3(-2.55f, 0, 0);
+                    targetRotation += new Vector3(0, 0, 180);
+                    break;
+            }
+            spawnedCard.transform.position = cardPosition;
+            spawnedCard.transform.rotation = Quaternion.Euler(targetRotation);
+            GameMeneger.instance.playersShownCards[id]++;
+            GameMeneger.instance.playerDecks[id].shownCards.Add(cardMovement);
+        }
     }
 
-    public void SpawnStack(int id, int number)      // spawn stosu kart o zadanej ilosci
+    public void SpawnStack(int id, int number, bool stack, string cardID)      // spawn stosu kart o zadanej ilosci
     {
         for (int i = 0; i < number; i++)
         {
-            SpawnCard(id);
+            SpawnCard(id, stack, cardID);
         }
     }
 
@@ -110,6 +126,29 @@ public class GameEngine : MonoBehaviour
             }
             deck.shownCards.Clear();
             GameMeneger.instance.playersShownCards[playerId] = 0;
+        }
+    }
+
+    private void AddTextureToCard(string id, CardMovement cardToMove)
+    {
+        cardToMove.gameObject.tag = "UsedCard";
+        Renderer[] childRenderers = cardToMove.GetComponentsInChildren<Renderer>();     // renderer dzieci karty
+        foreach (Renderer r in childRenderers)
+        {
+            if (r.gameObject.CompareTag("DisplayCard"))     // uzyskanie strony, ktora ma wyswietlac symbol
+            {
+                Texture2D newTexture = Resources.Load<Texture2D>(id);   // wczytanie tesktury
+
+                if (newTexture != null)
+                {
+                    r.material.SetTexture("_BaseMap", newTexture);      // ustawienie tekstury karty
+                }
+                else
+                {
+                    Debug.LogWarning("No texture for ID: " + id);
+                }
+                break;
+            }
         }
     }
 }

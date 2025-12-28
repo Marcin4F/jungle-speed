@@ -113,7 +113,7 @@ public class MessageDecoder : MonoBehaviour
                 {
                     if(GameMeneger.instance.playersTableOrder[i] != "%")
                     {
-                        gameEngine.SpawnStack(i, int.Parse(parts[1]));
+                        gameEngine.SpawnStack(i, int.Parse(parts[1]), false, null);
                         GameMeneger.instance.activePlayers++;
                     }
                 }
@@ -185,8 +185,16 @@ public class MessageDecoder : MonoBehaviour
                             gameEngine.ClearPlayerStack(index, true, true);
                         else
                             gameEngine.ClearPlayerStack(index, true, false);                // usuniecie stosu kart zakrytych
-                        gameEngine.SpawnStack(index, cardsNumber);      // spawn nowego stosu kart
+                        gameEngine.SpawnStack(index, cardsNumber, false, null);      // spawn nowego stosu kart
                     }   
+                }
+                break;
+
+            case "FACE_UP_CARDS":
+                for (int i = 0; i < GameMeneger.instance.activePlayers; i++)
+                {
+                    index = Array.IndexOf(GameMeneger.instance.playersTableOrder, parts[i * 3 + 1]);
+                    gameEngine.SpawnStack(index, int.Parse(parts[i * 3 + 3]), true, parts[i * 3 + 2]);
                 }
                 break;
 
