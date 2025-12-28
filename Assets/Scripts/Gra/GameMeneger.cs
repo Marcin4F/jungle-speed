@@ -3,8 +3,7 @@ using UnityEngine;
 
 // TODO 
 
-// DO TESTOW: po wyjœciu z gry i ponownym wejœciu karty zostaj¹ na stole, niewysy³anie card_reveal gdy koniec gry, start game nie jest widoczny na poczatku, GameOVER, blokada przy -1 w card_id
-// panel z wygraniem gry, wiadomosc your turn, dolaczanie jako widz, stawanie sie graczem po skonczonej grze
+// DO TESTOW: zamiana argumentow w CARD_ID, zmiana miejsca ustawiania tagu CARD_USED,
 
 
 [System.Serializable]

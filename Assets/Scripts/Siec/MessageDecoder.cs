@@ -124,7 +124,7 @@ public class MessageDecoder : MonoBehaviour
                 break;
 
             case "CARD_ID":
-                index = Array.IndexOf(GameMeneger.instance.playersTableOrder, parts[2]);        // indeks gracza ktory odkrywa karte
+                index = Array.IndexOf(GameMeneger.instance.playersTableOrder, parts[1]);        // indeks gracza ktory odkrywa karte
 
                 if (index == -1)
                 {
@@ -132,7 +132,7 @@ public class MessageDecoder : MonoBehaviour
                     break;
                 }
 
-                if (parts[1] == "-1")        // cos nie tak
+                if (parts[2] == "-1")        // cos nie tak
                 {
                     Debug.LogWarning("Przyszlo -1 w cardID");
                     if (parts[3] != null && parts[3] == mainMenuUI.nick)
@@ -140,13 +140,13 @@ public class MessageDecoder : MonoBehaviour
                     break;
                 }
 
-                else if (parts[1] == "#")       // pominiecie kolejki
+                else if (parts[2] == "#")       // pominiecie kolejki
                 {
                     checkIfTour(index);
                     break;
                 }
 
-                    CardMovement card;
+                CardMovement card;
                 if (index == 0)                 // znalezienie odpowiedniej karty
                     card = gameEngine.myCard;
                 else if (index == 1 && g1.SendRay())
@@ -166,7 +166,7 @@ public class MessageDecoder : MonoBehaviour
                 {
                     GameMeneger.instance.playerDecks[index].hiddenCards.Remove(card);   // Usuñ z zakrytych
                     GameMeneger.instance.playerDecks[index].shownCards.Add(card);       // Dodaj do odkrytych
-                    gameEngine.CardMover(parts[1], card);
+                    gameEngine.CardMover(parts[2], card);
                 }
                 else
                     Debug.LogError("Card is null - message decoder");

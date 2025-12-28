@@ -1,3 +1,4 @@
+using UnityEditor.PackageManager;
 using UnityEngine;
 
 public class GameEngine : MonoBehaviour
@@ -15,11 +16,6 @@ public class GameEngine : MonoBehaviour
             FireScreenRay();
         }
 
-        else if (Input.GetMouseButtonDown(1))       // DO TESTOW USUNAC
-        {
-            SpawnStack(0, 50);
-        }
-
         else if (Input.GetKeyDown(KeyCode.Space))       // proba chwycenia totemu
         {
             Laczenie.instance.SendMessageToServer("TOTEM%");
@@ -34,7 +30,6 @@ public class GameEngine : MonoBehaviour
         {
             if (hitInfo.collider.gameObject.tag == "Card")      // sprawdzamy czy to karta ktora mozna ruszyc
             {
-                hitInfo.collider.gameObject.tag = "UsedCard";
                 myCard = hitInfo.collider.GetComponent<CardMovement>();     // zapisujemy obiekt ktory trafil raycast
                 Laczenie.instance.SendMessageToServer("CARD_REVEAL%");      // komunikat do serwera
                 GameMeneger.instance.yourTurn = false;                      // zakonczenie tury -> brak spamu do serwera
@@ -46,6 +41,7 @@ public class GameEngine : MonoBehaviour
     {
         if (cardToMove != null)
         {
+            cardToMove.gameObject.tag = "UsedCard";
             Renderer[] childRenderers = cardToMove.GetComponentsInChildren<Renderer>();     // renderer dzieci karty
             foreach (Renderer r in childRenderers)
             {
