@@ -306,7 +306,7 @@ public class MessageDecoder : MonoBehaviour
                     for (int i = 1; i < winners; i++)
                     {
                         string currentText = inGameUI.gameWinnersTextField.text;
-                        inGameUI.gameWinnersTextField.SetText(currentText + "\n" + i + 1 + ": " + GameMeneger.instance.winners[i]);
+                        inGameUI.gameWinnersTextField.SetText(currentText + "\n" + (i + 1) + ": " + GameMeneger.instance.winners[i]);
                     }
                     GameMeneger.instance.winners.Clear();
                 }
