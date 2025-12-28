@@ -239,7 +239,8 @@ public class MessageDecoder : MonoBehaviour
                 if (GameMeneger.instance.players.Contains(playerDisc))      // usuniecie gracza z odowiedniej listy
                 {
                     GameMeneger.instance.players.Remove(playerDisc);
-                    GameMeneger.instance.activePlayers--;
+                    if(GameMeneger.instance.activeGame)
+                        GameMeneger.instance.activePlayers--;
                 }
                 else
                     GameMeneger.instance.spectators.Remove(playerDisc);
