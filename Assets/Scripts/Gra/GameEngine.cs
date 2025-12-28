@@ -102,6 +102,8 @@ public class GameEngine : MonoBehaviour
 
     public void ClearPlayerStack (int playerId, bool clearHidden, bool clearShown)      // usuwanie stosu kart dla danego gracza
     {
+        if (playerId == -1)
+            { return; }
         PlayerDeck deck = GameMeneger.instance.playerDecks[playerId];       // wczytanie klasy ze stosami danego gracza
 
         if (clearHidden)
