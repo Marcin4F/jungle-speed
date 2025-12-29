@@ -5478,6 +5478,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e764189ebbd87894f937836ee921eee2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isConnected: 0
   mainMenuUI: {fileID: 914307291}
   inGameUI: {fileID: 1940756719}
   displayText: {fileID: 650810447}
@@ -5529,6 +5530,7 @@ MonoBehaviour:
   g2: {fileID: 343673949}
   g3: {fileID: 1784955222}
   totemMovement: {fileID: 290431715}
+  laczenie: {fileID: 1724628354}
 --- !u!1 &1743818212
 GameObject:
   m_ObjectHideFlags: 0
