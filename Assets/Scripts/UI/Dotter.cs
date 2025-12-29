@@ -17,8 +17,6 @@ public class Dotter : MonoBehaviour
             StopAllCoroutines();        // zakoncz trwajace korutyny (zabezpieczenie przed nakladaniem kilku na ten sam obiekt)
 
             starter = displayText.text;
-            string zero = "0";
-            int a = 2 / int.Parse(zero);
             StartCoroutine(ChangeText());
         } catch
         {
