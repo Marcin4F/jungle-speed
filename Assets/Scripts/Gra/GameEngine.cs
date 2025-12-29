@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Linq;
 using UnityEditor.Build.Content;
 using UnityEditor.PackageManager;
 using UnityEngine;
@@ -20,7 +21,7 @@ public class GameEngine : MonoBehaviour
             FireScreenRay();
         }
 
-        else if (Input.GetKeyDown(KeyCode.Space) && totemAvailable && GameMeneger.instance.activeGame)       // proba chwycenia totemu
+        else if (Input.GetKeyDown(KeyCode.Space) && totemAvailable && GameMeneger.instance.activeGame && GameMeneger.instance.playersTableOrder.Contains(mainMenuUI.nick))       // proba chwycenia totemu
         {
             Laczenie.instance.SendMessageToServer("TOTEM%");
             totemAvailable = false;
@@ -223,7 +224,7 @@ public class GameEngine : MonoBehaviour
 
     IEnumerator TotemCooldown()
     {
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.2f);
         totemAvailable = true;
     }
 }
