@@ -192,7 +192,10 @@ public class MessageDecoder : MonoBehaviour
                     if (index >= 0)
                     {
                         int cardsNumber = int.Parse(parts[i * 2 + 2]);
-                        gameEngine.ClearPlayerStack(index, true, false);                // usuniecie stosu kart zakrytych
+                        if (parts[^1] == "DUEL" && GameMeneger.instance.playersHiddenCards[index] != cardsNumber)
+                            gameEngine.ClearPlayerStack(index, true, true);
+                        else
+                            gameEngine.ClearPlayerStack(index, true, false);                // usuniecie stosu kart zakrytych
                         gameEngine.SpawnStack(index, cardsNumber, false, null);      // spawn nowego stosu kart
                     }   
                 }
