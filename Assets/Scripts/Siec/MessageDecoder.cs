@@ -73,6 +73,7 @@ public class MessageDecoder : MonoBehaviour
                     mainMenuUI.inputUIPanel.SetActive(false);
                     inGameUI.codeTextField.SetText("Code: " + parts[1]);
                     GameMeneger.instance.host = true;
+                    GameMeneger.instance.isActivePlayer = true;
                     GameMeneger.instance.players.Add(mainMenuUI.nick);
                     GameMeneger.instance.playersTableOrder[0] = mainMenuUI.nick;
                     inGameUI.mainPanel.SetActive(true);
@@ -94,11 +95,18 @@ public class MessageDecoder : MonoBehaviour
                         GameMeneger.instance.players.Add(parts[i + 4]);
                     }
                     GameMeneger.instance.players.Add(mainMenuUI.nick);
-                
-                    inGameUI.SetNicks();
 
-                        if (parts[1] == "1")
-                            inGameUI.waitingStartPanel.SetActive(false);
+                    if (parts[1] == "1")
+                    {
+                        GameMeneger.instance.isActivePlayer = false;
+                    }
+                        
+                    else
+                    {
+                        GameMeneger.instance.isActivePlayer = true;
+                        inGameUI.waitingStartPanel.SetActive(false);
+                    }
+                    inGameUI.SetNicks();
                 }
                 break;
 
@@ -361,6 +369,7 @@ public class MessageDecoder : MonoBehaviour
                     GameMeneger.instance.playersTableOrder[index] = "%";
                     if (winner == mainMenuUI.nick)
                     {
+                        GameMeneger.instance.isActivePlayer = false;
                         int place = GameMeneger.instance.winners.Count;
                         switch (place)
                         {

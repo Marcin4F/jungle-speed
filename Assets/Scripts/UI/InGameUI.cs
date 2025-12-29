@@ -154,7 +154,8 @@ public class InGameUI : MonoBehaviour
             tmp.Add(GameMeneger.instance.players[i]);       // zapisywanie wszystkich innych graczy -> byli oni przed dolaczeniem tego gracza -> nicki dodawane na prawo w odwrotnej kolejnosci
         }
 
-        GameMeneger.instance.playersTableOrder[0] = mainMenuUI.nick;        // dodanie nicku gracza na pierwsza pozycje tablicy TableOrder
+        if(GameMeneger.instance.isActivePlayer)
+            GameMeneger.instance.playersTableOrder[0] = mainMenuUI.nick;        // dodanie nicku gracza na pierwsza pozycje tablicy TableOrder
         int ilosc = tmp.Count;
         switch(ilosc)           // inne rozstawienie w zaleznosci ilu graczy jest przed naszym
         {

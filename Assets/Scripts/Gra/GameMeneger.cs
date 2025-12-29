@@ -22,6 +22,7 @@ public class GameMeneger : MonoBehaviour
     public bool host = false;               // czy gracz jest hostem
     public bool activeGame = false;         // czy trwa gra
     public bool _yourTurn = false;           // czy twoja tura
+    public bool isActivePlayer = false;
     private int _playerCount = 1;           // ilosc graczy (1 bo jestes ty)
     public int activePlayers = 0;           // ilosc aktywnych graczy, 0 bo na poczatku nie trwa gra
     public List<string> players = new List<string>();           // gracze (kolejnosc jaka widzi serwer -> kolejnosc dolaczania do pokoju)
@@ -88,6 +89,7 @@ public class GameMeneger : MonoBehaviour
     {
         host = false;
         activeGame = false;
+        isActivePlayer = false;
         yourTurn = false;
         _playerCount = 1;
         activePlayers = 0;
