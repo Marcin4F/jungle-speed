@@ -11,7 +11,8 @@ public class Laczenie : MonoBehaviour
 
     private TcpClient client;
     private NetworkStream stream;
-    private bool isConnected = false, isConnecting = false;
+    public bool isConnected = false;
+    private bool isConnecting = false;
 
     public static Laczenie instance;
 
