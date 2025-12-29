@@ -323,7 +323,6 @@ public class MessageDecoder : MonoBehaviour
                 GameMeneger.instance.winners.Add(winner);
                 index = Array.IndexOf(GameMeneger.instance.playersTableOrder, winner);
                 GameMeneger.instance.playersTableOrder[index] = "%";
-                GameMeneger.instance.activePlayers--;
                 if(winner == mainMenuUI.nick)
                 {
                     int place = GameMeneger.instance.winners.Count;
@@ -349,6 +348,7 @@ public class MessageDecoder : MonoBehaviour
                             break;
                     }
                 }
+                GameMeneger.instance.activePlayers--;
                 break;
 
             case "GAME_OVER":
