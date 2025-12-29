@@ -5,10 +5,15 @@ using UnityEngine.UI;
 public class MainMenuUI : MonoBehaviour
 {
     [SerializeField] GameObject invalidIpAddressPanel, invalidPortPanel, emptyFieldPanel, codePanel;
-    public GameObject inputUIPanel, connectionErrorPanel, connectingServerPanel, mainPanel;
+    public GameObject inputUIPanel, connectionErrorPanel, connectingServerPanel, mainPanel, connectionLostMessage;
+
     [SerializeField] Button joinGameButton, startLobbyButton, quitButton, startButton, backButton;
+
     public TMP_InputField nickInput, codeInput, ipAddressInput, portInput;
+
     [SerializeField] TextMeshProUGUI startButtonText;
+    public TextMeshProUGUI connectionLostText;
+
     public string nick, code, ipAddress, port;      // parametry polaczenia
     private readonly string allowedIPString = "0123456789.", allowedNameString = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_+=!*()",
         allowedCodeString = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789", allowedPortString = "0123456789";     // mozliwe znaki do uzycia przy wpisywaniu danych elementow
@@ -27,9 +32,9 @@ public class MainMenuUI : MonoBehaviour
 
     void OpenStartLobbyPanel()
     {
-        inputUIPanel.SetActive(true);
         startButtonText.text = "Start";
         codePanel.SetActive(false);         // jezeli tworzymy pokoj to nie podajemy kodu pokoju
+        inputUIPanel.SetActive(true);
         type = 's';
         InputUIPanel();
         startButton.onClick.RemoveAllListeners();
@@ -38,8 +43,9 @@ public class MainMenuUI : MonoBehaviour
 
     void OpenJoinGamePanel()
     {
-        inputUIPanel.SetActive(true);
         startButtonText.text = "Join";
+        codePanel.SetActive(true);
+        inputUIPanel.SetActive(true);
         type = 'j';
         InputUIPanel();
         startButton.onClick.RemoveAllListeners();

@@ -133,6 +133,7 @@ public class MessageDecoder : MonoBehaviour
                 inGameUI.ChangeButtonInteractable();
                 inGameUI.loadingPanel.SetActive(false);
                 inGameUI.waitingStartPanel.SetActive(false);
+                inGameUI.gameOverPanel.SetActive(false);
                 inGameUI.gameStartsPanel.SetActive(true);
                 break;
 
@@ -254,6 +255,8 @@ public class MessageDecoder : MonoBehaviour
                 }
                 else
                     GameMeneger.instance.spectators.Remove(playerDisc);
+                if (parts[2] != null && parts[2] == mainMenuUI.nick)
+                    GameMeneger.instance.yourTurn = true;
 
                 inGameUI.playerStatusText.SetText(playerDisc + " left");
                 inGameUI.playerStatusText.gameObject.SetActive(true);
