@@ -97,6 +97,7 @@ public class GameMeneger : MonoBehaviour
         playersHiddenCards.Clear();
         playersShownCards.Clear();
         winners.Clear();
+        spectators.Clear();
 
         for (int i = 0; i < 4; i++)
         {
