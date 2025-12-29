@@ -213,6 +213,10 @@ public class MessageDecoder : MonoBehaviour
                 index = Array.IndexOf(GameMeneger.instance.playersTableOrder, parts[1]);
                 gameEngine.ClearPlayerStack(index, false, true);
                 totemMovement.MoveTotem(index);
+                if (parts[2] == mainMenuUI.nick)
+                    GameMeneger.instance.yourTurn = true;
+                else
+                    GameMeneger.instance.yourTurn = false;
                 break;
 
             case "TOTEM_INVALID":
@@ -222,6 +226,10 @@ public class MessageDecoder : MonoBehaviour
                     gameEngine.ClearPlayerStack(i, false, true);
                 }
                 totemMovement.MoveTotem(index);
+                if (parts[2] == mainMenuUI.nick)
+                    GameMeneger.instance.yourTurn = true;
+                else
+                    GameMeneger.instance.yourTurn = false;
                 break;
 
             case "PLAYER_NEW":
@@ -311,31 +319,35 @@ public class MessageDecoder : MonoBehaviour
                 break;
 
             case "GAME_FINISHED":
-                GameMeneger.instance.winners.Add(parts[1]);
-                index = Array.IndexOf(GameMeneger.instance.playersTableOrder, parts[1]);
+                string winner = parts[1];
+                GameMeneger.instance.winners.Add(winner);
+                index = Array.IndexOf(GameMeneger.instance.playersTableOrder, winner);
                 GameMeneger.instance.playersTableOrder[index] = "%";
                 GameMeneger.instance.activePlayers--;
-                int place = GameMeneger.instance.winners.Count;
-                switch (place)
+                if(winner == mainMenuUI.nick)
                 {
-                    case 1:
-                        if (GameMeneger.instance.activePlayers >= 3)
-                        {
-                            inGameUI.youWonText.GetComponent<AutoHide>().hideDelay = 5;
-                            inGameUI.youWonText.SetText("You won!");
-                            inGameUI.youWonText.gameObject.SetActive(true);
-                        }
-                        break;
-                    case 2:
-                        if(GameMeneger.instance.activePlayers == 4)
-                        {
-                            inGameUI.youWonText.GetComponent<AutoHide>().hideDelay = 5;
-                            inGameUI.youWonText.SetText("Second place!");
-                            inGameUI.youWonText.gameObject.SetActive(true);
-                        }
-                        break;
-                    default:
-                        break;
+                    int place = GameMeneger.instance.winners.Count;
+                    switch (place)
+                    {
+                        case 1:
+                            if (GameMeneger.instance.activePlayers >= 3)
+                            {
+                                inGameUI.youWonText.GetComponent<AutoHide>().hideDelay = 5;
+                                inGameUI.youWonText.SetText("You won!");
+                                inGameUI.youWonText.gameObject.SetActive(true);
+                            }
+                            break;
+                        case 2:
+                            if (GameMeneger.instance.activePlayers == 4)
+                            {
+                                inGameUI.youWonText.GetComponent<AutoHide>().hideDelay = 5;
+                                inGameUI.youWonText.SetText("Second place!");
+                                inGameUI.youWonText.gameObject.SetActive(true);
+                            }
+                            break;
+                        default:
+                            break;
+                    }
                 }
                 break;
 

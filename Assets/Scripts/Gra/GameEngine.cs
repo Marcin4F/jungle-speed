@@ -1,9 +1,12 @@
+using System.Collections;
 using UnityEditor.Build.Content;
 using UnityEditor.PackageManager;
 using UnityEngine;
 
 public class GameEngine : MonoBehaviour
 {
+    private bool totemAvailable = true;
+
     [SerializeField] GameObject card;
     private GameObject spawnedCard;
 
@@ -17,9 +20,11 @@ public class GameEngine : MonoBehaviour
             FireScreenRay();
         }
 
-        else if (Input.GetKeyDown(KeyCode.Space) && GameMeneger.instance.activeGame)       // proba chwycenia totemu
+        else if (Input.GetKeyDown(KeyCode.Space) && totemAvailable && GameMeneger.instance.activeGame)       // proba chwycenia totemu
         {
             Laczenie.instance.SendMessageToServer("TOTEM%");
+            totemAvailable = false;
+            StartCoroutine(TotemCooldown());
         }
     }
 
@@ -214,5 +219,11 @@ public class GameEngine : MonoBehaviour
                 deck.shownCards[i].transform.rotation = Quaternion.Euler(targetRotation);
             }
         }
+    }
+
+    IEnumerator TotemCooldown()
+    {
+        yield return new WaitForSeconds(0.1f);
+        totemAvailable = true;
     }
 }
