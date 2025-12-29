@@ -137,6 +137,7 @@ public class MessageDecoder : MonoBehaviour
                 if (laczenie.isConnected)
                 {
                     GameMeneger.instance.activeGame = true;
+                    GameMeneger.instance.isActivePlayer = true;
                     if (GameMeneger.instance.host)
                         GameMeneger.instance.yourTurn = true;
                     for(int i = 0; i < 4; i++)
