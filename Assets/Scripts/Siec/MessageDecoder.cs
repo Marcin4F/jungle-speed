@@ -366,6 +366,7 @@ public class MessageDecoder : MonoBehaviour
                     GameMeneger.instance.winners.Clear();
                 }
                 GameMeneger.instance.players.AddRange(GameMeneger.instance.spectators);     // dodanie widzow jako graczy
+                GameMeneger.instance.spectators.Clear();
                 inGameUI.SetNicks();
                 inGameUI.ChangeButtonInteractable();
                 break;
