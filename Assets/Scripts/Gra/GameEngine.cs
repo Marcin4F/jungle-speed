@@ -26,6 +26,14 @@ public class GameEngine : MonoBehaviour
             totemAvailable = false;
             StartCoroutine(TotemCooldown());
         }
+
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            for(int i = 0; i < 4 ; i++)
+            {
+                SpawnStack(i, 96, false, null);
+            }
+        }
     }
 
     private void FireScreenRay()
