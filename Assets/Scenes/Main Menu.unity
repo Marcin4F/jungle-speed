@@ -2251,6 +2251,7 @@ MonoBehaviour:
   connectionErrorPanel: {fileID: 653439117}
   connectingServerPanel: {fileID: 653439116}
   mainPanel: {fileID: 1982242148}
+  connectionLostMessage: {fileID: 1207643231}
   joinGameButton: {fileID: 1805031121}
   startLobbyButton: {fileID: 711817512}
   quitButton: {fileID: 325303314}
@@ -2261,6 +2262,7 @@ MonoBehaviour:
   ipAddressInput: {fileID: 653439111}
   portInput: {fileID: 653439110}
   startButtonText: {fileID: 653439108}
+  connectionLostText: {fileID: 909090061}
   nick: 
   code: 
   ipAddress: 
@@ -5141,6 +5143,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainMenuUI: {fileID: 914307291}
+  inGameUI: {fileID: 1940756719}
   displayText: {fileID: 650810447}
 --- !u!4 &1724628355
 Transform:

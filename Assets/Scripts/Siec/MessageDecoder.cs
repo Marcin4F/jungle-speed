@@ -255,7 +255,7 @@ public class MessageDecoder : MonoBehaviour
                 }
                 else
                     GameMeneger.instance.spectators.Remove(playerDisc);
-                if (parts[2] != null && parts[2] == mainMenuUI.nick)
+                if (parts.Length == 3 && parts[2] == mainMenuUI.nick)
                     GameMeneger.instance.yourTurn = true;
 
                 inGameUI.playerStatusText.SetText(playerDisc + " left");
