@@ -174,15 +174,15 @@ public class GameEngine : MonoBehaviour
                     hiddenBasePos.y + (i * 0.01f),
                     hiddenBasePos.z
                 );
-                // Karty zakryte zawsze le¿¹ "plecami" do góry (mo¿esz tu dostosowaæ rotacjê jeœli masz specyficzn¹ dla graczy)
-                deck.hiddenCards[i].transform.rotation = Quaternion.Euler(0, 0, 180);
+                // Karty zakryte zawsze le¿¹ "plecami" do góry
+                deck.hiddenCards[i].transform.rotation = Quaternion.Euler(0, 0, 0);
             }
         }
 
         // 2. Przesuniêcie kart odkrytych (Shown)
         Vector3 shownBasePos = GameMeneger.instance.playersCardPositions[newId];
 
-        // Obliczamy przesuniêcie i rotacjê zale¿nie od miejsca przy stole (logika skopiowana z SpawnCard)
+        // Obliczamy przesuniêcie i rotacjê zale¿nie od miejsca przy stole
         Vector3 targetRotation = Vector3.zero;
         Vector3 offset = Vector3.zero;
 
