@@ -242,6 +242,7 @@ public class MessageDecoder : MonoBehaviour
                 string playerDisc = parts[1];
 
                 index = Array.IndexOf(GameMeneger.instance.playersTableOrder, playerDisc);      // usuniecie odkrytych kart gdy wyszedl gracz
+                Debug.Log("INDEKS PRZY WYJSCIU " + index);
                 gameEngine.ClearPlayerStack(index, true, true);
 
                 if (GameMeneger.instance.players.Contains(playerDisc))      // usuniecie gracza z odowiedniej listy
