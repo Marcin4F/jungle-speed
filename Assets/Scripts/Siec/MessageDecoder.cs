@@ -107,7 +107,7 @@ public class MessageDecoder : MonoBehaviour
                         displayText.text = "Lobby full.";
                         break;
                     case "NICK_TAKEN":
-                        displayText.text = "Player with that nick already exists.\r\nPleas change your nick.";
+                        displayText.text = "Player with that nick already exists.\r\nPlease change your nick.";
                         break;
                     default:
                         displayText.text = "Unknown error.";
