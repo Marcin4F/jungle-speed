@@ -39,19 +39,16 @@ public class MessageDecoder : MonoBehaviour
         {
             if (GameMeneger.instance.playersHiddenCards[0] == 0)
             {
-                Debug.LogWarning("NIE MA KART");
                 for (int i = 0; i < 4;  i++)
                 {
                     if (GameMeneger.instance.playersHiddenCards[i] != 0)
                     {
-                        Debug.LogWarning("WYSLANO DO SERWERA");
                         Laczenie.instance.SendMessageToServer("CARD_REVEAL%");
                         return;
                     }
                 }
                 return;
             }
-            Debug.LogWarning("ILE KART: " + GameMeneger.instance.playersHiddenCards[0]);
             GameMeneger.instance.yourTurn = true;
         }
     }
@@ -195,10 +192,7 @@ public class MessageDecoder : MonoBehaviour
                     if (index >= 0)
                     {
                         int cardsNumber = int.Parse(parts[i * 2 + 2]);
-                        if (GameMeneger.instance.playersHiddenCards[index] != cardsNumber)
-                            gameEngine.ClearPlayerStack(index, true, true);
-                        else
-                            gameEngine.ClearPlayerStack(index, true, false);                // usuniecie stosu kart zakrytych
+                        gameEngine.ClearPlayerStack(index, true, false);                // usuniecie stosu kart zakrytych
                         gameEngine.SpawnStack(index, cardsNumber, false, null);      // spawn nowego stosu kart
                     }   
                 }
