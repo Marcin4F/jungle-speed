@@ -17,7 +17,7 @@ public class GameEngine : MonoBehaviour
             FireScreenRay();
         }
 
-        else if (Input.GetKeyDown(KeyCode.Space))       // proba chwycenia totemu
+        else if (Input.GetKeyDown(KeyCode.Space) && GameMeneger.instance.activeGame)       // proba chwycenia totemu
         {
             Laczenie.instance.SendMessageToServer("TOTEM%");
         }

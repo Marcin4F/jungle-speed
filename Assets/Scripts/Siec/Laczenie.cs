@@ -109,6 +109,7 @@ public class Laczenie : MonoBehaviour
                     CloseConnection();
                     inGameUI.mainPanel.SetActive(false);
                     GameMeneger.instance.ResetParameters();
+                    mainMenuUI.CleanFields();
                     mainMenuUI.mainPanel.SetActive(true);
                     mainMenuUI.connectionLostText.SetText("Lost connection with server");
                     mainMenuUI.connectionLostMessage.SetActive(true);
@@ -125,6 +126,7 @@ public class Laczenie : MonoBehaviour
             Debug.Log("Connection closed (stream disposed).");
             inGameUI.mainPanel.SetActive(false);
             GameMeneger.instance.ResetParameters();
+            mainMenuUI.CleanFields();
             mainMenuUI.mainPanel.SetActive(true);
             mainMenuUI.connectionLostText.SetText("Lost connection with server");
             mainMenuUI.connectionLostMessage.SetActive(true);
@@ -137,6 +139,7 @@ public class Laczenie : MonoBehaviour
                 CloseConnection();
                 inGameUI.mainPanel.SetActive(false);
                 GameMeneger.instance.ResetParameters();
+                mainMenuUI.CleanFields();
                 mainMenuUI.mainPanel.SetActive(true);
                 mainMenuUI.connectionLostText.SetText("Error occured with server connection.\nLost connection with server");
                 mainMenuUI.connectionLostMessage.SetActive(true);

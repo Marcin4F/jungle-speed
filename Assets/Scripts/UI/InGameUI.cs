@@ -113,15 +113,7 @@ public class InGameUI : MonoBehaviour
         mainPanel.SetActive(false);
         mainMenuUI.mainPanel.SetActive(true);
         laczenie.CloseConnection();     // rozlaczenie z serwerem
-        mainMenuUI.nick = null;         // wyczyszczenie parametrow polaczenia
-        mainMenuUI.code = null;
-        mainMenuUI.ipAddress = null;
-        mainMenuUI.port = null;
-
-        mainMenuUI.nickInput.text = null;
-        mainMenuUI.codeInput.text = null;
-        mainMenuUI.ipAddressInput.text = null;
-        mainMenuUI.portInput.text = null;
+        mainMenuUI.CleanFields();
 
         for (int i = 0; i < 4; i++)
         {

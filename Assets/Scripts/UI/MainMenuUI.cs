@@ -99,8 +99,17 @@ public class MainMenuUI : MonoBehaviour
         codePanel.SetActive(true);
         inputUIPanel.SetActive(false);
         mainPanel.SetActive(true);
+        CleanFields();
+    }
 
-        nick = null;        // reset parametrow polaczenia
+    private void CloseGame()
+    {
+        Application.Quit();
+    }
+
+    public void CleanFields()
+    {
+        nick = null;         // wyczyszczenie parametrow polaczenia
         code = null;
         ipAddress = null;
         port = null;
@@ -109,11 +118,6 @@ public class MainMenuUI : MonoBehaviour
         codeInput.text = null;
         ipAddressInput.text = null;
         portInput.text = null;
-    }
-
-    void CloseGame()
-    {
-        Application.Quit();
     }
 
 
