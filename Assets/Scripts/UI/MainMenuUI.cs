@@ -24,6 +24,7 @@ public class MainMenuUI : MonoBehaviour
     {
         connectingServerPanel.SetActive(false);
         inputUIPanel.SetActive(false);
+        connectingServerPanel.SetActive(false);
 
         joinGameButton.onClick.AddListener(OpenJoinGamePanel);
         startLobbyButton.onClick.AddListener(OpenStartLobbyPanel);

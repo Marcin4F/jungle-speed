@@ -16,6 +16,7 @@ public class Laczenie : MonoBehaviour
     public static Laczenie instance;
 
     [SerializeField] MainMenuUI mainMenuUI;
+    [SerializeField] InGameUI inGameUI;
     [SerializeField] TextMeshProUGUI displayText;
 
     public event Action<string> OnMessageReceived;
@@ -106,6 +107,7 @@ public class Laczenie : MonoBehaviour
                 {
                     Debug.Log("Server disconnected.");
                     CloseConnection();
+                    inGameUI.mainPanel.SetActive(false);
                     GameMeneger.instance.ResetParameters();
                     mainMenuUI.mainPanel.SetActive(true);
                     mainMenuUI.connectionLostText.SetText("Lost connection with server");
@@ -121,6 +123,7 @@ public class Laczenie : MonoBehaviour
         catch (ObjectDisposedException)
         {
             Debug.Log("Connection closed (stream disposed).");
+            inGameUI.mainPanel.SetActive(false);
             GameMeneger.instance.ResetParameters();
             mainMenuUI.mainPanel.SetActive(true);
             mainMenuUI.connectionLostText.SetText("Lost connection with server");
@@ -132,6 +135,7 @@ public class Laczenie : MonoBehaviour
             {
                 Debug.LogError($"Error while listening: {e.Message}");
                 CloseConnection();
+                inGameUI.mainPanel.SetActive(false);
                 GameMeneger.instance.ResetParameters();
                 mainMenuUI.mainPanel.SetActive(true);
                 mainMenuUI.connectionLostText.SetText("Error occured with server connection.\nLost connection with server");
