@@ -56,7 +56,7 @@ public class InGameUI : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))       // menu w trakcie gry
+        if (Input.GetKeyDown(KeyCode.Escape) && !ErrorCatcher.instance.errorOccured)       // menu w trakcie gry
         {
             if(isPaused)
             {

@@ -1,6 +1,7 @@
+using System;
 using System.Collections;
-using UnityEngine;
 using TMPro;
+using UnityEngine;
 
 public class Dotter : MonoBehaviour
 {
@@ -11,10 +12,18 @@ public class Dotter : MonoBehaviour
 
     void OnEnable()
     {
-        StopAllCoroutines();        // zakoncz trwajace korutyny (zabezpieczenie przed nakladaniem kilku na ten sam obiekt)
+        try
+        {
+            StopAllCoroutines();        // zakoncz trwajace korutyny (zabezpieczenie przed nakladaniem kilku na ten sam obiekt)
 
-        starter = displayText.text;
-        StartCoroutine(ChangeText());
+            starter = displayText.text;
+            string zero = "0";
+            int a = 2 / int.Parse(zero);
+            StartCoroutine(ChangeText());
+        } catch
+        {
+            ErrorCatcher.instance.ErrorHandler();
+        }
     }
 
     IEnumerator ChangeText()        // pokazywanie kropek
