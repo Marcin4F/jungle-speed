@@ -137,7 +137,6 @@ public class MessageDecoder : MonoBehaviour
                 if (laczenie.isConnected)
                 {
                     GameMeneger.instance.activeGame = true;
-                    GameMeneger.instance.isActivePlayer = true;
                     if (GameMeneger.instance.host)
                         GameMeneger.instance.yourTurn = true;
                     for(int i = 0; i < 4; i++)
@@ -404,6 +403,7 @@ public class MessageDecoder : MonoBehaviour
                     inGameUI.youWonText.gameObject.SetActive(false);        // reset parametrow
                     GameMeneger.instance.yourTurn = false;
                     GameMeneger.instance.activeGame = false;
+                    GameMeneger.instance.isActivePlayer = true;
                     for (int i = 0; i < 4; i++)
                     {
                         gameEngine.ClearPlayerStack(i, true, true);
