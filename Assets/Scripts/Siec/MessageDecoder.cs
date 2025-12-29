@@ -241,9 +241,16 @@ public class MessageDecoder : MonoBehaviour
                 GameMeneger.instance.PlayerCount--;
                 string playerDisc = parts[1];
 
-                index = Array.IndexOf(GameMeneger.instance.playersTableOrder, playerDisc);      // usuniecie odkrytych kart gdy wyszedl gracz
-                Debug.Log("INDEKS PRZY WYJSCIU " + index);
-                gameEngine.ClearPlayerStack(index, true, true);
+                int discIndex = Array.IndexOf(GameMeneger.instance.playersTableOrder, playerDisc);      // usuniecie odkrytych kart gdy wyszedl gracz
+                Debug.Log("INDEKS PRZY WYJSCIU " + discIndex);
+                gameEngine.ClearPlayerStack(discIndex, true, true);
+
+                if (discIndex != -1)
+                {
+                    GameMeneger.instance.playersHiddenCards[discIndex] = 0;
+                    GameMeneger.instance.playersShownCards[discIndex] = 0;
+                    GameMeneger.instance.playerDecks[discIndex] = new PlayerDeck(); // Reset decku
+                }
 
                 if (GameMeneger.instance.players.Contains(playerDisc))      // usuniecie gracza z odowiedniej listy
                 {
@@ -253,13 +260,49 @@ public class MessageDecoder : MonoBehaviour
                 }
                 else
                     GameMeneger.instance.spectators.Remove(playerDisc);
-                if (parts.Length == 3 && parts[2] == mainMenuUI.nick)
-                    GameMeneger.instance.yourTurn = true;
+
+                // ZMIANY DO TESTOW
+                System.Collections.Generic.Dictionary<string, PlayerDeck> savedDecks = new System.Collections.Generic.Dictionary<string, PlayerDeck>();
+                for (int i = 0; i < 4; i++)
+                {
+                    string pName = GameMeneger.instance.playersTableOrder[i];
+                    // Jeœli to nie puste miejsce, nie gracz wychodz¹cy i nie my (nasze miejsce jest sta³e - indeks 0)
+                    if (pName != "%" && pName != playerDisc && i != 0)
+                    {
+                        savedDecks[pName] = GameMeneger.instance.playerDecks[i];
+
+                        // Wa¿ne: Odpinamy deck od starego indeksu, ¿eby ClearPlayerStack go nie zniszczy³ przypadkiem
+                        // lub ¿eby nie zosta³ nadpisany pustym deckiem.
+                        GameMeneger.instance.playerDecks[i] = new PlayerDeck();
+                        GameMeneger.instance.playersHiddenCards[i] = 0;
+                        GameMeneger.instance.playersShownCards[i] = 0;
+                    }
+                }
 
                 inGameUI.playerStatusText.SetText(playerDisc + " left");
                 inGameUI.playerStatusText.gameObject.SetActive(true);
                 inGameUI.SetNicks();
-                
+
+                for (int i = 1; i < 4; i++) // Pêtla od 1, bo my (0) siê nie zmieniamy
+                {
+                    string pName = GameMeneger.instance.playersTableOrder[i];
+                    if (savedDecks.ContainsKey(pName))
+                    {
+                        // Przypisujemy zachowany deck do nowego indeksu
+                        GameMeneger.instance.playerDecks[i] = savedDecks[pName];
+
+                        // Aktualizujemy liczniki
+                        GameMeneger.instance.playersHiddenCards[i] = savedDecks[pName].hiddenCards.Count;
+                        GameMeneger.instance.playersShownCards[i] = savedDecks[pName].shownCards.Count;
+
+                        // FIZYCZNE PRZESUNIÊCIE KART
+                        gameEngine.RelocateDeck(i, savedDecks[pName]);
+                    }
+                }
+
+                if (parts.Length == 3 && parts[2] == mainMenuUI.nick)
+                    GameMeneger.instance.yourTurn = true;
+
                 if (GameMeneger.instance.players[0] == mainMenuUI.nick)     // jezeli wyszedl host to sprawdzamy czy nie zostalismy nowym hostem
                 {
                     GameMeneger.instance.host = true;

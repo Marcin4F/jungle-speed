@@ -153,4 +153,66 @@ public class GameEngine : MonoBehaviour
             }
         }
     }
+
+    public void RelocateDeck(int newId, PlayerDeck deck)
+    {
+        // 1. Przesuniêcie kart zakrytych (Hidden)
+        Vector3 hiddenBasePos = GameMeneger.instance.playersCardPositions[newId];
+        for (int i = 0; i < deck.hiddenCards.Count; i++)
+        {
+            if (deck.hiddenCards[i] != null)
+            {
+                // Ustawienie pozycji (karty uk³adane jedna na drugiej)
+                deck.hiddenCards[i].transform.position = new Vector3(
+                    hiddenBasePos.x,
+                    hiddenBasePos.y + (i * 0.01f),
+                    hiddenBasePos.z
+                );
+                // Karty zakryte zawsze le¿¹ "plecami" do góry (mo¿esz tu dostosowaæ rotacjê jeœli masz specyficzn¹ dla graczy)
+                deck.hiddenCards[i].transform.rotation = Quaternion.Euler(0, 0, 180);
+            }
+        }
+
+        // 2. Przesuniêcie kart odkrytych (Shown)
+        Vector3 shownBasePos = GameMeneger.instance.playersCardPositions[newId];
+
+        // Obliczamy przesuniêcie i rotacjê zale¿nie od miejsca przy stole (logika skopiowana z SpawnCard)
+        Vector3 targetRotation = Vector3.zero;
+        Vector3 offset = Vector3.zero;
+
+        switch (newId)
+        {
+            case 0: // My
+                offset = new Vector3(0, 0, 2.55f);
+                targetRotation = new Vector3(180, 0, 0);
+                break;
+            case 1: // Lewy
+                offset = new Vector3(2.55f, 0, 0);
+                targetRotation = new Vector3(180, 0, 0);
+                break;
+            case 2: // Góra
+                offset = new Vector3(0, 0, -2.55f);
+                targetRotation = new Vector3(0, 0, 180);
+                break;
+            case 3: // Prawy
+                offset = new Vector3(-2.55f, 0, 0);
+                targetRotation = new Vector3(0, 0, 180);
+                break;
+        }
+
+        shownBasePos += offset;
+
+        for (int i = 0; i < deck.shownCards.Count; i++)
+        {
+            if (deck.shownCards[i] != null)
+            {
+                deck.shownCards[i].transform.position = new Vector3(
+                    shownBasePos.x,
+                    shownBasePos.y + (i * 0.01f),
+                    shownBasePos.z
+                );
+                deck.shownCards[i].transform.rotation = Quaternion.Euler(targetRotation);
+            }
+        }
+    }
 }
