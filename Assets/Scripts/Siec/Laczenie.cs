@@ -150,9 +150,6 @@ public class Laczenie : MonoBehaviour
                 mainMenuUI.connectionLostText.SetText("Error occured with server connection.\nLost connection with server");
                 mainMenuUI.connectionLostMessage.SetActive(true);
             }
-
-            else
-                ErrorCatcher.instance.ErrorHandler();
         }
     }
 
