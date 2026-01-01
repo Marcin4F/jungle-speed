@@ -1,13 +1,14 @@
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using UnityEngine;
 
 public class MessageBuffer : MonoBehaviour
 {
-    public Queue<string> messages = new Queue<string>();
-    private string incomplete = "";
-    private bool hasNewMessage = false;
+    private ConcurrentQueue<string> _incomingQueue = new ConcurrentQueue<string>();
+    private StringBuilder _processingBuffer = new StringBuilder();
 
     public event Action<string> OnCompleteMessage;
 
@@ -16,12 +17,12 @@ public class MessageBuffer : MonoBehaviour
         Laczenie.instance.OnMessageReceived += OnMessage;
     }
 
-    private void OnMessage(string recivedMessage)
+
+    private void OnMessage(string receivedMessage)
     {
         try
         {
-            messages.Enqueue(recivedMessage);
-            hasNewMessage = true;
+            _incomingQueue.Enqueue(receivedMessage);
         } catch
         { ErrorCatcher.instance.ErrorHandler(); }
         
@@ -29,52 +30,40 @@ public class MessageBuffer : MonoBehaviour
 
     private void Update()
     {
-        try
+        while (_incomingQueue.TryDequeue(out string chunk))
         {
-            if (!hasNewMessage)
+            _processingBuffer.Append(chunk);
+        }
+        if (_processingBuffer.Length == 0) return;
+        string currentContent = _processingBuffer.ToString();
+
+        int delimiterIndex = currentContent.IndexOf('%');
+
+        while (delimiterIndex != -1)
+        {
+            // Wyci¹gnij pe³n¹ wiadomoœæ (od pocz¹tku do znaku %)
+            string completeMessage = currentContent.Substring(0, delimiterIndex);
+
+            // Powiadom resztê gry (tu ³apiemy b³êdy, ¿eby jeden b³¹d nie zatrzyma³ pêtli)
+            try
             {
-                return;
+                Debug.Log($"[MessageBuffer] Przetwarzam: {completeMessage}");
+                OnCompleteMessage?.Invoke(completeMessage);
+            }
+            catch (Exception e)
+            {
+                // Logujemy b³¹d, ale pêtla while dzia³a dalej dla kolejnych wiadomoœci!
+                Debug.LogError($"B³¹d przy przetwarzaniu wiadomoœci '{completeMessage}': {e.Message}");
+                // Opcjonalnie tutaj ErrorCatcher, jeœli chcesz pokazaæ panel
             }
 
-            while (messages.Count > 0)
-            {
-                string messageToProcess = messages.Dequeue();
-                Debug.Log($"[MessageBuffer - Processing] Przetwarzam wiadomoœæ: {messageToProcess}");
+            // Usuñ przetworzon¹ czêœæ z bufora (+1 ¿eby usun¹æ te¿ znak %)
+            _processingBuffer.Remove(0, delimiterIndex + 1);
 
-                List<string> completedMessages = new List<string>();
-
-                string[] parts = messageToProcess.Split('%');
-                completedMessages = parts.Take(parts.Length - 1).ToList();
-
-                if (completedMessages.Count > 0)
-                {
-                    if (incomplete.Length != 0)
-                    {
-                        completedMessages[0] = incomplete + completedMessages[0];
-                        incomplete = "";
-                    }
-
-                    if (!messageToProcess.EndsWith("%"))
-                    {
-                        incomplete = parts[parts.Length - 1];
-                    }
-
-                    foreach (string completeMsg in completedMessages)
-                    {
-                        OnCompleteMessage.Invoke(completeMsg);
-                        Debug.Log($"[MessageBuffer - Complete] Gotowa wiadomoœæ: {completeMsg}");
-                    }
-                }
-                else
-                {
-                    incomplete += messageToProcess;
-                }
-            }
-
-            hasNewMessage = false;
-        } catch
-        { ErrorCatcher.instance.ErrorHandler(); }
-        
+            // Odœwie¿ zmienne do nastêpnego obiegu pêtli
+            currentContent = _processingBuffer.ToString();
+            delimiterIndex = currentContent.IndexOf('%');
+        }
     }
 
     private void OnDestroy()

@@ -16,22 +16,17 @@ public class GameEngine : MonoBehaviour
 
     void Update()
     {
-        try
+        if (Input.GetMouseButtonDown(0) && GameMeneger.instance.activeGame && GameMeneger.instance.yourTurn && !ErrorCatcher.instance.errorOccured)    // odkrycie karty - tylko jezeli trwa gra i twoja tura
         {
-            if (Input.GetMouseButtonDown(0) && GameMeneger.instance.activeGame && GameMeneger.instance.yourTurn && !ErrorCatcher.instance.errorOccured)    // odkrycie karty - tylko jezeli trwa gra i twoja tura
-            {
-                FireScreenRay();
-            }
+            FireScreenRay();
+        }
 
-            else if (Input.GetKeyDown(KeyCode.Space) && totemAvailable && GameMeneger.instance.activeGame && GameMeneger.instance.playersTableOrder.Contains(mainMenuUI.nick) && !ErrorCatcher.instance.errorOccured)       // proba chwycenia totemu
-            {
-                Laczenie.instance.SendMessageToServer("TOTEM%");
-                totemAvailable = false;
-                StartCoroutine(TotemCooldown());
-            }
-        } catch
-        { ErrorCatcher.instance.ErrorHandler(); }
-        
+        else if (Input.GetKeyDown(KeyCode.Space) && totemAvailable && GameMeneger.instance.activeGame && GameMeneger.instance.playersTableOrder.Contains(mainMenuUI.nick) && !ErrorCatcher.instance.errorOccured)       // proba chwycenia totemu
+        {
+            Laczenie.instance.SendMessageToServer("TOTEM%");
+            totemAvailable = false;
+            StartCoroutine(TotemCooldown());
+        }
     }
 
     private void FireScreenRay()

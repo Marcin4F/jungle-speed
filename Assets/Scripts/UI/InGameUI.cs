@@ -64,24 +64,19 @@ public class InGameUI : MonoBehaviour
 
     private void Update()
     {
-        try
+        if (Input.GetKeyDown(KeyCode.Escape) && !ErrorCatcher.instance.errorOccured)       // menu w trakcie gry
         {
-            if (Input.GetKeyDown(KeyCode.Escape) && !ErrorCatcher.instance.errorOccured)       // menu w trakcie gry
+            if (isPaused)
             {
-                if (isPaused)
-                {
-                    isPaused = false;
-                    pausePanel.SetActive(false);
-                }
-                else
-                {
-                    isPaused = true;
-                    pausePanel.SetActive(true);
-                }
+                isPaused = false;
+                pausePanel.SetActive(false);
+            }
+            else
+            {
+                isPaused = true;
+                pausePanel.SetActive(true);
             }
         }
-        catch
-        { ErrorCatcher.instance.ErrorHandler(); }
     }
 
     public void ChangeButtonInteractable()          // zmiana dostepnosci przycisku do rozpoczynania gry
