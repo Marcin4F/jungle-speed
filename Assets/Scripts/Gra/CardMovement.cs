@@ -12,7 +12,9 @@ public class CardMovement : MonoBehaviour
 
     public void MoveCard()
     {
-        StartCoroutine(FirstCardMovement());
+        try { StartCoroutine(FirstCardMovement()); } 
+        catch { ErrorCatcher.instance.ErrorHandler(); }
+        
     }
 
     IEnumerator FirstCardMovement()     // pierwszy ruch (do gory)

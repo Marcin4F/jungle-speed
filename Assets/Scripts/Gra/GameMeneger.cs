@@ -71,41 +71,49 @@ public class GameMeneger : MonoBehaviour
 
     private void Awake()        // setup
     {
-        instance = this;
-        playersCardPositions.Add(new Vector3(0, 0.005f, -5.25f));       // pozycje stosow kart
-        playersCardPositions.Add(new Vector3(-9, 0.005f, 0));
-        playersCardPositions.Add(new Vector3(0, 0.005f, 5.25f));
-        playersCardPositions.Add(new Vector3(9, 0.005f, 0));
-        for (int i = 0; i < 4;  i++)
+        try
         {
-            playersShownCards.Add(0);       // na poczatku nie ma kart
-            playersHiddenCards.Add(0);
-            playersTableOrder[i] = "%";     // wypelnienie playersTableOrder "pustymi" graczami -> symbol '%'
-            playerDecks[i] = new PlayerDeck();      // dodanie pustych deckow kart dla kazdego gracza
-        }
+            instance = this;
+            playersCardPositions.Add(new Vector3(0, 0.005f, -5.25f));       // pozycje stosow kart
+            playersCardPositions.Add(new Vector3(-9, 0.005f, 0));
+            playersCardPositions.Add(new Vector3(0, 0.005f, 5.25f));
+            playersCardPositions.Add(new Vector3(9, 0.005f, 0));
+            for (int i = 0; i < 4; i++)
+            {
+                playersShownCards.Add(0);       // na poczatku nie ma kart
+                playersHiddenCards.Add(0);
+                playersTableOrder[i] = "%";     // wypelnienie playersTableOrder "pustymi" graczami -> symbol '%'
+                playerDecks[i] = new PlayerDeck();      // dodanie pustych deckow kart dla kazdego gracza
+            }
+        } catch
+        { ErrorCatcher.instance.ErrorHandler(); }
     }
 
     public void ResetParameters()
     {
-        host = false;
-        activeGame = false;
-        isActivePlayer = false;
-        yourTurn = false;
-        _playerCount = 1;
-        activePlayers = 0;
-        players.Clear();
-        playersHiddenCards.Clear();
-        playersShownCards.Clear();
-        winners.Clear();
-        spectators.Clear();
-
-        for (int i = 0; i < 4; i++)
+        try
         {
-            playersTableOrder[i] = "%";
-            playerDecks[i].hiddenCards.Clear();
-            playerDecks[i].shownCards.Clear();
-            playersShownCards.Add(0);
-            playersHiddenCards.Add(0);
+            host = false;
+            activeGame = false;
+            isActivePlayer = false;
+            yourTurn = false;
+            _playerCount = 1;
+            activePlayers = 0;
+            players.Clear();
+            playersHiddenCards.Clear();
+            playersShownCards.Clear();
+            winners.Clear();
+            spectators.Clear();
+
+            for (int i = 0; i < 4; i++)
+            {
+                playersTableOrder[i] = "%";
+                playerDecks[i].hiddenCards.Clear();
+                playerDecks[i].shownCards.Clear();
+                playersShownCards.Add(0);
+                playersHiddenCards.Add(0);
+            }
         }
+        catch { ErrorCatcher.instance.ErrorHandler(); }
     }
 }

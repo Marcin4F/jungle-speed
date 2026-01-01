@@ -29,20 +29,25 @@ public class Laczenie : MonoBehaviour
 
     public async void ConnectToServer(char type)
     {
-        if (isConnected || isConnecting) 
-            return;
-        isConnecting = true;
-
-        if (type != 's' && type != 'j')
+        try
         {
-            isConnecting = false;
-            Debug.LogError($"[ConnectToServer] Invalid connection type: '{type}'. Must be 's' or 'j'.");
-            return;
-        }
+            if (isConnected || isConnecting)
+                return;
+            isConnecting = true;
 
-        nick = mainMenuUI.nick;
-        serverIp = mainMenuUI.ipAddress;
-        serverPort = int.Parse(mainMenuUI.port);
+            if (type != 's' && type != 'j')
+            {
+                isConnecting = false;
+                Debug.LogError($"[ConnectToServer] Invalid connection type: '{type}'. Must be 's' or 'j'.");
+                return;
+            }
+
+            nick = mainMenuUI.nick;
+            serverIp = mainMenuUI.ipAddress;
+            serverPort = int.Parse(mainMenuUI.port);
+        } catch
+        { ErrorCatcher.instance.ErrorHandler(); return; }
+        
 
         try
         {
@@ -145,6 +150,9 @@ public class Laczenie : MonoBehaviour
                 mainMenuUI.connectionLostText.SetText("Error occured with server connection.\nLost connection with server");
                 mainMenuUI.connectionLostMessage.SetActive(true);
             }
+
+            else
+                ErrorCatcher.instance.ErrorHandler();
         }
     }
 

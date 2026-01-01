@@ -9,7 +9,9 @@ public class TotemMovement : MonoBehaviour
 
     public void MoveTotem(int id)
     {
-        StartCoroutine(MovingTotem(id));
+        try
+        { StartCoroutine(MovingTotem(id)); } catch
+        { ErrorCatcher.instance.ErrorHandler(); }
     }
 
     private IEnumerator MovingTotem(int id)
