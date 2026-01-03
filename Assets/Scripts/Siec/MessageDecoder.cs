@@ -92,6 +92,7 @@ public class MessageDecoder : MonoBehaviour
                     if (laczenie.isConnected)
                     {
                         mainMenuUI.inputUIPanel.SetActive(false);
+                        mainMenuUI.mainPanel.SetActive(false);
                         inGameUI.codeTextField.SetText("Code: " + mainMenuUI.code);
                         GameMeneger.instance.host = false;
                         inGameUI.mainPanel.SetActive(true);
