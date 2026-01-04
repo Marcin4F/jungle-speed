@@ -1,319 +1,322 @@
+using Assets.Scripts.Siec;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MainMenuUI : MonoBehaviour
+namespace Assets.Scripts.UI
 {
-    [SerializeField] GameObject invalidIpAddressPanel, invalidPortPanel, emptyFieldPanel, codePanel;
-    public GameObject inputUIPanel, connectionErrorPanel, connectingServerPanel, mainPanel, connectionLostMessage;
-
-    [SerializeField] Button joinGameButton, startLobbyButton, quitButton, startButton, backButton;
-
-    public TMP_InputField nickInput, codeInput, ipAddressInput, portInput;
-
-    [SerializeField] TextMeshProUGUI startButtonText;
-    public TextMeshProUGUI connectionLostText;
-
-    public string nick, code, ipAddress, port;      // parametry polaczenia
-    private readonly string allowedIPString = "0123456789.", allowedNameString = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_+=!*()",
-        allowedCodeString = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789", allowedPortString = "0123456789";     // mozliwe znaki do uzycia przy wpisywaniu danych elementow
-    private char type;          // typ polaczenia -> dolaczanie do pokoju czy jego tworzenie: j - join, s - start
-
-
-    private void Start()        // setup
+    public class MainMenuUI : MonoBehaviour
     {
-        try
+        [SerializeField] GameObject invalidIpAddressPanel, invalidPortPanel, emptyFieldPanel, codePanel;
+        public GameObject inputUIPanel, connectionErrorPanel, connectingServerPanel, mainPanel, connectionLostMessage;
+
+        [SerializeField] Button joinGameButton, startLobbyButton, quitButton, startButton, backButton;
+
+        public TMP_InputField nickInput, codeInput, ipAddressInput, portInput;
+
+        [SerializeField] TextMeshProUGUI startButtonText;
+        public TextMeshProUGUI connectionLostText;
+
+        public string nick, code, ipAddress, port;      // parametry polaczenia
+        private readonly string allowedIPString = "0123456789.", allowedNameString = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_+=!*()",
+            allowedCodeString = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789", allowedPortString = "0123456789";     // mozliwe znaki do uzycia przy wpisywaniu danych elementow
+        private char type;          // typ polaczenia -> dolaczanie do pokoju czy jego tworzenie: j - join, s - start
+
+
+        private void Start()        // setup
         {
-            connectingServerPanel.SetActive(false);
-            inputUIPanel.SetActive(false);
-            //connectingServerPanel.SetActive(false);
-
-            joinGameButton.onClick.AddListener(OpenJoinGamePanel);
-            startLobbyButton.onClick.AddListener(OpenStartLobbyPanel);
-            quitButton.onClick.AddListener(CloseGame);
-        }
-        catch
-        {
-            ErrorCatcher.instance.ErrorHandler();
-        }
-
-    }
-
-    void OpenStartLobbyPanel()
-    {
-        try
-        {
-            startButtonText.text = "Start";
-            codePanel.SetActive(false);         // jezeli tworzymy pokoj to nie podajemy kodu pokoju
-            inputUIPanel.SetActive(true);
-            type = 's';
-            InputUIPanel();
-            startButton.onClick.RemoveAllListeners();
-            startButton.onClick.AddListener(StartLobby);
-        }
-        catch
-        {
-            ErrorCatcher.instance.ErrorHandler();
-        }
-
-    }
-
-    void OpenJoinGamePanel()
-    {
-        try
-        {
-            startButtonText.text = "Join";
-            codePanel.SetActive(true);
-            inputUIPanel.SetActive(true);
-            type = 'j';
-            InputUIPanel();
-            startButton.onClick.RemoveAllListeners();
-            startButton.onClick.AddListener(StartLobby);
-        }
-        catch
-        { ErrorCatcher.instance.ErrorHandler(); }
-
-    }
-
-    void InputUIPanel()         // obsluga panelu z polami do wpisywania danych polaczenia
-    {
-        try
-        {
-            mainPanel.SetActive(false);
-            invalidIpAddressPanel.SetActive(false);
-            invalidPortPanel.SetActive(false);
-            emptyFieldPanel.SetActive(false);
-            connectionErrorPanel.SetActive(false);
-            connectingServerPanel.SetActive(false);
-
-            // dodanie odpowiednich walidatorow
-            nickInput.characterValidation = TMP_InputField.CharacterValidation.CustomValidator;
-            nickInput.onValidateInput += ValidateNameChar;
-
-            codeInput.characterValidation = TMP_InputField.CharacterValidation.CustomValidator;
-            codeInput.onValidateInput += ValidateCodeChar;
-
-            ipAddressInput.characterValidation = TMP_InputField.CharacterValidation.CustomValidator;
-            ipAddressInput.onValidateInput += ValidateIpAddressChar;
-
-            portInput.characterValidation = TMP_InputField.CharacterValidation.CustomValidator;
-            portInput.onValidateInput += ValidatePortChar;
-        }
-        catch
-        { ErrorCatcher.instance.ErrorHandler(); }
-
-    }
-
-    void StartLobby()       // zaczecie gry
-    {
-        try
-        {
-            if (type == 's' && nick.Length != 0 && ipAddress.Length != 0 && port.Length != 0)       // jezeli tworzymy pokoj (kod moze byc pusty)
+            try
             {
-                Laczenie.instance.ConnectToServer(type);
-                connectingServerPanel.SetActive(true);
+                connectingServerPanel.SetActive(false);
+                inputUIPanel.SetActive(false);
+
+                joinGameButton.onClick.AddListener(OpenJoinGamePanel);
+                startLobbyButton.onClick.AddListener(OpenStartLobbyPanel);
+                quitButton.onClick.AddListener(CloseGame);
             }
-            else if (nick.Length != 0 && code.Length != 0 && ipAddress.Length != 0 && port.Length != 0)
+            catch
             {
-                Laczenie.instance.ConnectToServer(type);
-                connectingServerPanel.SetActive(true);
+                ErrorCatcher.instance.ErrorHandler();
             }
-            else
+
+        }
+
+        void OpenStartLobbyPanel()
+        {
+            try
             {
-                emptyFieldPanel.SetActive(true);        // proba polaczenia z pustym polem
+                startButtonText.text = "Start";
+                codePanel.SetActive(false);         // jezeli tworzymy pokoj to nie podajemy kodu pokoju
+                inputUIPanel.SetActive(true);
+                type = 's';
+                InputUIPanel();
+                startButton.onClick.RemoveAllListeners();
+                startButton.onClick.AddListener(StartLobby);
             }
-        }
-        catch
-        { ErrorCatcher.instance.ErrorHandler(); }
-
-    }
-
-    public void BackToMenu()        // wyjscie do menu
-    {
-        try
-        {
-            codePanel.SetActive(true);
-            inputUIPanel.SetActive(false);
-            mainPanel.SetActive(true);
-            CleanFields();
-        }
-        catch
-        { ErrorCatcher.instance.ErrorHandler(); }
-
-    }
-
-    private void CloseGame()
-    {
-        Application.Quit();
-    }
-
-    public void CleanFields()
-    {
-        try
-        {
-            nick = null;         // wyczyszczenie parametrow polaczenia
-            code = null;
-            ipAddress = null;
-            port = null;
-
-            nickInput.text = null;
-            codeInput.text = null;
-            ipAddressInput.text = null;
-            portInput.text = null;
-        }
-        catch
-        { ErrorCatcher.instance.ErrorHandler(); }
-    }
-
-
-
-    // ----------------------------------- Setting input fields -----------------------------------
-
-    public void SetNick(string input)
-    {
-        try
-        {
-            nick = input;
-            Debug.Log("Ustawiono nick: " + nick);
-        }
-        catch
-        { ErrorCatcher.instance.ErrorHandler(); }
-    }
-
-    public void SetCode(string input)
-    {
-        try
-        {
-            code = input.ToUpper();
-            Debug.Log("Ustawiono code: " + code);
-        }
-        catch
-        { ErrorCatcher.instance.ErrorHandler(); }
-    }
-
-    public void SetIpAddress(string input)
-    {
-        try
-        {
-            if (InputValidators.IsValidIP(input))
+            catch
             {
-                ipAddress = input;
-                Debug.Log("Ustawiono IP: " + ipAddress);
+                ErrorCatcher.instance.ErrorHandler();
+            }
+
+        }
+
+        void OpenJoinGamePanel()
+        {
+            try
+            {
+                startButtonText.text = "Join";
+                codePanel.SetActive(true);
+                inputUIPanel.SetActive(true);
+                type = 'j';
+                InputUIPanel();
+                startButton.onClick.RemoveAllListeners();
+                startButton.onClick.AddListener(StartLobby);
+            }
+            catch
+            { ErrorCatcher.instance.ErrorHandler(); }
+
+        }
+
+        void InputUIPanel()         // obsluga panelu z polami do wpisywania danych polaczenia
+        {
+            try
+            {
+                mainPanel.SetActive(false);
                 invalidIpAddressPanel.SetActive(false);
-            }
-            else
-            {
-                invalidIpAddressPanel.SetActive(true);
-                ipAddressInput.text = null;
-            }
-        }
-        catch
-        { ErrorCatcher.instance.ErrorHandler(); }
-    }
-
-    public void SetPort(string input)
-    {
-        try
-        {
-            if (InputValidators.IsValidPort(input))
-            {
-                port = input;
-                Debug.Log("Ustawiono port: " + port);
                 invalidPortPanel.SetActive(false);
+                emptyFieldPanel.SetActive(false);
+                connectionErrorPanel.SetActive(false);
+                connectingServerPanel.SetActive(false);
+
+                // dodanie odpowiednich walidatorow
+                nickInput.characterValidation = TMP_InputField.CharacterValidation.CustomValidator;
+                nickInput.onValidateInput += ValidateNameChar;
+
+                codeInput.characterValidation = TMP_InputField.CharacterValidation.CustomValidator;
+                codeInput.onValidateInput += ValidateCodeChar;
+
+                ipAddressInput.characterValidation = TMP_InputField.CharacterValidation.CustomValidator;
+                ipAddressInput.onValidateInput += ValidateIpAddressChar;
+
+                portInput.characterValidation = TMP_InputField.CharacterValidation.CustomValidator;
+                portInput.onValidateInput += ValidatePortChar;
             }
-            else
+            catch
+            { ErrorCatcher.instance.ErrorHandler(); }
+
+        }
+
+        void StartLobby()       // zaczecie gry
+        {
+            try
             {
-                invalidPortPanel.SetActive(true);
+                if (type == 's' && nick.Length != 0 && ipAddress.Length != 0 && port.Length != 0)       // jezeli tworzymy pokoj (kod moze byc pusty)
+                {
+                    Laczenie.instance.ConnectToServer(type);
+                    connectingServerPanel.SetActive(true);
+                }
+                else if (nick.Length != 0 && code.Length != 0 && ipAddress.Length != 0 && port.Length != 0)
+                {
+                    Laczenie.instance.ConnectToServer(type);
+                    connectingServerPanel.SetActive(true);
+                }
+                else
+                {
+                    emptyFieldPanel.SetActive(true);        // proba polaczenia z pustym polem
+                }
+            }
+            catch
+            { ErrorCatcher.instance.ErrorHandler(); }
+
+        }
+
+        public void BackToMenu()        // wyjscie do menu
+        {
+            try
+            {
+                codePanel.SetActive(true);
+                inputUIPanel.SetActive(false);
+                mainPanel.SetActive(true);
+                CleanFields();
+            }
+            catch
+            { ErrorCatcher.instance.ErrorHandler(); }
+
+        }
+
+        private void CloseGame()
+        {
+            Application.Quit();
+        }
+
+        public void CleanFields()
+        {
+            try
+            {
+                nick = null;         // wyczyszczenie parametrow polaczenia
+                code = null;
+                ipAddress = null;
+                port = null;
+
+                nickInput.text = null;
+                codeInput.text = null;
+                ipAddressInput.text = null;
                 portInput.text = null;
             }
+            catch
+            { ErrorCatcher.instance.ErrorHandler(); }
         }
-        catch
-        { ErrorCatcher.instance.ErrorHandler(); }
-    }
 
 
 
-    // ----------------------------------- Character input validators -----------------------------------
+        // ----------------------------------- Setting input fields -----------------------------------
 
-    private char ValidateNameChar(string text, int charIndex, char addedChar)
-    {
-        try
+        public void SetNick(string input)
         {
-            if (allowedNameString.Contains(addedChar))
+            try
             {
-                return addedChar;
+                nick = input;
+                Debug.Log("Ustawiono nick: " + nick);
             }
-            else
+            catch
+            { ErrorCatcher.instance.ErrorHandler(); }
+        }
+
+        public void SetCode(string input)
+        {
+            try
             {
+                code = input.ToUpper();
+                Debug.Log("Ustawiono code: " + code);
+            }
+            catch
+            { ErrorCatcher.instance.ErrorHandler(); }
+        }
+
+        public void SetIpAddress(string input)
+        {
+            try
+            {
+                if (InputValidators.IsValidIP(input))
+                {
+                    ipAddress = input;
+                    Debug.Log("Ustawiono IP: " + ipAddress);
+                    invalidIpAddressPanel.SetActive(false);
+                }
+                else
+                {
+                    invalidIpAddressPanel.SetActive(true);
+                    ipAddressInput.text = null;
+                }
+            }
+            catch
+            { ErrorCatcher.instance.ErrorHandler(); }
+        }
+
+        public void SetPort(string input)
+        {
+            try
+            {
+                if (InputValidators.IsValidPort(input))
+                {
+                    port = input;
+                    Debug.Log("Ustawiono port: " + port);
+                    invalidPortPanel.SetActive(false);
+                }
+                else
+                {
+                    invalidPortPanel.SetActive(true);
+                    portInput.text = null;
+                }
+            }
+            catch
+            { ErrorCatcher.instance.ErrorHandler(); }
+        }
+
+
+
+        // ----------------------------------- Character input validators -----------------------------------
+
+        private char ValidateNameChar(string text, int charIndex, char addedChar)
+        {
+            try
+            {
+                if (allowedNameString.Contains(addedChar))
+                {
+                    return addedChar;
+                }
+                else
+                {
+                    return '\0';
+                }
+            }
+            catch
+            {
+                ErrorCatcher.instance.ErrorHandler();
                 return '\0';
             }
         }
-        catch
-        {
-            ErrorCatcher.instance.ErrorHandler();
-            return '\0';
-        }
-    }
 
-    private char ValidateCodeChar(string text, int charIndex, char addedChar)
-    {
-        try
+        private char ValidateCodeChar(string text, int charIndex, char addedChar)
         {
-            if (allowedCodeString.Contains(addedChar))
+            try
             {
-                return addedChar;
+                if (allowedCodeString.Contains(addedChar))
+                {
+                    return addedChar;
+                }
+                else
+                {
+                    return '\0';
+                }
             }
-            else
+            catch
             {
+                ErrorCatcher.instance.ErrorHandler();
                 return '\0';
             }
         }
-        catch
-        {
-            ErrorCatcher.instance.ErrorHandler();
-            return '\0';
-        }
-    }
 
-    private char ValidateIpAddressChar(string text, int charIndex, char addedChar)
-    {
-        try
+        private char ValidateIpAddressChar(string text, int charIndex, char addedChar)
         {
-            if (allowedIPString.Contains(addedChar))
+            try
             {
-                return addedChar;
+                if (allowedIPString.Contains(addedChar))
+                {
+                    return addedChar;
+                }
+                else
+                {
+                    return '\0';
+                }
             }
-            else
+            catch
             {
+                ErrorCatcher.instance.ErrorHandler();
                 return '\0';
             }
-        }
-        catch
-        {
-            ErrorCatcher.instance.ErrorHandler();
-            return '\0';
+
         }
 
-    }
-
-    private char ValidatePortChar(string text, int charIndex, char addedChar)
-    {
-        try
+        private char ValidatePortChar(string text, int charIndex, char addedChar)
         {
-            if (allowedPortString.Contains(addedChar))
+            try
             {
-                return addedChar;
+                if (allowedPortString.Contains(addedChar))
+                {
+                    return addedChar;
+                }
+                else
+                {
+                    return '\0';
+                }
             }
-            else
+            catch
             {
+                ErrorCatcher.instance.ErrorHandler();
                 return '\0';
             }
-        }
-        catch
-        {
-            ErrorCatcher.instance.ErrorHandler();
-            return '\0';
-        }
 
+        }
     }
 }

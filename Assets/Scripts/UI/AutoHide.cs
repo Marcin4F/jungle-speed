@@ -1,21 +1,24 @@
 using System.Collections;
 using UnityEngine;
 
-public class AutoHide : MonoBehaviour
+namespace Assets.Scripts.UI
 {
-    public float hideDelay = 5.0f;
-
-    void OnEnable()
+    public class AutoHide : MonoBehaviour
     {
-        StopAllCoroutines();        // zatrzymanie jezeli juz jest jakas korutyna (zeby nie bylo bledow)
+        public float hideDelay = 5.0f;
 
-        StartCoroutine(HideAfterDelay());
-    }
+        void OnEnable()
+        {
+            StopAllCoroutines();        // zatrzymanie jezeli juz jest jakas korutyna (zeby nie bylo bledow)
 
-    IEnumerator HideAfterDelay()
-    {
-        yield return new WaitForSeconds(hideDelay);
+            StartCoroutine(HideAfterDelay());
+        }
 
-        gameObject.SetActive(false);
+        IEnumerator HideAfterDelay()
+        {
+            yield return new WaitForSeconds(hideDelay);
+
+            gameObject.SetActive(false);
+        }
     }
 }

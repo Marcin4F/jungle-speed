@@ -1,120 +1,119 @@
+using Assets.Scripts.UI;
 using System.Collections.Generic;
 using UnityEngine;
 
-// TODO:
-
-// DO TESTOW: zamiana argumentow w CARD_ID, zmiana miejsca ustawiania tagu CARD_USED
-
-
-[System.Serializable]
-public class PlayerDeck     // klasa z listami przechowujacymi karty graczy (odkryte i zakryte)
+namespace Assets.Scripts.Gra
 {
-    public List<CardMovement> hiddenCards = new();
-    public List<CardMovement> shownCards = new();
-}
-
-public class GameMeneger : MonoBehaviour
-{
-    public static GameMeneger instance;
-
-    [SerializeField] InGameUI inGameUI;
-
-    public bool host = false;               // czy gracz jest hostem
-    public bool activeGame = false;         // czy trwa gra
-    public bool _yourTurn = false;           // czy twoja tura
-    public bool isActivePlayer = false;
-    private int _playerCount = 1;           // ilosc graczy (1 bo jestes ty)
-    public int activePlayers = 0;           // ilosc aktywnych graczy, 0 bo na poczatku nie trwa gra
-    public List<string> players = new();           // gracze (kolejnosc jaka widzi serwer -> kolejnosc dolaczania do pokoju)
-    public string[] playersTableOrder = new string[4];          // gracze (kolejnosc stolikowa, zaczynajac od nas)
-    public List<string> winners = new();           // lista zwyciezcow w kolejnosc
-    public List<string> spectators = new();        // widzowie
-    public List<int> playersHiddenCards = new();      // ilosc ukrytych kart kazdego gracza
-    public List<int> playersShownCards = new();       // ilosc odkrytych kart kazdego gracza
-    public List<Vector3> playersCardPositions = new();        // pozycje kazdego stosu (zakryte)
-    public PlayerDeck[] playerDecks = new PlayerDeck[4];                    // tablica z klasami playerDeck
-
-    public int PlayerCount      // ilosc graczy
+    [System.Serializable]
+    public class PlayerDeck     // klasa z listami przechowujacymi karty graczy (odkryte i zakryte)
     {
-        get { return _playerCount; }
-
-        set
-        {
-            if (_playerCount != value)
-            {
-                _playerCount = value;
-
-                if (host)
-                    inGameUI.ChangeButtonInteractable();        // zmiana dostepnosci przycisku start game przy zmianie ilosci graczy (jezeli jestes hostem)
-            }
-        }
+        public List<CardMovement> hiddenCards = new();
+        public List<CardMovement> shownCards = new();
     }
 
-    public bool YourTurn        // czy twoja tura
+    public class GameMeneger : MonoBehaviour
     {
-        get { return _yourTurn; }
+        public static GameMeneger instance;
 
-        set
+        [SerializeField] InGameUI inGameUI;
+
+        public bool host = false;               // czy gracz jest hostem
+        public bool activeGame = false;         // czy trwa gra
+        public bool _yourTurn = false;           // czy twoja tura
+        public bool isActivePlayer = false;
+        private int _playerCount = 1;           // ilosc graczy (1 bo jestes ty)
+        public int activePlayers = 0;           // ilosc aktywnych graczy, 0 bo na poczatku nie trwa gra
+        public List<string> players = new();           // gracze (kolejnosc jaka widzi serwer -> kolejnosc dolaczania do pokoju)
+        public string[] playersTableOrder = new string[4];          // gracze (kolejnosc stolikowa, zaczynajac od nas)
+        public List<string> winners = new();           // lista zwyciezcow w kolejnosc
+        public List<string> spectators = new();        // widzowie
+        public List<int> playersHiddenCards = new();      // ilosc ukrytych kart kazdego gracza
+        public List<int> playersShownCards = new();       // ilosc odkrytych kart kazdego gracza
+        public List<Vector3> playersCardPositions = new();        // pozycje kazdego stosu (zakryte)
+        public PlayerDeck[] playerDecks = new PlayerDeck[4];                    // tablica z klasami playerDeck
+
+        public int PlayerCount      // ilosc graczy
         {
-            if (_yourTurn != value)
+            get { return _playerCount; }
+
+            set
             {
-                _yourTurn = value;
-                if (_yourTurn)
+                if (_playerCount != value)
                 {
-                    inGameUI.youWonText.GetComponent<AutoHide>().hideDelay = 1;
-                    inGameUI.youWonText.SetText("Your turn");
-                    inGameUI.youWonText.gameObject.SetActive(true);
+                    _playerCount = value;
+
+                    if (host)
+                        inGameUI.ChangeButtonInteractable();        // zmiana dostepnosci przycisku start game przy zmianie ilosci graczy (jezeli jestes hostem)
                 }
             }
         }
-    }
 
-    private void Awake()        // setup
-    {
-        try
+        public bool YourTurn        // czy twoja tura
         {
-            instance = this;
-            playersCardPositions.Add(new Vector3(0, 0.005f, -5.25f));       // pozycje stosow kart
-            playersCardPositions.Add(new Vector3(-9, 0.005f, 0));
-            playersCardPositions.Add(new Vector3(0, 0.005f, 5.25f));
-            playersCardPositions.Add(new Vector3(9, 0.005f, 0));
-            for (int i = 0; i < 4; i++)
+            get { return _yourTurn; }
+
+            set
             {
-                playersShownCards.Add(0);       // na poczatku nie ma kart
-                playersHiddenCards.Add(0);
-                playersTableOrder[i] = "%";     // wypelnienie playersTableOrder "pustymi" graczami -> symbol '%'
-                playerDecks[i] = new PlayerDeck();      // dodanie pustych deckow kart dla kazdego gracza
+                if (_yourTurn != value)
+                {
+                    _yourTurn = value;
+                    if (_yourTurn)
+                    {
+                        inGameUI.youWonText.GetComponent<AutoHide>().hideDelay = 1;
+                        inGameUI.youWonText.SetText("Your turn");
+                        inGameUI.youWonText.gameObject.SetActive(true);
+                    }
+                }
             }
         }
-        catch
-        { ErrorCatcher.instance.ErrorHandler(); }
-    }
 
-    public void ResetParameters()
-    {
-        try
+        private void Awake()        // setup
         {
-            host = false;
-            activeGame = false;
-            isActivePlayer = false;
-            YourTurn = false;
-            _playerCount = 1;
-            activePlayers = 0;
-            players.Clear();
-            playersHiddenCards.Clear();
-            playersShownCards.Clear();
-            winners.Clear();
-            spectators.Clear();
-
-            for (int i = 0; i < 4; i++)
+            try
             {
-                playersTableOrder[i] = "%";
-                playerDecks[i].hiddenCards.Clear();
-                playerDecks[i].shownCards.Clear();
-                playersShownCards.Add(0);
-                playersHiddenCards.Add(0);
+                instance = this;
+                playersCardPositions.Add(new Vector3(0, 0.005f, -5.25f));       // pozycje stosow kart
+                playersCardPositions.Add(new Vector3(-9, 0.005f, 0));
+                playersCardPositions.Add(new Vector3(0, 0.005f, 5.25f));
+                playersCardPositions.Add(new Vector3(9, 0.005f, 0));
+                for (int i = 0; i < 4; i++)
+                {
+                    playersShownCards.Add(0);       // na poczatku nie ma kart
+                    playersHiddenCards.Add(0);
+                    playersTableOrder[i] = "%";     // wypelnienie playersTableOrder "pustymi" graczami -> symbol '%'
+                    playerDecks[i] = new PlayerDeck();      // dodanie pustych deckow kart dla kazdego gracza
+                }
             }
+            catch
+            { ErrorCatcher.instance.ErrorHandler(); }
         }
-        catch { ErrorCatcher.instance.ErrorHandler(); }
+
+        public void ResetParameters()
+        {
+            try
+            {
+                host = false;
+                activeGame = false;
+                isActivePlayer = false;
+                YourTurn = false;
+                _playerCount = 1;
+                activePlayers = 0;
+                players.Clear();
+                playersHiddenCards.Clear();
+                playersShownCards.Clear();
+                winners.Clear();
+                spectators.Clear();
+
+                for (int i = 0; i < 4; i++)
+                {
+                    playersTableOrder[i] = "%";
+                    playerDecks[i].hiddenCards.Clear();
+                    playerDecks[i].shownCards.Clear();
+                    playersShownCards.Add(0);
+                    playersHiddenCards.Add(0);
+                }
+            }
+            catch { ErrorCatcher.instance.ErrorHandler(); }
+        }
     }
 }

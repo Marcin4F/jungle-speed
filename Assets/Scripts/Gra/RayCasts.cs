@@ -1,30 +1,34 @@
+using Assets.Scripts.UI;
 using UnityEngine;
 
-public class RayCasts : MonoBehaviour
+namespace Assets.Scripts.Gra
 {
-    private readonly float rayDistance = 11.0f;
-    private readonly string layerToIgnore = "CardsBlockers";
-    public CardMovement card;
-
-    public bool SendRay()
+    public class RayCasts : MonoBehaviour
     {
-        try
-        {
-            int layerMask = 1 << LayerMask.NameToLayer(layerToIgnore);  // pobranie bitu warstwy
-            layerMask = ~layerMask;     // negacja bitowa -> ignorujemy tylko warstwe layerToIgnore
+        private readonly float rayDistance = 11.0f;
+        private readonly string layerToIgnore = "CardsBlockers";
+        public CardMovement card;
 
-            if (Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, rayDistance, layerMask))
-            {
-                hit.collider.gameObject.tag = "UsedCard";
-                card = hit.collider.GetComponent<CardMovement>();
-                return true;
-            }
-            return false;
-        }
-        catch
+        public bool SendRay()
         {
-            ErrorCatcher.instance.ErrorHandler();
-            return false;
+            try
+            {
+                int layerMask = 1 << LayerMask.NameToLayer(layerToIgnore);  // pobranie bitu warstwy
+                layerMask = ~layerMask;     // negacja bitowa -> ignorujemy tylko warstwe layerToIgnore
+
+                if (Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, rayDistance, layerMask))
+                {
+                    hit.collider.gameObject.tag = "UsedCard";
+                    card = hit.collider.GetComponent<CardMovement>();
+                    return true;
+                }
+                return false;
+            }
+            catch
+            {
+                ErrorCatcher.instance.ErrorHandler();
+                return false;
+            }
         }
     }
 }

@@ -1,29 +1,32 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ErrorCatcher : MonoBehaviour
+namespace Assets.Scripts.UI
 {
-    public bool errorOccured = false;
-
-    [SerializeField] Button closeGameButton;
-    [SerializeField] GameObject errorCatcherPanel;
-
-    public static ErrorCatcher instance;
-
-    private void Start()
+    public class ErrorCatcher : MonoBehaviour
     {
-        instance = this;
-        closeGameButton.onClick.AddListener(CloseGame);
-        errorCatcherPanel.SetActive(false);
-    }
+        public bool errorOccured = false;
 
-    public void ErrorHandler()
-    {
-        errorCatcherPanel.SetActive(true);
-    }
+        [SerializeField] Button closeGameButton;
+        [SerializeField] GameObject errorCatcherPanel;
 
-    private void CloseGame()
-    {
-        Application.Quit();
+        public static ErrorCatcher instance;
+
+        private void Start()
+        {
+            instance = this;
+            closeGameButton.onClick.AddListener(CloseGame);
+            errorCatcherPanel.SetActive(false);
+        }
+
+        public void ErrorHandler()
+        {
+            errorCatcherPanel.SetActive(true);
+        }
+
+        private static void CloseGame()
+        {
+            Application.Quit();
+        }
     }
 }

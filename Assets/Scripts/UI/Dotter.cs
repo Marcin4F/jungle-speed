@@ -2,40 +2,43 @@ using System.Collections;
 using TMPro;
 using UnityEngine;
 
-public class Dotter : MonoBehaviour
+namespace Assets.Scripts.UI
 {
-    [SerializeField] TextMeshProUGUI displayText;
-
-    private readonly float delay = 0.5f;
-    private string starter;
-
-    void OnEnable()
+    public class Dotter : MonoBehaviour
     {
-        try
-        {
-            StopAllCoroutines();        // zakoncz trwajace korutyny (zabezpieczenie przed nakladaniem kilku na ten sam obiekt)
+        [SerializeField] TextMeshProUGUI displayText;
 
-            starter = displayText.text;
-            StartCoroutine(ChangeText());
-        }
-        catch
-        {
-            ErrorCatcher.instance.ErrorHandler();
-        }
-    }
+        private readonly float delay = 0.5f;
+        private string starter;
 
-    IEnumerator ChangeText()        // pokazywanie kropek
-    {
-        while (true)
+        void OnEnable()
         {
-            yield return new WaitForSeconds(delay);
-            displayText.text = starter + ".";
-            yield return new WaitForSeconds(delay);
-            displayText.text = starter + "..";
-            yield return new WaitForSeconds(delay);
-            displayText.text = starter + "...";
-            yield return new WaitForSeconds(delay);
-            displayText.text = starter;
+            try
+            {
+                StopAllCoroutines();        // zakoncz trwajace korutyny (zabezpieczenie przed nakladaniem kilku na ten sam obiekt)
+
+                starter = displayText.text;
+                StartCoroutine(ChangeText());
+            }
+            catch
+            {
+                ErrorCatcher.instance.ErrorHandler();
+            }
+        }
+
+        IEnumerator ChangeText()        // pokazywanie kropek
+        {
+            while (true)
+            {
+                yield return new WaitForSeconds(delay);
+                displayText.text = starter + ".";
+                yield return new WaitForSeconds(delay);
+                displayText.text = starter + "..";
+                yield return new WaitForSeconds(delay);
+                displayText.text = starter + "...";
+                yield return new WaitForSeconds(delay);
+                displayText.text = starter;
+            }
         }
     }
 }
