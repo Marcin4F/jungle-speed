@@ -126,7 +126,7 @@ public class MessageDecoder : MonoBehaviour
                         switch (parts[1])
                         {
                             case "INVALID_CODE":
-                                displayText.text = "No lobby with given code.\r\nCheck if the code is correct.";
+                                displayText.text = "No lobby with given code or room was closed recently.\r\nCheck if the code is correct.";
                                 break;
                             case "ROOM_FULL":
                                 displayText.text = "Lobby full.";
