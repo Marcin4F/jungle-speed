@@ -42,7 +42,8 @@ public class GameEngine : MonoBehaviour
                     GameMeneger.instance.YourTurn = false;                      // zakonczenie tury -> brak spamu do serwera
                 }
             }
-        } catch
+        }
+        catch
         { ErrorCatcher.instance.ErrorHandler(); }
     }
 
@@ -55,7 +56,8 @@ public class GameEngine : MonoBehaviour
                 AddTextureToCard(id, cardToMove);   // dodanie tekstury do karty
                 cardToMove.MoveCard();              // ruch karty
             }
-        } catch
+        }
+        catch
         { ErrorCatcher.instance.ErrorHandler(); }
     }
 
@@ -105,7 +107,7 @@ public class GameEngine : MonoBehaviour
             }
         }
         catch { ErrorCatcher.instance.ErrorHandler(); }
-        
+
     }
 
     public void SpawnStack(int id, int number, bool stack, string cardID)      // spawn stosu kart o zadanej ilosci
@@ -116,11 +118,12 @@ public class GameEngine : MonoBehaviour
             {
                 SpawnCard(id, stack, cardID);
             }
-        } catch
+        }
+        catch
         { ErrorCatcher.instance.ErrorHandler(); }
     }
 
-    public void ClearPlayerStack (int playerId, bool clearHidden, bool clearShown)      // usuwanie stosu kart dla danego gracza
+    public void ClearPlayerStack(int playerId, bool clearHidden, bool clearShown)      // usuwanie stosu kart dla danego gracza
     {
         try
         {
@@ -151,7 +154,8 @@ public class GameEngine : MonoBehaviour
                 deck.shownCards.Clear();
                 GameMeneger.instance.playersShownCards[playerId] = 0;
             }
-        } catch
+        }
+        catch
         { ErrorCatcher.instance.ErrorHandler(); }
     }
 
@@ -178,7 +182,8 @@ public class GameEngine : MonoBehaviour
                     break;
                 }
             }
-        } catch
+        }
+        catch
         { ErrorCatcher.instance.ErrorHandler(); }
     }
 

@@ -28,7 +28,8 @@ public class MessageDecoder : MonoBehaviour
             {
                 Debug.LogError("Brak referencji do MessageBuffer w MessageDecoder!");
             }
-        } catch
+        }
+        catch
         { ErrorCatcher.instance.ErrorHandler(); }
     }
 
@@ -55,7 +56,8 @@ public class MessageDecoder : MonoBehaviour
                 }
                 GameMeneger.instance.YourTurn = true;
             }
-        } catch
+        }
+        catch
         { ErrorCatcher.instance.ErrorHandler(); }
     }
 
@@ -434,8 +436,9 @@ public class MessageDecoder : MonoBehaviour
                     Debug.LogWarning($"Nieznana komenda: {command}");
                     break;
             }
-        } catch
+        }
+        catch
         { ErrorCatcher.instance.ErrorHandler(); }
-        
+
     }
 }

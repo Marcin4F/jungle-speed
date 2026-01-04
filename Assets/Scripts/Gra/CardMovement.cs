@@ -12,16 +12,16 @@ public class CardMovement : MonoBehaviour
 
     public void MoveCard()
     {
-        try { StartCoroutine(FirstCardMovement()); } 
+        try { StartCoroutine(FirstCardMovement()); }
         catch { ErrorCatcher.instance.ErrorHandler(); }
-        
+
     }
 
     IEnumerator FirstCardMovement()     // pierwszy ruch (do gory)
     {
         startPosition = transform.position;
         startRotation = transform.rotation;
-        if(startPosition.z < -2)            // ruch w odpowiednia strone
+        if (startPosition.z < -2)            // ruch w odpowiednia strone
         {
             targetPosition = startPosition + new Vector3(0, 2.0f, 1.275f);
             targetRotationAngles = new Vector3(270, 0, 0);
@@ -31,7 +31,7 @@ public class CardMovement : MonoBehaviour
             targetPosition = startPosition + new Vector3(0, 2.0f, -1.275f);
             targetRotationAngles = new Vector3(90, 0, 0);
         }
-        else if(startPosition.x < 0)
+        else if (startPosition.x < 0)
         {
             targetPosition = startPosition + new Vector3(1.275f, 2.0f, 0);
             targetRotationAngles = new Vector3(0, 0, 90);
@@ -43,7 +43,7 @@ public class CardMovement : MonoBehaviour
         }
 
         endRotation = Quaternion.Euler(targetRotationAngles);
-        
+
         while (elapsedTime < duration)
         {
             elapsedTime += Time.deltaTime;

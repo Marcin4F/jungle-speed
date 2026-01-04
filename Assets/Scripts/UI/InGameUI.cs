@@ -6,10 +6,10 @@ using UnityEngine.UI;
 public class InGameUI : MonoBehaviour
 {
     [SerializeField] Button startGame, continueButton, mainMenuButton, quitButton, closeButton;
-    
+
     [SerializeField] GameObject pausePanel;
     public GameObject mainPanel, loadingPanel, waitingStartPanel, gameStartsPanel, gameOverPanel;
-    
+
     [SerializeField] TextMeshProUGUI nick1, nick2, nick3;       // wyswietlane nicki graczy
     public TextMeshProUGUI codeTextField, playerStatusText, gameWinnersTextField, youWonText;     // code -> kod pokoju, gameWinnsers -> lista graczy ktorzy wygrali
 
@@ -29,7 +29,8 @@ public class InGameUI : MonoBehaviour
             mainMenuButton.onClick.AddListener(QuitToMainMenu);
             quitButton.onClick.AddListener(QuitGame);
             closeButton.onClick.AddListener(CloseWinnsers);
-        } catch
+        }
+        catch
         { ErrorCatcher.instance.ErrorHandler(); }
     }
 
@@ -58,7 +59,8 @@ public class InGameUI : MonoBehaviour
                     waitingStartPanel.SetActive(false);
                 }
             }
-        } catch
+        }
+        catch
         { ErrorCatcher.instance.ErrorHandler(); }
     }
 
@@ -102,7 +104,8 @@ public class InGameUI : MonoBehaviour
                     startGame.interactable = false;
                 }
             }
-        } catch
+        }
+        catch
         { ErrorCatcher.instance.ErrorHandler(); }
     }
 
@@ -114,7 +117,8 @@ public class InGameUI : MonoBehaviour
             waitingStartPanel.SetActive(false);
             loadingPanel.SetActive(true);
             Laczenie.instance.SendMessageToServer("GAME_START%");
-        } catch
+        }
+        catch
         { ErrorCatcher.instance.ErrorHandler(); }
     }
 
@@ -144,11 +148,11 @@ public class InGameUI : MonoBehaviour
             }
 
             GameMeneger.instance.ResetParameters();
-        } 
-        catch 
+        }
+        catch
         { ErrorCatcher.instance.ErrorHandler(); }
-    }   
-    
+    }
+
     private void QuitGame()      // wyjscie z gry
     {
         Application.Quit();

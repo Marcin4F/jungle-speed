@@ -32,7 +32,7 @@ public class InputValidators : MonoBehaviour
             ErrorCatcher.instance.ErrorHandler();
             return false;
         }
-        
+
     }
 
     public static bool IsValidIP(string ipString)       // walidacja numeru ip
@@ -71,6 +71,6 @@ public class InputValidators : MonoBehaviour
             ErrorCatcher.instance.ErrorHandler();
             return false;
         }
-        
+
     }
 }

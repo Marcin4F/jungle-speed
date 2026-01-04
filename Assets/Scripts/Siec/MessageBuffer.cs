@@ -21,9 +21,10 @@ public class MessageBuffer : MonoBehaviour
         try
         {
             _incomingQueue.Enqueue(receivedMessage);
-        } catch
+        }
+        catch
         { ErrorCatcher.instance.ErrorHandler(); }
-        
+
     }
 
     private void Update()

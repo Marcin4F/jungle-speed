@@ -17,7 +17,8 @@ public class Dotter : MonoBehaviour
 
             starter = displayText.text;
             StartCoroutine(ChangeText());
-        } catch
+        }
+        catch
         {
             ErrorCatcher.instance.ErrorHandler();
         }

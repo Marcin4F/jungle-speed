@@ -11,14 +11,15 @@ public class TotemMovement : MonoBehaviour
     public void MoveTotem(int id)
     {
         try
-        { StartCoroutine(MovingTotem(id)); } catch
+        { StartCoroutine(MovingTotem(id)); }
+        catch
         { ErrorCatcher.instance.ErrorHandler(); }
     }
 
     private IEnumerator MovingTotem(int id)
     {
         startPosition = transform.position;
-        switch(id)      // przesuniecie do odpowiedniego gracza
+        switch (id)      // przesuniecie do odpowiedniego gracza
         {
             case 0:
                 targetPosition = new Vector3(2, 1, -5.25f);

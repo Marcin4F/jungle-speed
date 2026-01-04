@@ -31,11 +31,12 @@ public class MainMenuUI : MonoBehaviour
             joinGameButton.onClick.AddListener(OpenJoinGamePanel);
             startLobbyButton.onClick.AddListener(OpenStartLobbyPanel);
             quitButton.onClick.AddListener(CloseGame);
-        } catch
+        }
+        catch
         {
             ErrorCatcher.instance.ErrorHandler();
         }
-        
+
     }
 
     void OpenStartLobbyPanel()
@@ -49,11 +50,12 @@ public class MainMenuUI : MonoBehaviour
             InputUIPanel();
             startButton.onClick.RemoveAllListeners();
             startButton.onClick.AddListener(StartLobby);
-        } catch
+        }
+        catch
         {
             ErrorCatcher.instance.ErrorHandler();
         }
-        
+
     }
 
     void OpenJoinGamePanel()
@@ -67,9 +69,10 @@ public class MainMenuUI : MonoBehaviour
             InputUIPanel();
             startButton.onClick.RemoveAllListeners();
             startButton.onClick.AddListener(StartLobby);
-        } catch
+        }
+        catch
         { ErrorCatcher.instance.ErrorHandler(); }
-        
+
     }
 
     void InputUIPanel()         // obsluga panelu z polami do wpisywania danych polaczenia
@@ -95,9 +98,10 @@ public class MainMenuUI : MonoBehaviour
 
             portInput.characterValidation = TMP_InputField.CharacterValidation.CustomValidator;
             portInput.onValidateInput += ValidatePortChar;
-        } catch
+        }
+        catch
         { ErrorCatcher.instance.ErrorHandler(); }
-        
+
     }
 
     void StartLobby()       // zaczecie gry
@@ -118,9 +122,10 @@ public class MainMenuUI : MonoBehaviour
             {
                 emptyFieldPanel.SetActive(true);        // proba polaczenia z pustym polem
             }
-        } catch
+        }
+        catch
         { ErrorCatcher.instance.ErrorHandler(); }
-        
+
     }
 
     public void BackToMenu()        // wyjscie do menu
@@ -131,9 +136,10 @@ public class MainMenuUI : MonoBehaviour
             inputUIPanel.SetActive(false);
             mainPanel.SetActive(true);
             CleanFields();
-        } catch
+        }
+        catch
         { ErrorCatcher.instance.ErrorHandler(); }
-        
+
     }
 
     private void CloseGame()
@@ -180,7 +186,8 @@ public class MainMenuUI : MonoBehaviour
         {
             code = input.ToUpper();
             Debug.Log("Ustawiono code: " + code);
-        } catch
+        }
+        catch
         { ErrorCatcher.instance.ErrorHandler(); }
     }
 
@@ -199,7 +206,8 @@ public class MainMenuUI : MonoBehaviour
                 invalidIpAddressPanel.SetActive(true);
                 ipAddressInput.text = null;
             }
-        } catch
+        }
+        catch
         { ErrorCatcher.instance.ErrorHandler(); }
     }
 
@@ -218,7 +226,8 @@ public class MainMenuUI : MonoBehaviour
                 invalidPortPanel.SetActive(true);
                 portInput.text = null;
             }
-        } catch
+        }
+        catch
         { ErrorCatcher.instance.ErrorHandler(); }
     }
 
@@ -238,8 +247,9 @@ public class MainMenuUI : MonoBehaviour
             {
                 return '\0';
             }
-        } catch
-        { 
+        }
+        catch
+        {
             ErrorCatcher.instance.ErrorHandler();
             return '\0';
         }
@@ -257,7 +267,8 @@ public class MainMenuUI : MonoBehaviour
             {
                 return '\0';
             }
-        } catch
+        }
+        catch
         {
             ErrorCatcher.instance.ErrorHandler();
             return '\0';
@@ -276,12 +287,13 @@ public class MainMenuUI : MonoBehaviour
             {
                 return '\0';
             }
-        } catch
+        }
+        catch
         {
             ErrorCatcher.instance.ErrorHandler();
             return '\0';
         }
-        
+
     }
 
     private char ValidatePortChar(string text, int charIndex, char addedChar)
@@ -296,11 +308,12 @@ public class MainMenuUI : MonoBehaviour
             {
                 return '\0';
             }
-        } catch
+        }
+        catch
         {
             ErrorCatcher.instance.ErrorHandler();
             return '\0';
         }
-        
+
     }
 }

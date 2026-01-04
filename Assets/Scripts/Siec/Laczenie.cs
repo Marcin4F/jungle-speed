@@ -1,8 +1,8 @@
-using UnityEngine;
 using System;
 using System.Net.Sockets;
 using System.Text;
 using TMPro;
+using UnityEngine;
 
 public class Laczenie : MonoBehaviour
 {
@@ -46,9 +46,10 @@ public class Laczenie : MonoBehaviour
             nick = mainMenuUI.nick;
             serverIp = mainMenuUI.ipAddress;
             serverPort = int.Parse(mainMenuUI.port);
-        } catch
+        }
+        catch
         { ErrorCatcher.instance.ErrorHandler(); return; }
-        
+
 
         try
         {

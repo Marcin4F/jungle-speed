@@ -35,7 +35,7 @@ public class GameMeneger : MonoBehaviour
     public PlayerDeck[] playerDecks = new PlayerDeck[4];                    // tablica z klasami playerDeck
 
     public int PlayerCount      // ilosc graczy
-    { 
+    {
         get { return _playerCount; }
 
         set
@@ -59,7 +59,7 @@ public class GameMeneger : MonoBehaviour
             if (_yourTurn != value)
             {
                 _yourTurn = value;
-                if(_yourTurn)
+                if (_yourTurn)
                 {
                     inGameUI.youWonText.GetComponent<AutoHide>().hideDelay = 1;
                     inGameUI.youWonText.SetText("Your turn");
@@ -85,7 +85,8 @@ public class GameMeneger : MonoBehaviour
                 playersTableOrder[i] = "%";     // wypelnienie playersTableOrder "pustymi" graczami -> symbol '%'
                 playerDecks[i] = new PlayerDeck();      // dodanie pustych deckow kart dla kazdego gracza
             }
-        } catch
+        }
+        catch
         { ErrorCatcher.instance.ErrorHandler(); }
     }
 
