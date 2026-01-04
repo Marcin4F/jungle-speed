@@ -165,7 +165,7 @@ public class InGameUI : MonoBehaviour
     {
         try
         {
-            List<string> tmp = new List<string>();      // lista pomocnicza
+            List<string> tmp = new();      // lista pomocnicza
             int playersCount = GameMeneger.instance.players.Count;
 
             nick1.SetText("");      // wyczyszczenie nickow

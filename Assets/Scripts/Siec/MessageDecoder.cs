@@ -22,7 +22,7 @@ public class MessageDecoder : MonoBehaviour
         {
             if (messageBuffer != null)
             {
-                messageBuffer.OnCompleteMessage += decodeMessage;
+                messageBuffer.OnCompleteMessage += DecodeMessage;
             }
             else
             {
@@ -32,7 +32,7 @@ public class MessageDecoder : MonoBehaviour
         { ErrorCatcher.instance.ErrorHandler(); }
     }
 
-    private void checkIfTour(int playerIndex)     // sprawdzanie czy teraz twoja tura
+    private void CheckIfTour(int playerIndex)     // sprawdzanie czy teraz twoja tura
     {
         try
         {
@@ -53,7 +53,7 @@ public class MessageDecoder : MonoBehaviour
                     }
                     return;
                 }
-                GameMeneger.instance.yourTurn = true;
+                GameMeneger.instance.YourTurn = true;
             }
         } catch
         { ErrorCatcher.instance.ErrorHandler(); }
@@ -62,10 +62,10 @@ public class MessageDecoder : MonoBehaviour
     IEnumerator CardCooldown()
     {
         yield return new WaitForSeconds(0.7f);
-        checkIfTour(index);
+        CheckIfTour(index);
     }
 
-    private void decodeMessage(string message)
+    private void DecodeMessage(string message)
     {
         try
         {
@@ -123,21 +123,13 @@ public class MessageDecoder : MonoBehaviour
                     {
                         mainMenuUI.connectingServerPanel.SetActive(false);
                         mainMenuUI.connectionErrorPanel.SetActive(true);
-                        switch (parts[1])
+                        displayText.text = parts[1] switch
                         {
-                            case "INVALID_CODE":
-                                displayText.text = "No lobby with given code or room was closed recently.\r\nCheck if the code is correct.";
-                                break;
-                            case "ROOM_FULL":
-                                displayText.text = "Lobby full.";
-                                break;
-                            case "NICK_TAKEN":
-                                displayText.text = "Player with that nick already exists.\r\nPlease change your nick.";
-                                break;
-                            default:
-                                displayText.text = "Unknown error.";
-                                break;
-                        }
+                            "INVALID_CODE" => "No lobby with given code or room was closed recently.\r\nCheck if the code is correct.",
+                            "ROOM_FULL" => "Lobby full.",
+                            "NICK_TAKEN" => "Player with that nick already exists.\r\nPlease change your nick.",
+                            _ => "Unknown error.",
+                        };
                     }
                     break;
 
@@ -146,7 +138,7 @@ public class MessageDecoder : MonoBehaviour
                     {
                         GameMeneger.instance.activeGame = true;
                         if (GameMeneger.instance.host)
-                            GameMeneger.instance.yourTurn = true;
+                            GameMeneger.instance.YourTurn = true;
                         for (int i = 0; i < 4; i++)
                         {
                             if (GameMeneger.instance.playersTableOrder[i] != "%")
@@ -178,13 +170,13 @@ public class MessageDecoder : MonoBehaviour
                         {
                             Debug.LogWarning("Przyszlo -1 w cardID");
                             if (parts[3] != null && parts[3] == mainMenuUI.nick)
-                                GameMeneger.instance.yourTurn = true;
+                                GameMeneger.instance.YourTurn = true;
                             break;
                         }
 
                         else if (parts[2] == "#")       // pominiecie kolejki
                         {
-                            checkIfTour(index);
+                            CheckIfTour(index);
                             break;
                         }
 
@@ -254,9 +246,9 @@ public class MessageDecoder : MonoBehaviour
                         gameEngine.ClearPlayerStack(index, false, true);
                         totemMovement.MoveTotem(index);
                         if (parts[2] == mainMenuUI.nick)
-                            GameMeneger.instance.yourTurn = true;
+                            GameMeneger.instance.YourTurn = true;
                         else
-                            GameMeneger.instance.yourTurn = false;
+                            GameMeneger.instance.YourTurn = false;
                     }
                     break;
 
@@ -270,9 +262,9 @@ public class MessageDecoder : MonoBehaviour
                         }
                         totemMovement.MoveTotem(index);
                         if (parts[2] == mainMenuUI.nick)
-                            GameMeneger.instance.yourTurn = true;
+                            GameMeneger.instance.YourTurn = true;
                         else
-                            GameMeneger.instance.yourTurn = false;
+                            GameMeneger.instance.YourTurn = false;
                     }
                     break;
 
@@ -319,17 +311,16 @@ public class MessageDecoder : MonoBehaviour
                             GameMeneger.instance.spectators.Remove(playerDisc);
 
                         // ZMIANY DO TESTOW
-                        System.Collections.Generic.Dictionary<string, PlayerDeck> savedDecks = new System.Collections.Generic.Dictionary<string, PlayerDeck>();
+                        System.Collections.Generic.Dictionary<string, PlayerDeck> savedDecks = new();
                         for (int i = 0; i < 4; i++)
                         {
                             string pName = GameMeneger.instance.playersTableOrder[i];
-                            // Jeœli to nie puste miejsce, nie gracz wychodz¹cy i nie my (nasze miejsce jest sta³e - indeks 0)
+                            // jesli to nie puste miejsce, nie gracz wychodz¹cy i nie gracz
                             if (pName != "%" && pName != playerDisc && i != 0)
                             {
                                 savedDecks[pName] = GameMeneger.instance.playerDecks[i];
 
-                                // Wa¿ne: Odpinamy deck od starego indeksu, ¿eby ClearPlayerStack go nie zniszczy³ przypadkiem
-                                // lub ¿eby nie zosta³ nadpisany pustym deckiem.
+                                // odpinamy deck od starego indeksu zeby ClearPlayerStack go nie zniszczyl
                                 GameMeneger.instance.playerDecks[i] = new PlayerDeck();
                                 GameMeneger.instance.playersHiddenCards[i] = 0;
                                 GameMeneger.instance.playersShownCards[i] = 0;
@@ -340,25 +331,23 @@ public class MessageDecoder : MonoBehaviour
                         inGameUI.playerStatusText.gameObject.SetActive(true);
                         inGameUI.SetNicks();
 
-                        for (int i = 1; i < 4; i++) // Pêtla od 1, bo my (0) siê nie zmieniamy
+                        for (int i = 1; i < 4; i++) // od 1 bo gracz to 0
                         {
                             string pName = GameMeneger.instance.playersTableOrder[i];
                             if (savedDecks.ContainsKey(pName))
                             {
-                                // Przypisujemy zachowany deck do nowego indeksu
+                                // przypisanie decku do nowego indeksu
                                 GameMeneger.instance.playerDecks[i] = savedDecks[pName];
-
-                                // Aktualizujemy liczniki
                                 GameMeneger.instance.playersHiddenCards[i] = savedDecks[pName].hiddenCards.Count;
                                 GameMeneger.instance.playersShownCards[i] = savedDecks[pName].shownCards.Count;
 
-                                // FIZYCZNE PRZESUNIÊCIE KART
+                                // FIZYCZNE PRZESUNIECIE KART
                                 gameEngine.RelocateDeck(i, savedDecks[pName]);
                             }
                         }
 
                         if (parts.Length == 3 && parts[2] == mainMenuUI.nick)
-                            GameMeneger.instance.yourTurn = true;
+                            GameMeneger.instance.YourTurn = true;
 
                         if (GameMeneger.instance.players[0] == mainMenuUI.nick)     // jezeli wyszedl host to sprawdzamy czy nie zostalismy nowym hostem
                         {
@@ -409,7 +398,7 @@ public class MessageDecoder : MonoBehaviour
                     if (laczenie.isConnected)
                     {
                         inGameUI.youWonText.gameObject.SetActive(false);        // reset parametrow
-                        GameMeneger.instance.yourTurn = false;
+                        GameMeneger.instance.YourTurn = false;
                         GameMeneger.instance.activeGame = false;
                         GameMeneger.instance.isActivePlayer = true;
                         for (int i = 0; i < 4; i++)

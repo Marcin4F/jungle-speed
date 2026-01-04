@@ -49,14 +49,11 @@ public class CardMovement : MonoBehaviour
             elapsedTime += Time.deltaTime;
             float t = elapsedTime / duration;
 
-            transform.position = Vector3.Lerp(startPosition, targetPosition, t);
-            transform.rotation = Quaternion.Slerp(startRotation, endRotation, t);
-
+            transform.SetPositionAndRotation(Vector3.Lerp(startPosition, targetPosition, t), Quaternion.Slerp(startRotation, endRotation, t));
             yield return null;
         }
 
-        transform.position = targetPosition;
-        transform.rotation = endRotation;
+        transform.SetPositionAndRotation(targetPosition, endRotation);
         elapsedTime = 0;
         StartCoroutine(SecondCardMovement());       // zaczecie drugiego ruchu
     }
@@ -101,13 +98,10 @@ public class CardMovement : MonoBehaviour
             elapsedTime += Time.deltaTime;
             float t = elapsedTime / duration;
 
-            transform.position = Vector3.Lerp(startPosition, targetPosition, t);
-            transform.rotation = Quaternion.Slerp(startRotation, endRotation, t);
-
+            transform.SetPositionAndRotation(Vector3.Lerp(startPosition, targetPosition, t), Quaternion.Slerp(startRotation, endRotation, t));
             yield return null;
         }
 
-        transform.position = targetPosition;        // poprawa pozycji do docelowej
-        transform.rotation = endRotation;
+        transform.SetPositionAndRotation(targetPosition, endRotation);
     }
 }

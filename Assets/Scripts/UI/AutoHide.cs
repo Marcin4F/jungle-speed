@@ -7,7 +7,7 @@ public class AutoHide : MonoBehaviour
 
     void OnEnable()
     {
-        StopAllCoroutines();
+        StopAllCoroutines();        // zatrzymanie jezeli juz jest jakas korutyna (zeby nie bylo bledow)
 
         StartCoroutine(HideAfterDelay());
     }

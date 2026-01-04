@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class MessageBuffer : MonoBehaviour
 {
-    private ConcurrentQueue<string> _incomingQueue = new ConcurrentQueue<string>();
-    private StringBuilder _processingBuffer = new StringBuilder();
+    private readonly ConcurrentQueue<string> _incomingQueue = new();
+    private readonly StringBuilder _processingBuffer = new();
 
     public event Action<string> OnCompleteMessage;
 
@@ -39,10 +39,9 @@ public class MessageBuffer : MonoBehaviour
 
         while (delimiterIndex != -1)
         {
-            // Wyci¹gnij pe³n¹ wiadomoœæ (od pocz¹tku do znaku %)
-            string completeMessage = currentContent.Substring(0, delimiterIndex);
+            // pelna wiadomosc (do znaku '%')
+            string completeMessage = currentContent[..delimiterIndex];
 
-            // Powiadom resztê gry (tu ³apiemy b³êdy, ¿eby jeden b³¹d nie zatrzyma³ pêtli)
             try
             {
                 Debug.Log($"[MessageBuffer] Przetwarzam: {completeMessage}");
@@ -50,15 +49,14 @@ public class MessageBuffer : MonoBehaviour
             }
             catch (Exception e)
             {
-                // Logujemy b³¹d, ale pêtla while dzia³a dalej dla kolejnych wiadomoœci!
                 Debug.LogError($"B³¹d przy przetwarzaniu wiadomoœci '{completeMessage}': {e.Message}");
-                // Opcjonalnie tutaj ErrorCatcher, jeœli chcesz pokazaæ panel
+                ErrorCatcher.instance.ErrorHandler();
             }
 
-            // Usuñ przetworzon¹ czêœæ z bufora (+1 ¿eby usun¹æ te¿ znak %)
+            // usuwanie przetworzonej wiadomosci (+1 bo tez znak '%')
             _processingBuffer.Remove(0, delimiterIndex + 1);
 
-            // Odœwie¿ zmienne do nastêpnego obiegu pêtli
+            // odswierzenie zmiennych do kolejnego komunikatu
             currentContent = _processingBuffer.ToString();
             delimiterIndex = currentContent.IndexOf('%');
         }

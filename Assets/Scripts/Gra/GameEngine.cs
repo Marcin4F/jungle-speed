@@ -14,7 +14,7 @@ public class GameEngine : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0) && GameMeneger.instance.activeGame && GameMeneger.instance.yourTurn && !ErrorCatcher.instance.errorOccured)    // odkrycie karty - tylko jezeli trwa gra i twoja tura
+        if (Input.GetMouseButtonDown(0) && GameMeneger.instance.activeGame && GameMeneger.instance.YourTurn && !ErrorCatcher.instance.errorOccured)    // odkrycie karty - tylko jezeli trwa gra i twoja tura
         {
             FireScreenRay();
         }
@@ -35,11 +35,11 @@ public class GameEngine : MonoBehaviour
 
             if (Physics.Raycast(cameraRay, out RaycastHit hitInfo))
             {
-                if (hitInfo.collider.gameObject.tag == "Card")      // sprawdzamy czy to karta ktora mozna ruszyc
+                if (hitInfo.collider.gameObject.CompareTag("Card"))      // sprawdzamy czy to karta ktora mozna ruszyc
                 {
                     myCard = hitInfo.collider.GetComponent<CardMovement>();     // zapisujemy obiekt ktory trafil raycast
                     Laczenie.instance.SendMessageToServer("CARD_REVEAL%");      // komunikat do serwera
-                    GameMeneger.instance.yourTurn = false;                      // zakonczenie tury -> brak spamu do serwera
+                    GameMeneger.instance.YourTurn = false;                      // zakonczenie tury -> brak spamu do serwera
                 }
             }
         } catch
@@ -79,7 +79,7 @@ public class GameEngine : MonoBehaviour
                 AddTextureToCard(CardID, cardMovement);
 
                 cardPosition.y += GameMeneger.instance.playersShownCards[id] * 0.01f;
-                Vector3 targetRotation = new Vector3(0, 0, 0);
+                Vector3 targetRotation = new(0, 0, 0);
                 switch (id)
                 {
                     case 0:
@@ -99,8 +99,7 @@ public class GameEngine : MonoBehaviour
                         targetRotation += new Vector3(0, 0, 180);
                         break;
                 }
-                spawnedCard.transform.position = cardPosition;
-                spawnedCard.transform.rotation = Quaternion.Euler(targetRotation);
+                spawnedCard.transform.SetPositionAndRotation(cardPosition, Quaternion.Euler(targetRotation));
                 GameMeneger.instance.playersShownCards[id]++;
                 GameMeneger.instance.playerDecks[id].shownCards.Add(cardMovement);
             }
@@ -187,45 +186,37 @@ public class GameEngine : MonoBehaviour
     {
         try
         {
-            // 1. Przesuniêcie kart zakrytych (Hidden)
+            // przesuniêcie kart zakrytych
             Vector3 hiddenBasePos = GameMeneger.instance.playersCardPositions[newId];
             for (int i = 0; i < deck.hiddenCards.Count; i++)
             {
                 if (deck.hiddenCards[i] != null)
                 {
-                    // Ustawienie pozycji (karty uk³adane jedna na drugiej)
-                    deck.hiddenCards[i].transform.position = new Vector3(
-                        hiddenBasePos.x,
-                        hiddenBasePos.y + (i * 0.01f),
-                        hiddenBasePos.z
-                    );
-                    // Karty zakryte zawsze le¿¹ "plecami" do góry
-                    deck.hiddenCards[i].transform.rotation = Quaternion.Euler(0, 0, 0);
+                    deck.hiddenCards[i].transform.SetPositionAndRotation(new Vector3(hiddenBasePos.x, hiddenBasePos.y + (i * 0.01f), hiddenBasePos.z), Quaternion.Euler(0, 0, 0));
                 }
             }
 
-            // 2. Przesuniêcie kart odkrytych (Shown)
+            // 2. Przesuniêcie kart odkrytych
             Vector3 shownBasePos = GameMeneger.instance.playersCardPositions[newId];
 
-            // Obliczamy przesuniêcie i rotacjê zale¿nie od miejsca przy stole
             Vector3 targetRotation = Vector3.zero;
             Vector3 offset = Vector3.zero;
 
             switch (newId)
             {
-                case 0: // My
+                case 0:
                     offset = new Vector3(0, 0, 2.55f);
                     targetRotation = new Vector3(180, 0, 0);
                     break;
-                case 1: // Lewy
+                case 1:
                     offset = new Vector3(2.55f, 0, 0);
                     targetRotation = new Vector3(180, 0, 0);
                     break;
-                case 2: // Góra
+                case 2:
                     offset = new Vector3(0, 0, -2.55f);
                     targetRotation = new Vector3(0, 0, 180);
                     break;
-                case 3: // Prawy
+                case 3:
                     offset = new Vector3(-2.55f, 0, 0);
                     targetRotation = new Vector3(0, 0, 180);
                     break;
@@ -237,12 +228,7 @@ public class GameEngine : MonoBehaviour
             {
                 if (deck.shownCards[i] != null)
                 {
-                    deck.shownCards[i].transform.position = new Vector3(
-                        shownBasePos.x,
-                        shownBasePos.y + (i * 0.01f),
-                        shownBasePos.z
-                    );
-                    deck.shownCards[i].transform.rotation = Quaternion.Euler(targetRotation);
+                    deck.shownCards[i].transform.SetPositionAndRotation(new Vector3(shownBasePos.x, shownBasePos.y + (i * 0.01f), shownBasePos.z), Quaternion.Euler(targetRotation));
                 }
             }
         }

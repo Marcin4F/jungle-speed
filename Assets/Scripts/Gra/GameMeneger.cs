@@ -1,16 +1,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-// TODO 
+// TODO:
 
-// DO TESTOW: zamiana argumentow w CARD_ID, zmiana miejsca ustawiania tagu CARD_USED,
+// DO TESTOW: zamiana argumentow w CARD_ID, zmiana miejsca ustawiania tagu CARD_USED
 
 
 [System.Serializable]
 public class PlayerDeck     // klasa z listami przechowujacymi karty graczy (odkryte i zakryte)
 {
-    public List<CardMovement> hiddenCards = new List<CardMovement>();
-    public List<CardMovement> shownCards = new List<CardMovement>();
+    public List<CardMovement> hiddenCards = new();
+    public List<CardMovement> shownCards = new();
 }
 
 public class GameMeneger : MonoBehaviour
@@ -25,13 +25,13 @@ public class GameMeneger : MonoBehaviour
     public bool isActivePlayer = false;
     private int _playerCount = 1;           // ilosc graczy (1 bo jestes ty)
     public int activePlayers = 0;           // ilosc aktywnych graczy, 0 bo na poczatku nie trwa gra
-    public List<string> players = new List<string>();           // gracze (kolejnosc jaka widzi serwer -> kolejnosc dolaczania do pokoju)
+    public List<string> players = new();           // gracze (kolejnosc jaka widzi serwer -> kolejnosc dolaczania do pokoju)
     public string[] playersTableOrder = new string[4];          // gracze (kolejnosc stolikowa, zaczynajac od nas)
-    public List<string> winners = new List<string>();           // lista zwyciezcow w kolejnosc
-    public List<string> spectators = new List<string>();        // widzowie
-    public List<int> playersHiddenCards = new List<int>();      // ilosc ukrytych kart kazdego gracza
-    public List<int> playersShownCards = new List<int>();       // ilosc odkrytych kart kazdego gracza
-    public List<Vector3> playersCardPositions = new List<Vector3>();        // pozycje kazdego stosu (zakryte)
+    public List<string> winners = new();           // lista zwyciezcow w kolejnosc
+    public List<string> spectators = new();        // widzowie
+    public List<int> playersHiddenCards = new();      // ilosc ukrytych kart kazdego gracza
+    public List<int> playersShownCards = new();       // ilosc odkrytych kart kazdego gracza
+    public List<Vector3> playersCardPositions = new();        // pozycje kazdego stosu (zakryte)
     public PlayerDeck[] playerDecks = new PlayerDeck[4];                    // tablica z klasami playerDeck
 
     public int PlayerCount      // ilosc graczy
@@ -50,7 +50,7 @@ public class GameMeneger : MonoBehaviour
         }
     }
 
-    public bool yourTurn        // czy twoja tura
+    public bool YourTurn        // czy twoja tura
     {
         get { return _yourTurn; }
 
@@ -96,7 +96,7 @@ public class GameMeneger : MonoBehaviour
             host = false;
             activeGame = false;
             isActivePlayer = false;
-            yourTurn = false;
+            YourTurn = false;
             _playerCount = 1;
             activePlayers = 0;
             players.Clear();

@@ -6,7 +6,7 @@ public class Dotter : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI displayText;
 
-    private float delay = 0.5f;
+    private readonly float delay = 0.5f;
     private string starter;
 
     void OnEnable()

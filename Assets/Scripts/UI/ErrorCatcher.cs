@@ -13,7 +13,7 @@ public class ErrorCatcher : MonoBehaviour
     private void Start()
     {
         instance = this;
-        closeGameButton.onClick.AddListener(closeGame);
+        closeGameButton.onClick.AddListener(CloseGame);
         errorCatcherPanel.SetActive(false);
     }
 
@@ -22,7 +22,7 @@ public class ErrorCatcher : MonoBehaviour
         errorCatcherPanel.SetActive(true);
     }
 
-    private void closeGame()
+    private void CloseGame()
     {
         Application.Quit();
     }

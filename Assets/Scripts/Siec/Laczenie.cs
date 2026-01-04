@@ -27,21 +27,22 @@ public class Laczenie : MonoBehaviour
         instance = this;
     }
 
-    public async void ConnectToServer(char type)
+    public async void ConnectToServer(char type)    // podlaczenie sie do serwera
     {
         try
         {
-            if (isConnected || isConnecting)
+            if (isConnected || isConnecting)        // sprawdzenie czy juz nie jestesmy polaczeni albo czy juz sie nie probujemy polaczyc
                 return;
             isConnecting = true;
 
-            if (type != 's' && type != 'j')
+            if (type != 's' && type != 'j')         // typ polaczenia (czy tworzymy pokoj s - start, czy dolaczamy j - join)
             {
                 isConnecting = false;
                 Debug.LogError($"[ConnectToServer] Invalid connection type: '{type}'. Must be 's' or 'j'.");
                 return;
             }
 
+            // wartosci do wyslania do serwera:
             nick = mainMenuUI.nick;
             serverIp = mainMenuUI.ipAddress;
             serverPort = int.Parse(mainMenuUI.port);
@@ -51,9 +52,11 @@ public class Laczenie : MonoBehaviour
 
         try
         {
+            // uzyskanie deskryptora
             client = new TcpClient();
             Debug.Log($"Connecting to {serverIp}:{serverPort}...");
 
+            // laczenie
             await client.ConnectAsync(serverIp, serverPort);
 
             if (client.Connected)
@@ -62,9 +65,9 @@ public class Laczenie : MonoBehaviour
                 isConnected = true;
                 Debug.Log("Successfully connected to server!");
 
-                StartListening();
+                StartListening();       // asynchroniczna funkcja od sluchania
 
-                if (type == 's')
+                if (type == 's')        // wyslanie odpowiedniego komunikatu
                 {
                     firstMessage = "CREATE_ROOM " + nick + "%";
                 }
@@ -107,9 +110,9 @@ public class Laczenie : MonoBehaviour
         {
             while (isConnected && stream != null)
             {
-                int bytesRead = await stream.ReadAsync(buffer, 0, buffer.Length);
+                int bytesRead = await stream.ReadAsync(buffer, 0, buffer.Length);       // odczytanie danych wyslanych przez serwer
 
-                if (bytesRead == 0)
+                if (bytesRead == 0)     // serwer sie odlaczyl
                 {
                     Debug.Log("Server disconnected.");
                     CloseConnection();
@@ -122,8 +125,8 @@ public class Laczenie : MonoBehaviour
                     break;
                 }
 
-                string receivedMessage = Encoding.UTF8.GetString(buffer, 0, bytesRead);
-                OnMessageReceived?.Invoke(receivedMessage);
+                string receivedMessage = Encoding.UTF8.GetString(buffer, 0, bytesRead);     // zamiana na string
+                OnMessageReceived?.Invoke(receivedMessage);         // przetwazrania komunikatow
             }
         }
 
@@ -153,7 +156,7 @@ public class Laczenie : MonoBehaviour
         }
     }
 
-    public async void SendMessageToServer(string message)
+    public async void SendMessageToServer(string message)       // wysylanie do serwera
     {
         if (!isConnected || stream == null || !stream.CanWrite)
         {
@@ -163,9 +166,9 @@ public class Laczenie : MonoBehaviour
 
         try
         {
-            byte[] data = Encoding.UTF8.GetBytes(message);
+            byte[] data = Encoding.UTF8.GetBytes(message);      // zamiana na bajty
 
-            await stream.WriteAsync(data, 0, data.Length);
+            await stream.WriteAsync(data, 0, data.Length);      // wyslanie
             Debug.Log($"Sent to server: {message}");
         }
         catch (Exception e)

@@ -5,7 +5,8 @@ public class TotemMovement : MonoBehaviour
 {
     private Vector3 startPosition, targetPosition;
 
-    private float duration = 0.2f, elapsedTime = 0;
+    private readonly float duration = 0.2f;
+    private float elapsedTime = 0;
 
     public void MoveTotem(int id)
     {
