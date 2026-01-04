@@ -144,7 +144,7 @@ namespace Assets.Scripts.UI
 
         }
 
-        private void CloseGame()
+        private static void CloseGame()
         {
             Application.Quit();
         }
